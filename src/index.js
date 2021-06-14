@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Authorized from './pages/Authorized';
+import Home from './pages/Home';
+import Summary from './pages/Summary';
+import reportWebVitals from './reportWebVitals'
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <Router>
+        <Route exact path="/" component={Home} />
+        <Route path="/auth/authorized" component={Authorized} />
+        <Route path="/summary" component={Summary}/>
+    </Router>,
   document.getElementById('root')
 );
 
