@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Authorized from './pages/Authorized';
 import Home from './pages/Home';
 import Summary from './pages/Summary';
-import reportWebVitals from './reportWebVitals'
+import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 ReactDOM.render(
