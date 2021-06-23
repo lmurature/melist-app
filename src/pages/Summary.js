@@ -3,9 +3,9 @@ import RestUtils from "../utils/RestUtils";
 import axios from "axios";
 import { Container, Button, Row, Col } from "react-bootstrap";
 import ListCard from "../components/ListCard";
-import "./Summary.css";
+import "./styles/Summary.css";
 
-function Summary(props) {
+const Summary = (props) => {
   const [user, setUser] = useState({ first_name: "", last_name: "" });
   const [lists, setLists] = useState([]);
   const [sharedLists, setSharedLists] = useState([]);
@@ -54,10 +54,11 @@ function Summary(props) {
           ? getCapitalizedName()
           : apiError !== null
           ? "Error!"
-          : "..."}
+          : "..."}{" "}
+        <span className="hi-emoji">👋</span>
       </h1>
       <div className="main-list-view">
-        <h2 className="my-lists-heading">Mis Listas</h2>
+        <h2 className="my-lists-heading">Mis Listas 📋</h2>
         <div className="my-lists">
           <Row>
             {lists.map((l) => {
@@ -75,11 +76,13 @@ function Summary(props) {
               );
             })}
             <Col>
-              <Button className="new-list-button">Nueva lista</Button>
+              <Button href="/create/list" className="new-list-button">
+                Nueva lista
+              </Button>
             </Col>
           </Row>
         </div>
-        <h2 className="shared-lists-heading">Compartidas conmigo</h2>
+        <h2 className="shared-lists-heading">Compartidas conmigo 🙋‍♂️</h2>
         <div className="shared-lists">
           <Row>
             {sharedLists.map((l) => {
@@ -97,9 +100,18 @@ function Summary(props) {
                 </Col>
               );
             })}
+            <Col>
+              <ListCard
+                id="123"
+                title="Titulo de Shared (mocked)"
+                description="Descripcion de la shared"
+                dateCreated="21-05-2021"
+                privacy="private"
+              />
+            </Col>
           </Row>
         </div>
-        <h2 className="favourites-heading">Favoritos</h2>
+        <h2 className="favourites-heading">Favoritos 🌟</h2>
         <div className="favourite-lists">
           <Row>
             {favouriteLists.map((l) => {
@@ -118,14 +130,33 @@ function Summary(props) {
               );
             })}
             <Col>
-              <Button className="search-lists-button">Explorar</Button>
+              <ListCard
+                id="123"
+                title="Titulo de Favorita (mocked)"
+                description="Descripcion de la favorita"
+                dateCreated="21-05-2021"
+                privacy="public"
+              />
+            </Col>
+            <Col>
+              <ListCard
+                id="1234"
+                title="Titulo de Favorita 2 (mocked)"
+                description="Descripcion de la favorita 2"
+                dateCreated="21-05-2021"
+                privacy="public"
+              />
+            </Col>
+            <Col>
+              <Button href="/explore" className="search-lists-button">
+                Explorar
+              </Button>
             </Col>
           </Row>
         </div>
       </div>
-      Lists: {JSON.stringify(lists)}
     </Container>
   );
-}
+};
 
 export default Summary;

@@ -4,7 +4,7 @@ import axios from "axios";
 import Logo from "../assets/Frame.png";
 import RestUtils from "../utils/RestUtils";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
-import "./Header.css";
+import "./styles/Header.css";
 
 function Header() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -47,13 +47,13 @@ function Header() {
   return (
     <Navbar className="navbar" sticky="top">
       <Container>
-        <Navbar.Brand href="/" class="text-white">
+        <Navbar.Brand href="/summary" class="text-white">
           <img
             src={Logo}
             alt="ME List"
             width="30"
             height="30"
-            class="d-inline-block align-text-top"
+            className="logo"
           />{" "}
           <span className="title">ME List</span>
         </Navbar.Brand>

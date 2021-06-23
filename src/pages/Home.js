@@ -2,8 +2,9 @@ import store from "store";
 import React, { useEffect, useState } from "react";
 import RestUtils from "../utils/RestUtils";
 import Regalo from "../assets/regalo.png";
+import { Redirect } from "react-router";
 
-function Home(props) {
+const Home = (props) => {
   const [startUrl, setStartUrl] = useState(RestUtils.getAuthUrl());
 
   useEffect(() => {
@@ -13,8 +14,13 @@ function Home(props) {
     }
   }, []);
 
+  const isAuthenticated = () => {
+    return store.get("access-token") !== undefined;
+  };
+
   return (
     <div>
+      {isAuthenticated() ? <Redirect to="/summary" /> : ""}
       <div className="main-div">
         <div className="info-main container">
           <p className="info-title">
@@ -30,6 +36,6 @@ function Home(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Home;

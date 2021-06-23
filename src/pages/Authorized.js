@@ -9,7 +9,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-function Authorized(props) {
+const Authorized = (props) => {
   let query = useQuery();
 
   const [token, setToken] = useState(null);
@@ -53,6 +53,6 @@ function Authorized(props) {
       )}
     </div>
   );
-}
+};
 
 export default Authorized;
