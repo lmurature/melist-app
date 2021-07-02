@@ -1,6 +1,4 @@
-import react, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Col, Container } from "react-bootstrap";
 import "./styles/ListCard.css";
 import React from "react";
 
@@ -13,7 +11,7 @@ const ListCard = (props) => {
         </div>
       </Link>
       <div className="list-privacy unselectable">
-        Lista {props.privacy === "private" ? " Privada 🔐" : " Pública 🌍"}
+        {props.privacy === "private" ? " Privada 🔐" : " Pública 🌍"}
       </div>
     </React.Fragment>
   );

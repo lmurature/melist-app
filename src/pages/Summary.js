@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import RestUtils from "../utils/RestUtils";
 import axios from "axios";
 import { Container, Button, Row, Col } from "react-bootstrap";
@@ -36,7 +36,7 @@ const Summary = (props) => {
 
     axios
       .get(
-        `${RestUtils.getApiUrl()}/api/lists/get/favourites`,
+        `${RestUtils.getApiUrl()}/api/lists/get/favorites`,
         RestUtils.getHeaders()
       )
       .then((response) => setFavouriteLists(response.data))
@@ -63,7 +63,7 @@ const Summary = (props) => {
           <Row>
             {lists.map((l) => {
               return (
-                <Col>
+                <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
                   <ListCard
                     key={l.id}
                     id={l.id}
@@ -75,8 +75,8 @@ const Summary = (props) => {
                 </Col>
               );
             })}
-            <Col>
-              <Button href="/create/list" className="new-list-button">
+            <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
+              <Button href="/list/create" className="new-list-button">
                 Nueva lista
               </Button>
             </Col>
@@ -88,7 +88,7 @@ const Summary = (props) => {
             {sharedLists.map((l) => {
               console.log(sharedLists); // TODO: share some lists in backend to my user
               return (
-                <Col>
+                <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
                   <ListCard
                     key={l.id}
                     id={l.id}
@@ -100,15 +100,6 @@ const Summary = (props) => {
                 </Col>
               );
             })}
-            <Col>
-              <ListCard
-                id="123"
-                title="Titulo de Shared (mocked)"
-                description="Descripcion de la shared"
-                dateCreated="21-05-2021"
-                privacy="private"
-              />
-            </Col>
           </Row>
         </div>
         <h2 className="favourites-heading">Favoritos 🌟</h2>
@@ -117,7 +108,7 @@ const Summary = (props) => {
             {favouriteLists.map((l) => {
               console.log(favouriteLists); // TODO: add favourite lists to my user
               return (
-                <Col>
+                <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
                   <ListCard
                     key={l.id}
                     id={l.id}
@@ -129,25 +120,7 @@ const Summary = (props) => {
                 </Col>
               );
             })}
-            <Col>
-              <ListCard
-                id="123"
-                title="Titulo de Favorita (mocked)"
-                description="Descripcion de la favorita"
-                dateCreated="21-05-2021"
-                privacy="public"
-              />
-            </Col>
-            <Col>
-              <ListCard
-                id="1234"
-                title="Titulo de Favorita 2 (mocked)"
-                description="Descripcion de la favorita 2"
-                dateCreated="21-05-2021"
-                privacy="public"
-              />
-            </Col>
-            <Col>
+            <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
               <Button href="/explore" className="search-lists-button">
                 Explorar
               </Button>

@@ -1,0 +1,24 @@
+.list-form {
+  margin: 0 auto;
+  margin-bottom: 150px;
+}
+
+@media (min-width: 600px) {
+  .list-form {
+    width: 500px;
+  }
+}
+
+.create-title {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-size: 50px;
+  color: #6853B8;
+  font-weight: 900;
+}
+
+.create-button {
+  background-color: #6853B8 !important;
+  margin-top: 15px;
+}

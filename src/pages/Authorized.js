@@ -27,7 +27,7 @@ const Authorized = (props) => {
       .catch((err) => {
         setError(err);
       });
-  }, []);
+  });
 
   const retryLink = () => {
     return (
