@@ -1,0 +1,64 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import NumberFormat from "react-number-format";
+import { Badge } from "react-bootstrap";
+import DefaultImg from "../assets/default-placeholder.png";
+import "./styles/ItemCard.css";
+
+const ItemCard = (props) => {
+  const {
+    id,
+    pictures,
+    title,
+    description,
+    price,
+    stock,
+    permalink,
+    itemListStatus,
+    listId,
+  } = props;
+
+  const getImgSrc = () => {
+    return pictures.length > 0 ? pictures[0].url : DefaultImg;
+  };
+
+  const getFormattedText = (text) => {
+    return itemListStatus === "checked"
+      ? text
+          .split("")
+          .map((char) => char + "\u0336")
+          .join("")
+      : text;
+  };
+
+  return (
+    <div>
+      <Link to={`/lists/${listId}/${id}`}>
+        <img className="thumbnail" src={getImgSrc()} alt={description} />
+      </Link>
+      <div className="item-data">
+        <span className="item-data-price">
+          <NumberFormat
+            value={price}
+            displayType={"text"}
+            thousandSeparator={"."}
+            decimalSeparator={","}
+            prefix={"$"}
+          />
+        </span>
+        <p className="item-data-title">{getFormattedText(title)} </p>
+        <p>
+          {itemListStatus === "checked" ? (
+            <Badge pill className="checked-pill">
+              COMPRADO
+            </Badge>
+          ) : (
+            ""
+          )}{" "}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default ItemCard;

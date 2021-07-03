@@ -17,7 +17,7 @@ const App = ({ location }) => (
     <Route path="/summary" component={Summary} />
     <Route path="/auth/authorized" component={Authorized} />
     <Route path="/list/create" component={CreateList} />
-    <Route path="/lists/:listId" component={List} />
+    <Route exact path="/lists/:listId" component={List} />
     <Footer />
   </React.Fragment>
 );

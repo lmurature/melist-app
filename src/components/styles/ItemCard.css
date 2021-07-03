@@ -1,0 +1,31 @@
+.thumbnail {
+  height: 10rem;
+  width:100%;
+}
+
+.thumbnail-box {
+  width: 100%;
+  height: 100%;
+  content: fit;
+  display: block;
+}
+
+.item-data {
+  text-align: center;
+}
+
+.item-data-price {
+  color: #00AF5B;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.item-data-title {
+  margin-bottom: 0px;
+  font-size: 14px;
+}
+
+.checked-pill {
+  color: white;
+  background: #00AF5B;
+}
