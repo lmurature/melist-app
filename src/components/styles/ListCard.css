@@ -42,10 +42,3 @@
 .link-to-list:hover {
   text-decoration: none;
 }
-
-.list-privacy, .list-privacy:hover {
-  text-align: center;
-  color: grey;
-  margin-top: 5px;
-  margin-bottom: 15px;
-}

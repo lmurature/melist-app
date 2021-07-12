@@ -6,16 +6,17 @@ import Items from "../components/Items";
 import Search from "../components/Search";
 import Share from "../components/Share";
 import Config from "../components/Config";
+import PrivacyLabel from "../components/PrivacyLabel";
 import axios from "axios";
 import "./styles/List.css";
 
 const List = () => {
   const { listId } = useParams();
 
-  const [list, setList] = useState(null);
+  const [list, setList] = useState({ privacy: null });
   const [listItems, setListItems] = useState([]);
 
-  const [tab, setTab] = useState('items');
+  const [tab, setTab] = useState("items");
 
   useEffect(() => {
     axios
@@ -41,7 +42,10 @@ const List = () => {
         {list === null ? (
           <Spinner animation="border" role="status" />
         ) : (
-          <h2 className="list-heading">{list.title}</h2>
+          <h2 className="list-heading">
+            {list.title}
+            <PrivacyLabel privacy={list.privacy} />
+          </h2>
         )}
       </div>
       <Tabs activeKey={tab} onSelect={(k) => setTab(k)}>

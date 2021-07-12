@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import "./styles/ListCard.css";
+import "./PrivacyLabel";
 import React from "react";
+import PrivacyLabel from "./PrivacyLabel";
 
 const ListCard = (props) => {
   return (
@@ -10,11 +12,9 @@ const ListCard = (props) => {
           <h1 className="list-title">{props.title}</h1>
         </div>
       </Link>
-      <div className="list-privacy unselectable">
-        {props.privacy === "private" ? " Privada 🔐" : " Pública 🌍"}
-      </div>
+      <PrivacyLabel privacy={props.privacy} centered={true} />
     </React.Fragment>
   );
-}
+};
 
 export default ListCard;

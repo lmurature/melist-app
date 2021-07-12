@@ -9,7 +9,7 @@ const Items = (props) => {
   return (
     <div className="list-items">
       <div className="list-items-heading">
-        <h3 className="list-items-heading-title">Artículos en la Lista</h3>
+        <h3 className="list-items-heading-title">Productos en la Lista</h3>
       </div>
       <Container>
         <Row>
