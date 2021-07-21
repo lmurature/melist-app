@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import { Badge } from "react-bootstrap";
-import DefaultImg from "../assets/default-placeholder.png";
 import "./styles/ItemCard.css";
 
 const ItemCard = (props) => {
   const {
     id,
     pictures,
+    thumbnail,
     title,
     description,
     price,
@@ -17,10 +17,6 @@ const ItemCard = (props) => {
     itemListStatus,
     listId,
   } = props;
-
-  const getImgSrc = () => {
-    return pictures.length > 0 ? pictures[0].url : DefaultImg;
-  };
 
   const getFormattedText = (text) => {
     return itemListStatus === "checked"
@@ -34,7 +30,7 @@ const ItemCard = (props) => {
   return (
     <div>
       <Link to={`/lists/${listId}/${id}`}>
-        <img className="thumbnail" src={getImgSrc()} alt={description} />
+        <img className="thumbnail" src={thumbnail} alt={description} />
       </Link>
       <div className="item-data">
         <span className="item-data-price">

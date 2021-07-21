@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 import RestUtils from "../utils/RestUtils";
 import { Container, Spinner, Tabs, Tab } from "react-bootstrap";
 import Items from "../components/Items";
@@ -10,13 +10,24 @@ import PrivacyLabel from "../components/PrivacyLabel";
 import axios from "axios";
 import "./styles/List.css";
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 const List = () => {
   const { listId } = useParams();
+
+  let query = useQuery();
+  let history = useHistory();
+
+  const getContextOrDefault = (defaultValue) => {
+    return query.get("tab") == null ? defaultValue : query.get("tab");
+  };
 
   const [list, setList] = useState({ privacy: null });
   const [listItems, setListItems] = useState([]);
 
-  const [tab, setTab] = useState("items");
+  const [tab, setTab] = useState(getContextOrDefault("items"));
 
   useEffect(() => {
     axios
@@ -48,17 +59,23 @@ const List = () => {
           </h2>
         )}
       </div>
-      <Tabs activeKey={tab} onSelect={(k) => setTab(k)}>
-        <Tab eventKey="items" title="Artículos">
+      <Tabs
+        activeKey={tab}
+        onSelect={(k) => {
+          history.push(`/lists/${listId}?tab=${k}`);
+          setTab(k);
+        }}
+      >
+        <Tab key="items" eventKey="items" title="Artículos">
           <Items items={listItems} />
         </Tab>
-        <Tab eventKey="search" title="Búsqueda">
+        <Tab key="search" eventKey="search" title="Búsqueda">
           <Search />
         </Tab>
-        <Tab eventKey="share" title="Compartir">
+        <Tab key="share" eventKey="share" title="Compartir">
           <Share />
         </Tab>
-        <Tab eventKey="configuration" title="Ajustes">
+        <Tab key="config" eventKey="configuration" title="Ajustes">
           <Config />
         </Tab>
       </Tabs>

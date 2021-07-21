@@ -15,7 +15,7 @@ const Items = (props) => {
         <Row>
           {listItems.map((listItem) => {
             return (
-              <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
+              <Col lg={2} md={3} xl={2} xs={4} xxl={2}>
                 <ItemCard
                   key={listItem.item.id}
                   id={listItem.item.id}
@@ -27,6 +27,7 @@ const Items = (props) => {
                   permalink={listItem.item.permalink}
                   itemListStatus={listItem.status}
                   listId={listItem.list_id}
+                  thumbnail={listItem.item.thumbnail}
                 />
               </Col>
             );

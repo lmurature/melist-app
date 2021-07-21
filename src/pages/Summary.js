@@ -86,7 +86,6 @@ const Summary = (props) => {
         <div className="shared-lists">
           <Row>
             {sharedLists.map((l) => {
-              console.log(sharedLists); // TODO: share some lists in backend to my user
               return (
                 <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
                   <ListCard
@@ -106,7 +105,6 @@ const Summary = (props) => {
         <div className="favourite-lists">
           <Row>
             {favouriteLists.map((l) => {
-              console.log(favouriteLists); // TODO: add favourite lists to my user
               return (
                 <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
                   <ListCard

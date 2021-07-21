@@ -1,7 +1,112 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { Container, Form, Button, Col, Row, Modal } from "react-bootstrap";
+import RestUtils from "../utils/RestUtils";
+import "./styles/Search.css";
+import ItemSearchCard from "./ItemSearchCard";
 
 const Search = (props) => {
-  return <div>search</div>;
+  const [searchString, setSearchString] = useState("");
+
+  const [searchResult, setSearchResult] = useState();
+
+  const [showModal, setShowModal] = useState(false);
+
+  const [itemData, setItemData] = useState();
+
+  const handleShow = (itemId) => {
+    getItemData(itemId);
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+    setItemData(null);
+  }
+
+  const getItemData = (itemId) => {
+    axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/items/${itemId}`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => setItemData(response.data))
+      .catch((err) => console.log(err));
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchString(e.target.value);
+  };
+
+  const handleSubmitSearch = (e) => {
+    axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/items/search?q=${searchString}`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => setSearchResult(response.data))
+      .catch((err) => console.log(err));
+  };
+
+  return (
+    <div className="search-items">
+      <div className="search-items-heading">
+        <h3 className="search-items-heading-title">¿Que buscás?</h3>
+        <Form.Control
+          size="lg"
+          className="search-items-input"
+          placeholder="Ej. Memoria RAM 32 GB"
+          onChange={handleSearch}
+        />
+        <Button
+          variant="primary"
+          className="search-button"
+          size="lg"
+          onClick={handleSubmitSearch}
+        >
+          Buscar
+        </Button>
+      </div>
+      <Container>
+        <Row>
+          {searchResult !== undefined
+            ? searchResult.results.map((item) => {
+                return (
+                  <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
+                    <ItemSearchCard
+                      key={item.id}
+                      id={item.id}
+                      title={item.title}
+                      description={item.description}
+                      price={item.price}
+                      stock={item.vailable_quantity}
+                      permalink={item.permalink}
+                      thumbnail={item.thumbnail}
+                      handleShow={handleShow}
+                    />
+                  </Col>
+                );
+              })
+            : ""}
+        </Row>
+      </Container>
+      <Modal show={showModal} onHide={handleClose} animation={true} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal! {JSON.stringify(itemData)}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 };
 
 export default Search;

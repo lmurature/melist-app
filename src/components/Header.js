@@ -47,7 +47,7 @@ function Header() {
   return (
     <Navbar className="navbar" sticky="top">
       <Container>
-        <Navbar.Brand href="/summary" class="text-white">
+        <Navbar.Brand href="/summary" className="text-white">
           <img
             src={Logo}
             alt="ME List"

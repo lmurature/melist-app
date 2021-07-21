@@ -1,14 +1,5 @@
 .thumbnail {
-  height: 10rem;
-  width:100%;
   border-radius: 10px;
-}
-
-.thumbnail-box {
-  width: 100%;
-  height: 100%;
-  content: fit;
-  display: block;
 }
 
 .item-data {
@@ -22,7 +13,6 @@
 }
 
 .item-data-title {
-  margin-bottom: 0px;
   font-size: 14px;
 }
 
