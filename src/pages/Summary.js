@@ -63,7 +63,7 @@ const Summary = (props) => {
           <Row>
             {lists.map((l) => {
               return (
-                <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
+                <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
                   <ListCard
                     key={l.id}
                     id={l.id}
@@ -87,7 +87,7 @@ const Summary = (props) => {
           <Row>
             {sharedLists.map((l) => {
               return (
-                <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
+                <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
                   <ListCard
                     key={l.id}
                     id={l.id}
@@ -106,7 +106,7 @@ const Summary = (props) => {
           <Row>
             {favouriteLists.map((l) => {
               return (
-                <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
+                <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
                   <ListCard
                     key={l.id}
                     id={l.id}

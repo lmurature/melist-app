@@ -1,11 +1,23 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Container, Form, Button, Col, Row, Modal } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Button,
+  Col,
+  Row,
+  Modal,
+  Alert,
+} from "react-bootstrap";
 import RestUtils from "../utils/RestUtils";
 import "./styles/Search.css";
 import ItemSearchCard from "./ItemSearchCard";
+import ItemSearchModal from "./ItemSearchModal";
+import EmptySearchState from "./EmptySearchState";
 
 const Search = (props) => {
+  const { listId } = props;
+
   const [searchString, setSearchString] = useState("");
 
   const [searchResult, setSearchResult] = useState();
@@ -13,6 +25,10 @@ const Search = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   const [itemData, setItemData] = useState();
+
+  const [successAddItem, setSuccessAddItem] = useState(false);
+
+  const [errorAddItem, setErrorAddItem] = useState(false);
 
   const handleShow = (itemId) => {
     getItemData(itemId);
@@ -22,7 +38,24 @@ const Search = (props) => {
   const handleClose = () => {
     setShowModal(false);
     setItemData(null);
-  }
+  };
+
+  const handleAddToList = (itemId) => {
+    axios
+      .post(
+        `${RestUtils.getApiUrl()}/api/lists/${listId}/items/${itemData.id}`,
+        {},
+        RestUtils.getHeaders()
+      )
+      .then((response) => setSuccessAddItem(true))
+      .catch((err) => setErrorAddItem(true));
+    window.scrollTo(0, 0);
+    handleClose();
+    setTimeout(() => {
+      setSuccessAddItem(false);
+      setErrorAddItem(false);
+    }, 10000);
+  };
 
   const getItemData = (itemId) => {
     axios
@@ -51,6 +84,12 @@ const Search = (props) => {
 
   return (
     <div className="search-items">
+      <Alert show={successAddItem} variant="success" className="add-alert">
+        ¡Producto agregado con éxito!
+      </Alert>
+      <Alert show={errorAddItem} variant="danger" className="add-alert">
+        Oh... Parece que ocurrió un error al agregar este producto a tu lista.
+      </Alert>
       <div className="search-items-heading">
         <h3 className="search-items-heading-title">¿Que buscás?</h3>
         <Form.Control
@@ -88,20 +127,30 @@ const Search = (props) => {
                   </Col>
                 );
               })
-            : ""}
+            : <EmptySearchState/>}
         </Row>
       </Container>
-      <Modal show={showModal} onHide={handleClose} animation={true} centered>
+      <Modal
+        size="lg"
+        show={showModal}
+        onHide={handleClose}
+        animation={true}
+        centered
+      >
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>
+            {itemData !== undefined && itemData !== null ? itemData.title : ""}
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal! {JSON.stringify(itemData)}</Modal.Body>
+        <Modal.Body>
+          <ItemSearchModal data={itemData} />
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Salir
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="primary" onClick={handleAddToList}>
+            Agregar a la lista
           </Button>
         </Modal.Footer>
       </Modal>

@@ -29,6 +29,30 @@ const List = () => {
 
   const [tab, setTab] = useState(getContextOrDefault("items"));
 
+  const [listPermissions, setListPermissions] = useState({});
+
+  const reloadItems = () => {
+    axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/lists/${listId}/items?info=true`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => setListItems(response.data))
+      .catch((err) => console.log(err));
+  };
+
+  const shouldBeDisabled = (tabKey) => {
+    if (tabKey === "search") {
+      return listPermissions.share_type === "write";
+    }
+
+    if (listPermissions.share_type === "admin") {
+      return false;
+    }
+
+    return true;
+  };
+
   useEffect(() => {
     axios
       .get(
@@ -44,6 +68,14 @@ const List = () => {
         RestUtils.getHeaders()
       )
       .then((response) => setListItems(response.data))
+      .catch((err) => console.log(err));
+
+    axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/lists/get/${listId}/permissions`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => setListPermissions(response.data))
       .catch((err) => console.log(err));
   }, [listId]);
 
@@ -63,19 +95,37 @@ const List = () => {
         activeKey={tab}
         onSelect={(k) => {
           history.push(`/lists/${listId}?tab=${k}`);
+          if (k === "items") {
+            reloadItems();
+          }
           setTab(k);
         }}
       >
         <Tab key="items" eventKey="items" title="Artículos">
           <Items items={listItems} />
         </Tab>
-        <Tab key="search" eventKey="search" title="Búsqueda">
-          <Search />
+        <Tab
+          key="search"
+          eventKey="search"
+          title="Búsqueda"
+          disabled={shouldBeDisabled("search")}
+        >
+          <Search listId={listId} />
         </Tab>
-        <Tab key="share" eventKey="share" title="Compartir">
+        <Tab
+          key="share"
+          eventKey="share"
+          title="Compartir"
+          disabled={shouldBeDisabled("share")}
+        >
           <Share />
         </Tab>
-        <Tab key="config" eventKey="configuration" title="Ajustes">
+        <Tab
+          key="config"
+          eventKey="configuration"
+          title="Ajustes"
+          disabled={shouldBeDisabled("config")}
+        >
           <Config />
         </Tab>
       </Tabs>

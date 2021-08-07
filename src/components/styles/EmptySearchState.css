@@ -1,0 +1,14 @@
+.empty-state-box {
+  text-align: center;
+  color: #FFFFFF;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  background-color: #bfcfbbd5;
+  font-weight: 900;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+.search-title {
+  font-size: 32px;
+}

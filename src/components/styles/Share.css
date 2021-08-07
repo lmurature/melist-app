@@ -1,0 +1,38 @@
+.share {
+  padding-top: 30px;
+  background: rgba(132, 220, 198, 0.1);
+}
+
+.search-users-title {
+  font-weight: 900;
+  font-size: 32px;
+  color: #6853B8;
+}
+
+.info-bold {
+  font-weight: 750;
+}
+
+.share-box {
+  background-color: #6753b84d;
+  margin-top: 30px;
+  padding-top: 20px;
+  height: 350px;
+  border-radius: 10px;
+}
+
+.arrow-box {
+  text-align: center;
+  padding-top: 170px;
+  font-size: 48px;
+}
+
+.arrow {
+  width: 90%;
+  height: 90%;
+}
+
+.input-form-user {
+  margin-top: 15px;
+  font-size: 20px;
+}

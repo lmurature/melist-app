@@ -12,7 +12,9 @@ const ItemSearchCard = (props) => {
   return (
     <div>
       <button onClick={handleClick}>
-        <img className="thumbnail" src={thumbnail} alt={description} />
+        <div className="thumbnail-div">
+          <img className="thumbnail" src={thumbnail} alt={description} />
+        </div>
         <div className="item-data">
           <span className="item-data-price">
             <NumberFormat

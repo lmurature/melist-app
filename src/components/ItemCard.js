@@ -30,7 +30,9 @@ const ItemCard = (props) => {
   return (
     <div>
       <Link to={`/lists/${listId}/${id}`}>
-        <img className="thumbnail" src={thumbnail} alt={description} />
+        <div className="thumbnail-div">
+          <img className="thumbnail" src={thumbnail} alt={description} />
+        </div>
       </Link>
       <div className="item-data">
         <span className="item-data-price">

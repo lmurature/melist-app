@@ -1,0 +1,56 @@
+.item-img-carousel {
+  height: 300px;
+}
+
+.item-img {
+  max-height: 300px;
+  object-fit: scale-down;
+}
+
+.item-img-div {
+  background-color: #FFFFFF;
+}
+
+.price-stock-seller {
+  text-align: center;
+  padding-top: 125px;
+}
+
+.item-data-price-modal {
+  color: #00AF5B;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.item-description {
+  font-size: 14px;
+  margin-top: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 400px;
+  overflow: scroll;
+}
+
+.meli-permalink-button {
+  background-color: #FFD100 !important;
+  border: #FFFFFF !important;
+}
+
+.button-msg {
+  font-weight: 900;
+  font-size: 28px;
+}
+
+.modal-buttons {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.attribute-table {
+  margin-top: 40px;
+  font-size: 14px;
+  height: 400px;
+  overflow: scroll;
+}

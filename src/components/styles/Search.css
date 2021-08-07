@@ -18,6 +18,7 @@
 
 .search-button {
   background-color: #6853B8 !important;
+  border: #FFFFFF !important;
   margin-top: 15px;
 }
 
@@ -35,4 +36,8 @@ input[type="reset"] {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+}
+
+.add-alert {
+  text-align: center;
 }

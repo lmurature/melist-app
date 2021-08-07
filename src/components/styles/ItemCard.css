@@ -1,5 +1,10 @@
 .thumbnail {
+  object-fit: scale-down;
+}
+
+.thumbnail-div {
   border-radius: 10px;
+  background-color: #FFFFFF;
 }
 
 .item-data {
