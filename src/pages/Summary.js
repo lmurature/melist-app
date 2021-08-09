@@ -49,7 +49,7 @@ const Summary = (props) => {
   return (
     <Container className="main">
       <h1 className="hi-title">
-        Bienvenido,{" "}
+        Hola{" "}
         {user !== null
           ? getCapitalizedName()
           : apiError !== null
@@ -61,20 +61,26 @@ const Summary = (props) => {
         <h2 className="my-lists-heading">Mis Listas 📋</h2>
         <div className="my-lists">
           <Row>
-            {lists.map((l) => {
-              return (
-                <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
-                  <ListCard
-                    key={l.id}
-                    id={l.id}
-                    title={l.title}
-                    description={l.description}
-                    dateCreated={l.date_created}
-                    privacy={l.privacy}
-                  />
-                </Col>
-              );
-            })}
+            {lists.length > 0 ? (
+              lists.map((l) => {
+                return (
+                  <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
+                    <ListCard
+                      key={l.id}
+                      id={l.id}
+                      title={l.title}
+                      description={l.description}
+                      dateCreated={l.date_created}
+                      privacy={l.privacy}
+                    />
+                  </Col>
+                );
+              })
+            ) : (
+              <Container className="empty-state-text">
+                No tenés listas
+              </Container>
+            )}
             <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
               <Button href="/list/create" className="new-list-button">
                 Nueva lista
@@ -85,26 +91,32 @@ const Summary = (props) => {
         <h2 className="shared-lists-heading">Compartidas conmigo 🙋‍♂️</h2>
         <div className="shared-lists">
           <Row>
-            {sharedLists.map((l) => {
-              return (
-                <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
-                  <ListCard
-                    key={l.id}
-                    id={l.id}
-                    title={l.title}
-                    description={l.description}
-                    dateCreated={l.date_created}
-                    privacy={l.privacy}
-                  />
-                </Col>
-              );
-            })}
+            {sharedLists.length > 0 ? (
+              sharedLists.map((l) => {
+                return (
+                  <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
+                    <ListCard
+                      key={l.id}
+                      id={l.id}
+                      title={l.title}
+                      description={l.description}
+                      dateCreated={l.date_created}
+                      privacy={l.privacy}
+                    />
+                  </Col>
+                );
+              })
+            ) : (
+              <Container className="empty-state-text">
+                No tenés listas compartidas
+              </Container>
+            )}
           </Row>
         </div>
         <h2 className="favourites-heading">Favoritos 🌟</h2>
         <div className="favourite-lists">
           <Row>
-            {favouriteLists.map((l) => {
+            { favouriteLists.length > 0 ? favouriteLists.map((l) => {
               return (
                 <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
                   <ListCard
@@ -117,7 +129,9 @@ const Summary = (props) => {
                   />
                 </Col>
               );
-            })}
+            }) : <Container className="empty-state-text">
+              No tenes ninguna lista favorita, podés explorar las listas públicas
+              </Container>}
             <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
               <Button href="/explore" className="search-lists-button">
                 Explorar

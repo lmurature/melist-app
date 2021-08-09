@@ -36,3 +36,7 @@
   font-size: 18px !important;
   font-weight: bolder !important;
 }
+
+.empty-state-text {
+  color: #a7a7a7;
+}

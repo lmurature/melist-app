@@ -1,14 +1,41 @@
-import React, { useState } from "react";
-import { Container, Button, Form, Col, Row, FloatingLabel } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Button, Form, Col, Row } from "react-bootstrap";
+import RestUtils from "../utils/RestUtils";
+import axios from "axios";
 import Arrow from "../assets/arrow.png";
 import "./styles/Share.css";
 
 const Share = (props) => {
+  const { listId } = props;
+
   const [userInput, setUserInput] = useState("");
+
+  const [searchResult, setSearchResult] = useState([]);
+  const [colabs, setColabs] = useState([]);
 
   const handleUserInput = (e) => {
     setUserInput(e.target.value);
   };
+
+  const handleSearch = () => {
+    axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/users/search?q=${userInput}`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => setSearchResult(response.data))
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/lists/get/${listId}/shares`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => setColabs(response.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div className="share">
@@ -26,24 +53,17 @@ const Share = (props) => {
           <Col>
             <Row>
               <Col lg={9} md={9} xl={9} xxl={9}>
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Buscá por nombre, apellido, email o nickname"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    className="input-form-user"
-                    onChange={handleUserInput}
-                  />
-                </FloatingLabel>
+                <Form.Control
+                  className="input-form-user"
+                  placeHolder="Nombre, apellido, email o nickname"
+                  onChange={handleUserInput}
+                />
               </Col>
               <Col>
                 <Button
                   variant="primary"
                   className="search-button"
-                  onClick={() => {
-                    console.log(userInput);
-                  }}
+                  onClick={handleSearch}
                 >
                   Buscar 🔍
                 </Button>
@@ -54,8 +74,7 @@ const Share = (props) => {
           <Col>
             <div>
               {" "}
-              <span className="info-bold">· Read 👀</span>: Sólo accede a la
-              lista para lectura.
+              <span className="info-bold">· Read 👀</span>: Puede ver tu lista.
             </div>
             <div>
               {" "}
@@ -72,7 +91,22 @@ const Share = (props) => {
         <Row>
           <Col>
             <div className="share-box">
-              <Container>// TODO: search data</Container>
+              <Container>
+                {searchResult.map((user) => {
+                  // todo: un componente seleccionable
+                  return (
+                    <div>
+                      {user.first_name +
+                        " " +
+                        user.last_name +
+                        " " +
+                        "(" +
+                        user.nickname +
+                        ")"}
+                    </div>
+                  );
+                })}
+              </Container>
             </div>
           </Col>
           <Col lg={1} md={1} xl={1} xs={1} xxl={1}>
@@ -84,7 +118,25 @@ const Share = (props) => {
           </Col>
           <Col>
             <div className="share-box">
-              <Container>// TODO: colabs data</Container>
+              <Container>
+                {colabs.map((c) => {
+                  // todo: un componente
+                  return (
+                    <div>
+                      {c.user.first_name +
+                        " " +
+                        c.user.last_name +
+                        " " +
+                        "(" +
+                        c.user.nickname +
+                        ")" +
+                        " " +
+                        c.share_type +
+                        " 🗑️"}
+                    </div>
+                  );
+                })}
+              </Container>
             </div>
           </Col>
         </Row>
