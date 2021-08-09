@@ -3,7 +3,6 @@ import store from 'store'
 class RestUtils {
 
   static getApiUrl() {
-    console.log(process.env.NODE_ENV); // todo: remove
     return process.env.NODE_ENV === "development"
     ? "http://localhost:8080"
     : "https://melist-api.herokuapp.com"; 

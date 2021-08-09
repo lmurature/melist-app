@@ -118,7 +118,7 @@ const List = () => {
           title="Compartir"
           disabled={shouldBeDisabled("share")}
         >
-          <Share listId={listId}/>
+          <Share listId={listId} ownerId={list.owner_id} />
         </Tab>
         <Tab
           key="config"

@@ -3,11 +3,20 @@ import NumberFormat from "react-number-format";
 import "./styles/ItemSearchCard.css";
 
 const ItemSearchCard = (props) => {
-  const { id, title, description, price, stock, permalink, thumbnail, handleShow } = props;
+  const {
+    id,
+    title,
+    description,
+    price,
+    //stock,
+    //permalink,
+    thumbnail,
+    handleShow,
+  } = props;
 
   const handleClick = () => {
     handleShow(id);
-  }
+  };
 
   return (
     <div>

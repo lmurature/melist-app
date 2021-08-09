@@ -7,13 +7,13 @@ import "./styles/ItemCard.css";
 const ItemCard = (props) => {
   const {
     id,
-    pictures,
+    //pictures,
     thumbnail,
     title,
     description,
     price,
-    stock,
-    permalink,
+    //stock,
+    //permalink,
     itemListStatus,
     listId,
   } = props;

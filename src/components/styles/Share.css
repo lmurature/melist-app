@@ -21,18 +21,16 @@
   border-radius: 10px;
 }
 
-.arrow-box {
-  text-align: center;
-  padding-top: 170px;
-  font-size: 48px;
-}
-
-.arrow {
-  width: 90%;
-  height: 90%;
+.button-box {
 }
 
 .input-form-user {
   margin-top: 15px;
   font-size: 20px;
+}
+
+.share-type-radios {
+  padding-top: 150px;
+  font-size: 14px;
+
 }

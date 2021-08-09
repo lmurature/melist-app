@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Container, Button, Form, Col, Row } from "react-bootstrap";
 import RestUtils from "../utils/RestUtils";
 import axios from "axios";
-import Arrow from "../assets/arrow.png";
 import "./styles/Share.css";
 
 const Share = (props) => {
-  const { listId } = props;
+  const { listId, ownerId } = props;
 
   const [userInput, setUserInput] = useState("");
 
   const [searchResult, setSearchResult] = useState([]);
   const [colabs, setColabs] = useState([]);
+
+  const [usersToRequest, setUsersToRequest] = useState(new Map());
+  const [shareTypeRequest, setShareTypeRequest] = useState("read");
 
   const handleUserInput = (e) => {
     setUserInput(e.target.value);
@@ -27,15 +29,85 @@ const Share = (props) => {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
+  const shouldCheckboxBeDisabled = (userId) => {
+    if (userId === ownerId) {
+      return true;
+    }
+
+    for (let i = 0; i < colabs.length; i++) {
+      if (colabs[i].user_id === userId) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  const handleCheckbox = (e) => {
+    const userId = e.target.value;
+    const isChecked = e.target.checked;
+
+    usersToRequest.set(userId, isChecked);
+
+    setUsersToRequest(usersToRequest);
+
+    console.log(usersToRequest);
+  };
+
+  const handleRadio = (e) => {
+    setShareTypeRequest(e.target.value);
+  };
+
+  const shouldBeChecked = (button) => {
+    return button === shareTypeRequest;
+  };
+
+  const handleShareRequest = () => {
+    let finalRequest = [];
+    usersToRequest.forEach((isChecked, userId) => {
+      if (isChecked) {
+        const shareRequest = {
+          user_id: parseInt(userId),
+          share_type: shareTypeRequest,
+        };
+        finalRequest.push(shareRequest);
+      }
+    });
+
+    axios
+      .put(
+        `${RestUtils.getApiUrl()}/api/lists/access/${listId}`,
+        finalRequest,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        getColaborators();
+        // clean state
+        setUsersToRequest(new Map());
+      })
+      .catch((err) => {
+        alert("Hubo un error al compartir tu lista");
+        console.log(err);
+      });
+  };
+
+  const getColaborators = () => {
     axios
       .get(
         `${RestUtils.getApiUrl()}/api/lists/get/${listId}/shares`,
         RestUtils.getHeaders()
       )
       .then((response) => setColabs(response.data))
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) =>
+        err.response !== undefined && err.response.status !== 404
+          ? console.log(err)
+          : ""
+      );
+  };
+
+  useEffect(() => {
+    getColaborators();
+  }, [getColaborators]);
 
   return (
     <div className="share">
@@ -55,7 +127,7 @@ const Share = (props) => {
               <Col lg={9} md={9} xl={9} xxl={9}>
                 <Form.Control
                   className="input-form-user"
-                  placeHolder="Nombre, apellido, email o nickname"
+                  placeholder="Nombre, apellido, email o nickname"
                   onChange={handleUserInput}
                 />
               </Col>
@@ -65,27 +137,27 @@ const Share = (props) => {
                   className="search-button"
                   onClick={handleSearch}
                 >
-                  Buscar 🔍
+                  Buscar
                 </Button>
               </Col>
             </Row>
           </Col>
           <Col lg={1} md={1} xl={1} xs={1} xxl={1} />
           <Col>
-            <div>
-              {" "}
-              <span className="info-bold">· Read 👀</span>: Puede ver tu lista.
-            </div>
-            <div>
-              {" "}
-              <span className="info-bold">· Write 📝</span>: Puede agregar y
-              eliminar productos.
-            </div>
-            <div>
-              {" "}
-              <span className="info-bold">· Check ✅</span>: Puede marcar
-              productos como comprados.
-            </div>
+            <Container>
+              <div>
+                <span className="info-bold">· Read 👀</span>: Puede ver tu
+                lista.
+              </div>
+              <div>
+                <span className="info-bold">· Write 📝</span>: Puede agregar y
+                eliminar productos.
+              </div>
+              <div>
+                <span className="info-bold">· Check ✅</span>: Puede marcar
+                productos como comprados.
+              </div>
+            </Container>
           </Col>
         </Row>
         <Row>
@@ -93,28 +165,66 @@ const Share = (props) => {
             <div className="share-box">
               <Container>
                 {searchResult.map((user) => {
-                  // todo: un componente seleccionable
                   return (
-                    <div>
-                      {user.first_name +
+                    <Form.Check
+                      key={user.id}
+                      disabled={shouldCheckboxBeDisabled(user.id)}
+                      onClick={handleCheckbox}
+                      value={user.id}
+                      type="checkbox"
+                      label={
+                        user.first_name +
                         " " +
                         user.last_name +
                         " " +
                         "(" +
                         user.nickname +
-                        ")"}
-                    </div>
+                        ")"
+                      }
+                    />
                   );
                 })}
               </Container>
             </div>
           </Col>
           <Col lg={1} md={1} xl={1} xs={1} xxl={1}>
-            <div className="arrow-box">
-              <button>
-                <img className="arrow" src={Arrow} />
-              </button>
-            </div>
+            <Row>
+              <Col>
+                <div className="share-type-radios">
+                  <Form.Check
+                    checked={shouldBeChecked("read")}
+                    onChange={handleRadio}
+                    type="radio"
+                    label="Read"
+                    value="read"
+                  />
+                  <Form.Check
+                    checked={shouldBeChecked("write")}
+                    onChange={handleRadio}
+                    type="radio"
+                    label="Write"
+                    value="write"
+                  />
+                  <Form.Check
+                    checked={shouldBeChecked("check")}
+                    onChange={handleRadio}
+                    type="radio"
+                    label="Check"
+                    value="check"
+                  />
+                </div>
+              </Col>
+              <Col>
+                <div className="button-box">
+                  <Button
+                    className="search-button"
+                    onClick={handleShareRequest}
+                  >
+                    Guardar
+                  </Button>
+                </div>
+              </Col>
+            </Row>
           </Col>
           <Col>
             <div className="share-box">
@@ -122,7 +232,7 @@ const Share = (props) => {
                 {colabs.map((c) => {
                   // todo: un componente
                   return (
-                    <div>
+                    <div key={c.user_id}>
                       {c.user.first_name +
                         " " +
                         c.user.last_name +

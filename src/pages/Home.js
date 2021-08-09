@@ -31,7 +31,7 @@ const Home = (props) => {
           </a>
         </div>
         <div className="gift">
-          <img src={Regalo} />
+          <img src={Regalo} alt="regalo"/>
         </div>
       </div>
     </div>

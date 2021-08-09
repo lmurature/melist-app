@@ -16,7 +16,7 @@ const ItemSearchModal = (props) => {
               return (
                 <Carousel.Item key={picture.id}>
                   <div className="item-img-div">
-                    <img className="item-img" src={picture.url} />
+                    <img className="item-img" alt={data.title} src={picture.url} />
                   </div>
                 </Carousel.Item>
               );
