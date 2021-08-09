@@ -1,6 +1,6 @@
 import store from "store";
 
-const env = process.env.APP_ENV || "development";
+const env = process.env.NODE_ENV || "development";
 
 class RestUtils {
   static getApiUrl() {
