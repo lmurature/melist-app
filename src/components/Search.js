@@ -112,7 +112,7 @@ const Search = (props) => {
           {searchResult !== undefined
             ? searchResult.results.map((item) => {
                 return (
-                  <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
+                  <Col key={item.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
                     <ItemSearchCard
                       key={item.id}
                       id={item.id}

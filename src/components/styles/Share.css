@@ -21,9 +21,6 @@
   border-radius: 10px;
 }
 
-.button-box {
-}
-
 .input-form-user {
   margin-top: 15px;
   font-size: 20px;
@@ -32,5 +29,8 @@
 .share-type-radios {
   padding-top: 150px;
   font-size: 14px;
+}
 
+.revoke-button {
+  margin-bottom: 10px;
 }

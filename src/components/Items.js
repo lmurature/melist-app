@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import EmptyItemsState from "./EmptyItemsState";
 import ItemCard from "./ItemCard";
 import "./styles/Items.css";
 
@@ -35,7 +36,7 @@ const Items = (props) => {
             })}
           </Row>
         ) : (
-          "Todavia no tenes productos en tu lista // TODO: hacer empty state"
+          <EmptyItemsState />
         )}
       </Container>
     </div>

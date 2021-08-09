@@ -101,7 +101,7 @@ const List = () => {
           setTab(k);
         }}
       >
-        <Tab key="items" eventKey="items" title="Artículos">
+        <Tab key="items" eventKey="items" title="Productos">
           <Items items={listItems} />
         </Tab>
         <Tab

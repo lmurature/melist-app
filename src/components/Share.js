@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Button, Form, Col, Row } from "react-bootstrap";
 import RestUtils from "../utils/RestUtils";
 import axios from "axios";
@@ -26,7 +26,7 @@ const Share = (props) => {
         RestUtils.getHeaders()
       )
       .then((response) => setSearchResult(response.data))
-      .catch((err) => console.log(err));
+      .catch((err) => alert("No se encontraron usuarios."));
   };
 
   const shouldCheckboxBeDisabled = (userId) => {
@@ -50,8 +50,6 @@ const Share = (props) => {
     usersToRequest.set(userId, isChecked);
 
     setUsersToRequest(usersToRequest);
-
-    console.log(usersToRequest);
   };
 
   const handleRadio = (e) => {
@@ -105,9 +103,38 @@ const Share = (props) => {
       );
   };
 
+  const formatShareType = (shareType) => {
+    switch (shareType) {
+      case "read":
+        return "👀";
+      case "write":
+        return "📝";
+      case "check":
+        return "✅";
+      default:
+        return "";
+    }
+  };
+
+  const revokeColaborator = (userId) => {
+    if (
+      window.confirm(
+        "¿Estás seguro que quieres revocarle el acceso a este usuario?"
+      )
+    ) {
+      axios
+        .delete(
+          `${RestUtils.getApiUrl()}/api/lists/access/${listId}?user_id=${userId}`,
+          RestUtils.getHeaders()
+        )
+        .then((response) => setColabs(response.data))
+        .catch((err) => alert("Hubo un error al quitar los permisos."));
+    }
+  };
+
   useEffect(() => {
     getColaborators();
-  }, [getColaborators]);
+  }, []);
 
   return (
     <div className="share">
@@ -230,19 +257,31 @@ const Share = (props) => {
             <div className="share-box">
               <Container>
                 {colabs.map((c) => {
-                  // todo: un componente
                   return (
                     <div key={c.user_id}>
-                      {c.user.first_name +
-                        " " +
-                        c.user.last_name +
-                        " " +
-                        "(" +
-                        c.user.nickname +
-                        ")" +
-                        " " +
-                        c.share_type +
-                        " 🗑️"}
+                      <Row>
+                        <Col lg={8} md={8} xl={8} xs={8} xxl={8}>
+                          {c.user.first_name +
+                            " " +
+                            c.user.last_name +
+                            " " +
+                            "(" +
+                            c.user.nickname +
+                            ")" +
+                            " " +
+                            formatShareType(c.share_type)}
+                        </Col>
+                        <Col>
+                          <Button
+                            size="sm"
+                            className="revoke-button"
+                            variant="danger"
+                            onClick={() => revokeColaborator(c.user_id)}
+                          >
+                            Revocar
+                          </Button>
+                        </Col>
+                      </Row>
                     </div>
                   );
                 })}

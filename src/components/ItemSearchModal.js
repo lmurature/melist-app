@@ -55,7 +55,7 @@ const ItemSearchModal = (props) => {
                 <tbody>
                   {data.attributes.map((attribute) => {
                     return (
-                      <tr>
+                      <tr key={attribute.id}>
                         <td>{attribute.name}</td>
                         <td>{attribute.value_name}</td>
                       </tr>
