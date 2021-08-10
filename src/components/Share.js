@@ -60,6 +60,13 @@ const Share = (props) => {
     return button === shareTypeRequest;
   };
 
+  const clearState = () => {
+    setSearchResult([]);
+    setSearchResult(searchResult);
+    getColaborators();
+    setUsersToRequest(new Map());
+  };
+
   const handleShareRequest = () => {
     let finalRequest = [];
     usersToRequest.forEach((isChecked, userId) => {
@@ -79,9 +86,7 @@ const Share = (props) => {
         RestUtils.getHeaders()
       )
       .then((response) => {
-        getColaborators();
-        // clean state
-        setUsersToRequest(new Map());
+        clearState();
       })
       .catch((err) => {
         alert("Hubo un error al compartir tu lista");
@@ -95,7 +100,9 @@ const Share = (props) => {
         `${RestUtils.getApiUrl()}/api/lists/get/${listId}/shares`,
         RestUtils.getHeaders()
       )
-      .then((response) => setColabs(response.data))
+      .then((response) => {
+        setColabs(response.data);
+      })
       .catch((err) =>
         err.response !== undefined && err.response.status !== 404
           ? console.log(err)
@@ -155,6 +162,7 @@ const Share = (props) => {
                 <Form.Control
                   className="input-form-user"
                   placeholder="Nombre, apellido, email o nickname"
+                  value={userInput}
                   onChange={handleUserInput}
                 />
               </Col>
