@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles/PrivacyLabel.css";
+import "./styles/PrivacyLabel.scss";
 
 const PrivacyLabel = (props) => {
   const { privacy, centered } = props;

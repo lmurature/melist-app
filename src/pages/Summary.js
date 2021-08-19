@@ -3,7 +3,7 @@ import RestUtils from "../utils/RestUtils";
 import axios from "axios";
 import { Container, Button, Row, Col } from "react-bootstrap";
 import ListCard from "../components/ListCard";
-import "./styles/Summary.css";
+import "./styles/Summary.scss";
 
 const Summary = (props) => {
   const [user, setUser] = useState({ first_name: "", last_name: "" });

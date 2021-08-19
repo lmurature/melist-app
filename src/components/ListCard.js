@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./styles/ListCard.css";
+import "./styles/ListCard.scss";
 import "./PrivacyLabel";
 import React from "react";
 import PrivacyLabel from "./PrivacyLabel";

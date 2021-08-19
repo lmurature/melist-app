@@ -4,7 +4,7 @@ import axios from "axios";
 import Logo from "../assets/Frame.png";
 import RestUtils from "../utils/RestUtils";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
-import "./styles/Header.css";
+import "./styles/Header.scss";
 
 function Header() {
   const [authenticated, setAuthenticated] = useState(false);

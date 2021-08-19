@@ -10,7 +10,7 @@ import {
   Alert,
 } from "react-bootstrap";
 import RestUtils from "../utils/RestUtils";
-import "./styles/Search.css";
+import "./styles/Search.scss";
 import ItemSearchCard from "./ItemSearchCard";
 import ItemSearchModal from "./ItemSearchModal";
 import EmptySearchState from "./EmptySearchState";

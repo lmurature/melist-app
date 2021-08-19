@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import { Badge } from "react-bootstrap";
-import "./styles/ItemCard.css";
+import "./styles/ItemCard.scss";
 
 const ItemCard = (props) => {
   const {

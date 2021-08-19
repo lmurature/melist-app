@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import EmptyItemsState from "./EmptyItemsState";
 import ItemCard from "./ItemCard";
-import "./styles/Items.css";
+import "./styles/Items.scss";
 
 const Items = (props) => {
   const listItems = props.items;

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import RestUtils from "../utils/RestUtils";
 import { Container, Button, Form, Col, Row, Alert } from "react-bootstrap";
-import "./styles/Config.css";
+import "./styles/Config.scss";
 
 const Config = (props) => {
   const { title, description, privacy, listId } = props;

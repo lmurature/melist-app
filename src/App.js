@@ -9,7 +9,7 @@ import List from "./pages/List";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ViewItemPage from "./pages/ViewItemPage";
-import "./App.css";
+import "./App.scss";
 
 const App = ({ location }) => (
   <React.Fragment>

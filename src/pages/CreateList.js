@@ -3,7 +3,7 @@ import RestUtils from "../utils/RestUtils";
 import axios from "axios";
 import { Container, Button, Form, Col, Spinner, Alert } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import "./styles/CreateList.css";
+import "./styles/CreateList.scss";
 
 const CreateList = () => {
   const [title, setTitle] = useState("");

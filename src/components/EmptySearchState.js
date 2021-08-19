@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import "./styles/EmptySearchState.css";
+import "./styles/EmptySearchState.scss";
 
 const EmptySearchState = (props) => {
   return (

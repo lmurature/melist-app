@@ -8,7 +8,7 @@ import Share from "../components/Share";
 import Config from "../components/Config";
 import PrivacyLabel from "../components/PrivacyLabel";
 import axios from "axios";
-import "./styles/List.css";
+import "./styles/List.scss";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);

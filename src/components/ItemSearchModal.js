@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Button, Col, Row, Carousel, Table } from "react-bootstrap";
 import NumberFormat from "react-number-format";
-import "./styles/ItemSearchModal.css";
+import "./styles/ItemSearchModal.scss";
 
 const ItemSearchModal = (props) => {
   const { data } = props;

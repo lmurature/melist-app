@@ -1,6 +1,6 @@
 import React from "react";
 import NumberFormat from "react-number-format";
-import "./styles/ItemSearchCard.css";
+import "./styles/ItemSearchCard.scss";
 
 const ItemSearchCard = (props) => {
   const {

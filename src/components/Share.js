@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Button, Form, Col, Row } from "react-bootstrap";
 import RestUtils from "../utils/RestUtils";
 import axios from "axios";
-import "./styles/Share.css";
+import "./styles/Share.scss";
 
 const Share = (props) => {
   const { listId, ownerId } = props;
