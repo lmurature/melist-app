@@ -41,3 +41,12 @@ input[type="reset"] {
 .add-alert {
   text-align: center;
 }
+
+.see-in-list {
+  background: none;
+  border: none;
+}
+
+.see-in-list:hover {
+  text-decoration: underline;
+}

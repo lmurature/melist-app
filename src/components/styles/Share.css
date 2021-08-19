@@ -1,6 +1,7 @@
 .share {
   padding-top: 30px;
   background: rgba(132, 220, 198, 0.1);
+  min-height: 600px;
 }
 
 .search-users-title {

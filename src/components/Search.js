@@ -16,7 +16,7 @@ import ItemSearchModal from "./ItemSearchModal";
 import EmptySearchState from "./EmptySearchState";
 
 const Search = (props) => {
-  const { listId } = props;
+  const { listId, changeTab } = props;
 
   const [searchString, setSearchString] = useState("");
 
@@ -85,7 +85,8 @@ const Search = (props) => {
   return (
     <div className="search-items">
       <Alert show={successAddItem} variant="success" className="add-alert">
-        ¡Producto agregado con éxito!
+        ¡Producto agregado con éxito!{" "}
+        <button className="see-in-list" onClick={() => changeTab("items")}>Ver en la lista</button>
       </Alert>
       <Alert show={errorAddItem} variant="danger" className="add-alert">
         Oh... Parece que ocurrió un error al agregar este producto a tu lista.
@@ -109,25 +110,27 @@ const Search = (props) => {
       </div>
       <Container>
         <Row>
-          {searchResult !== undefined
-            ? searchResult.results.map((item) => {
-                return (
-                  <Col key={item.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
-                    <ItemSearchCard
-                      key={item.id}
-                      id={item.id}
-                      title={item.title}
-                      description={item.description}
-                      price={item.price}
-                      stock={item.vailable_quantity}
-                      permalink={item.permalink}
-                      thumbnail={item.thumbnail}
-                      handleShow={handleShow}
-                    />
-                  </Col>
-                );
-              })
-            : <EmptySearchState/>}
+          {searchResult !== undefined ? (
+            searchResult.results.map((item) => {
+              return (
+                <Col key={item.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
+                  <ItemSearchCard
+                    key={item.id}
+                    id={item.id}
+                    title={item.title}
+                    description={item.description}
+                    price={item.price}
+                    stock={item.vailable_quantity}
+                    permalink={item.permalink}
+                    thumbnail={item.thumbnail}
+                    handleShow={handleShow}
+                  />
+                </Col>
+              );
+            })
+          ) : (
+            <EmptySearchState />
+          )}
         </Row>
       </Container>
       <Modal

@@ -1,0 +1,11 @@
+.config {
+  padding-top: 30px;
+  background: rgba(132, 220, 198, 0.1);
+  min-height: 800px;
+}
+
+.form-title {
+  font-weight: 900;
+  font-size: 32px;
+  color: #6853B8;
+}

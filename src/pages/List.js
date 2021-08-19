@@ -42,15 +42,20 @@ const List = () => {
   };
 
   const shouldBeDisabled = (tabKey) => {
-    if (tabKey === "search") {
-      return listPermissions.share_type === "write";
-    }
-
     if (listPermissions.share_type === "admin") {
       return false;
     }
+    if (tabKey === "search") {
+      if (listPermissions.share_type === "write") {
+        return false;
+      }
+    }
 
     return true;
+  };
+
+  const handleChangeTab = (tab) => {
+    setTab(tab);
   };
 
   useEffect(() => {
@@ -110,7 +115,7 @@ const List = () => {
           title="Búsqueda"
           disabled={shouldBeDisabled("search")}
         >
-          <Search listId={listId} />
+          <Search changeTab={handleChangeTab} listId={listId} />
         </Tab>
         <Tab
           key="share"
@@ -126,7 +131,12 @@ const List = () => {
           title="Ajustes"
           disabled={shouldBeDisabled("config")}
         >
-          <Config />
+          <Config
+            listId={listId}
+            title={list.title}
+            description={list.description}
+            privacy={list.privacy}
+          />
         </Tab>
       </Tabs>
     </Container>
