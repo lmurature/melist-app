@@ -2,6 +2,14 @@
   padding-top: 30px;
   background: rgba(132, 220, 198, 0.1);
   min-height: 600px;
+
+  &-box {
+    background-color: #6753b84d;
+    margin-top: 30px;
+    padding-top: 20px;
+    height: 350px;
+    border-radius: 10px;
+  }
 }
 
 .search-users-title {
@@ -12,14 +20,6 @@
 
 .info-bold {
   font-weight: 750;
-}
-
-.share-box {
-  background-color: #6753b84d;
-  margin-top: 30px;
-  padding-top: 20px;
-  height: 350px;
-  border-radius: 10px;
 }
 
 .input-form-user {

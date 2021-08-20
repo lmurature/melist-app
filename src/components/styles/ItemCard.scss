@@ -1,27 +1,34 @@
 .thumbnail {
   object-fit: scale-down;
-}
 
-.thumbnail-div {
-  border-radius: 10px;
-  background-color: #FFFFFF;
+  &-div {
+    border-radius: 10px;
+    background-color: #FFFFFF;
+  }
 }
 
 .item-data {
   text-align: center;
+
+  &-title {
+    font-size: 14px;
+  }
+
+  &-price {
+    color: #00AF5B;
+    font-size: 16px;
+    font-weight: 900;
+  }
 }
 
-.item-data-price {
-  color: #00AF5B;
-  font-size: 16px;
-  font-weight: 900;
-}
+.pill {
+  color: #FFFFFF;
 
-.item-data-title {
-  font-size: 14px;
-}
+  &-not-active {
+    background: #af0000;
+  }
 
-.checked-pill {
-  color: white;
-  background: #00AF5B;
+  &-checked {
+    background: #00AF5B;
+  }
 }

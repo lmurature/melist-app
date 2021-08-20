@@ -6,17 +6,18 @@
 
 .item-data {
   text-align: center;
-}
 
-.item-data-price {
-  color: #00AF5B;
-  font-size: 16px;
-  font-weight: 900;
-}
+  &-price {
+    color: #00AF5B;
+    font-size: 16px;
+    font-weight: 900;
+  }
 
-.item-data-title {
-  margin-bottom: 0px;
-  font-size: 14px;
+  &-title {
+    margin-bottom: 0px;
+    font-size: 14px;
+  }
+
 }
 
 button,

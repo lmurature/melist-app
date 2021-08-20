@@ -30,6 +30,7 @@ const Items = (props) => {
                     itemListStatus={listItem.status}
                     listId={listItem.list_id}
                     thumbnail={listItem.item.thumbnail}
+                    itemStatus={listItem.item.status}
                   />
                 </Col>
               );

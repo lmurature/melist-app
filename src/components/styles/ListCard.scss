@@ -17,10 +17,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.list-card:hover {
-  border: 1px solid rgb(161, 161, 161);
+  &:hover {
+    border: 1px solid rgb(161, 161, 161);
+  }
 }
 
 .list-title {

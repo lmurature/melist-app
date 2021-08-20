@@ -1,14 +1,14 @@
-.item-img-carousel {
-  height: 300px;
-}
-
 .item-img {
   max-height: 300px;
   object-fit: scale-down;
-}
 
-.item-img-div {
-  background-color: #FFFFFF;
+  &-carousel {
+    height: 300px;
+  }
+
+  &-div {
+    background-color: #FFFFFF;
+  }
 }
 
 .price-stock-seller {

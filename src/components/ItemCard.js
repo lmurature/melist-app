@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import { Badge } from "react-bootstrap";
+import placeHolder from "../assets/default-placeholder.png";
 import "./styles/ItemCard.scss";
 
 const ItemCard = (props) => {
@@ -15,6 +16,7 @@ const ItemCard = (props) => {
     //stock,
     //permalink,
     itemListStatus,
+    itemStatus,
     listId,
   } = props;
 
@@ -31,7 +33,11 @@ const ItemCard = (props) => {
     <div>
       <Link to={`/lists/${listId}/${id}`}>
         <div className="thumbnail-div">
-          <img className="thumbnail" src={thumbnail} alt={description} />
+          <img
+            className="thumbnail"
+            src={itemStatus === "active" ? thumbnail : placeHolder}
+            alt={description}
+          />
         </div>
       </Link>
       <div className="item-data">
@@ -47,8 +53,12 @@ const ItemCard = (props) => {
         <p className="item-data-title">{getFormattedText(title)} </p>
         <p>
           {itemListStatus === "checked" ? (
-            <Badge pill className="checked-pill">
+            <Badge pill className="pill pill-checked">
               COMPRADO
+            </Badge>
+          ) : itemStatus !== "active" ? (
+            <Badge pill className="pill pill-not-active">
+              NO DISPONIBLE
             </Badge>
           ) : (
             ""

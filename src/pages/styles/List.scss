@@ -1,10 +1,11 @@
-.list-heading {
-  color: #6853B8;
-  font-weight: 900;
-  font-size: 50px;
-  
-}
+.list {
+  &-heading {
+    color: #6853B8;
+    font-weight: 900;
+    font-size: 50px;
+  }
 
-.list-title {
-  margin-top: 35px;
+  &-title {
+    margin-top: 35px;
+  }
 }
