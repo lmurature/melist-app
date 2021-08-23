@@ -55,6 +55,9 @@ const List = () => {
   };
 
   const handleChangeTab = (tab) => {
+    if (tab === "items") {
+      reloadItems();
+    }
     setTab(tab);
   };
 

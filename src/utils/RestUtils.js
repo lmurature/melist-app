@@ -20,7 +20,6 @@ class RestUtils {
     return process.env.NODE_ENV === "development" ?
   "https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=5112680121711673&redirect_uri=http://localhost:3000/auth/authorized" :
   "https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=5112680121711673&redirect_uri=https://melist-app.herokuapp.com/auth/authorized";
-
   }
 }
 

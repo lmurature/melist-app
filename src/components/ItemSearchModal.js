@@ -1,6 +1,9 @@
 import React from "react";
-import { Container, Button, Col, Row, Carousel, Table } from "react-bootstrap";
-import NumberFormat from "react-number-format";
+import { Container, Col, Row, Carousel, Table } from "react-bootstrap";
+import Arrow from "../assets/arrow.png";
+import ItemDescription from "./ItemDescription";
+import LinkToMeli from "./LinkToMeli";
+import PriceStock from "./PriceStock";
 import "./styles/ItemSearchModal.scss";
 
 const ItemSearchModal = (props) => {
@@ -11,12 +14,21 @@ const ItemSearchModal = (props) => {
       {console.log(data)}
       <Row>
         <Col lg={6} md={6} xl={6} xs={6} xxl={6}>
-          <Carousel className="item-img-carousel" variant="dark">
+          <Carousel
+            className="item-img-carousel"
+            variant="dark"
+            nextIcon={<img className="icon" src={Arrow} />}
+            prevIcon={<img className="icon icon-prev" src={Arrow} />}
+          >
             {data.pictures.map((picture) => {
               return (
                 <Carousel.Item key={picture.id}>
                   <div className="item-img-div">
-                    <img className="item-img" alt={data.title} src={picture.url} />
+                    <img
+                      className="item-img"
+                      alt={data.title}
+                      src={picture.url}
+                    />
                   </div>
                 </Carousel.Item>
               );
@@ -25,19 +37,11 @@ const ItemSearchModal = (props) => {
         </Col>
         <Col lg={6} md={6} xl={6} xs={6} xxl={6}>
           <Container>
-            <div className="price-stock-seller">
-              <span className="item-data-price-modal">
-                <NumberFormat
-                  value={data.price}
-                  displayType={"text"}
-                  thousandSeparator={"."}
-                  decimalSeparator={","}
-                  prefix={"$"}
-                />
-              </span>
-              <div>{data.available_quantity + " "} unidades disponibles</div>
-              <div>{data.sold_quantity + " "} unidades vendidas</div>
-            </div>
+            <PriceStock
+              aQuantity={data.available_quantity}
+              sQuantity={data.sold_quantity}
+              price={data.price}
+            />
           </Container>
         </Col>
       </Row>
@@ -68,18 +72,10 @@ const ItemSearchModal = (props) => {
         </Col>
         <Col lg={6} md={6} xl={6} xs={6} xxl={6}>
           <Container>
-            <div className="item-description">{data.description}</div>
+            <ItemDescription description={data.description} />
           </Container>
           <Container className="modal-buttons">
-            <Button
-              variant="primary"
-              className="meli-permalink-button"
-              size="lg"
-              href={data.permalink}
-              target="_blank"
-            >
-              <div className="button-msg">Ver en Mercado Libre</div>
-            </Button>
+            <LinkToMeli permalink={data.permalink} />
           </Container>
         </Col>
       </Row>

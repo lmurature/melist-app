@@ -7,8 +7,7 @@ const EmptyItemsState = (props) => {
       <div className="empty-state-box">
         <div>
           <span className="search-title">
-            {" "}
-            😵 Parece que no tenés ningun producto...
+            Parece que no tenés ningun producto...
           </span>
         </div>
         <div>

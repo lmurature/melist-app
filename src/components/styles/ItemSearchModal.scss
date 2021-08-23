@@ -27,7 +27,7 @@
   margin-top: 40px;
   padding-left: 10px;
   padding-right: 10px;
-  height: 400px;
+  max-height: 400px;
   overflow: scroll;
 }
 
@@ -53,4 +53,13 @@
   font-size: 14px;
   height: 400px;
   overflow: scroll;
+}
+
+.icon {
+  height: 30px;
+  width: 30px;
+
+  &-prev {
+    transform: rotate(180deg);
+  }
 }
