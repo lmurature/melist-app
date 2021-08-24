@@ -7,7 +7,7 @@ import PrivacyLabel from "./PrivacyLabel";
 const ListCard = (props) => {
   let classes = [
     "list-card-purple",
-    "list-card-red",
+    //"list-card-red", // discarded for now
     "list-card-green",
     "list-card-brown",
     "list-card-blue",
@@ -16,8 +16,7 @@ const ListCard = (props) => {
   ];
 
   const getRandomClass = () => {
-    let rng = parseInt(Math.random() * (classes.length - 1 - 0) + 0); // rand[0,8)
-    return `list-card unselectable ${classes[rng]}`;
+    return `list-card unselectable ${classes[parseInt(props.id) % 6]}`;
   };
 
   return (

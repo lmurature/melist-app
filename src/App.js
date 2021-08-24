@@ -9,6 +9,7 @@ import List from "./pages/List";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ViewItemPage from "./pages/ViewItemPage";
+import Explore from "./pages/Explore";
 import "./App.scss";
 
 const App = ({ location }) => (
@@ -20,6 +21,7 @@ const App = ({ location }) => (
     <Route path="/list/create" component={CreateList} />
     <Route exact path="/lists/:listId" component={List} />
     <Route exact path="/lists/:listId/:itemId" component={ViewItemPage} />
+    <Route exact path="/explore" component={Explore} />
     <Footer />
   </React.Fragment>
 );
