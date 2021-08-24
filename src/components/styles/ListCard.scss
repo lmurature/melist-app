@@ -2,8 +2,7 @@
   margin-left: 10px;
   margin-right: 10px;
 
-  background: rgb(138, 84, 255);
-  opacity: 0.55;
+  /* opacity: 0.55; */
 
   border-radius: 10px;
   text-align: center;
@@ -23,32 +22,33 @@
   }
 
   &-purple {
-    background: linear-gradient(90deg, rgba(138, 84, 255, 1) 0%, rgba(155, 190, 252, 1) 69%);
+    background: linear-gradient(90deg, rgba(138, 84, 255, 0.55) 0%, rgba(155, 190, 252, 1) 89%);
   }
   &-red {
-    background: linear-gradient(90deg, rgba(185, 242, 100, 1) 0%, rgba(255, 82, 82, 1) 69%);
+    background: linear-gradient(90deg, rgba(185, 242, 100, 0.55) 0%, rgba(255, 82, 82, 1) 89%);
   }
   &-green {
-    background: linear-gradient(90deg, rgba(182, 100, 242, 1) 0%, rgba(54, 210, 87, 1) 69%);
+    background: linear-gradient(90deg, rgba(182, 100, 242, 0.55) 0%, rgba(54, 210, 87, 1) 89%);
   }
   &-brown {
-    background: linear-gradient(90deg, rgba(175, 222, 80, 1) 0%, rgba(166, 119, 73, 1) 69%);
+    background: linear-gradient(90deg, rgba(175, 222, 80, 0.55) 0%, rgba(166, 119, 73, 1) 89%);
   }
   &-blue {
-    background: linear-gradient(90deg, rgba(222, 97, 80, 1) 0%, rgba(57, 91, 185, 1) 69%);
+    background: linear-gradient(90deg, rgba(222, 97, 80, 0.55) 0%, rgba(57, 91, 185, 1) 89%);
   }
   &-pink {
-    background: linear-gradient(90deg, rgba(80, 222, 193, 1) 0%, rgba(201, 89, 177, 1) 69%);
+    background: linear-gradient(90deg, rgba(80, 222, 193, 0.55) 0%, rgba(201, 89, 177, 1) 89%);
   }
   &-orange {
-    background: linear-gradient(90deg, rgba(148, 80, 222, 1) 0%, rgba(250, 154, 22, 1) 69%);
+    background: linear-gradient(90deg, rgba(148, 80, 222, 0.55) 0%, rgba(250, 154, 22, 1) 89%);
   }
 }
 
 .list-title {
   font-size: 18px;
-  font-weight: 900;
-  color: #ffffff;
+  font-weight: bold;
+  opacity: 1 !important;
+  color: #FFFFFF;
 }
 
 .unselectable {

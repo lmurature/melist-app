@@ -9,6 +9,7 @@ import Config from "../components/Config";
 import PrivacyLabel from "../components/PrivacyLabel";
 import axios from "axios";
 import "./styles/List.scss";
+import { Star, StarFill } from "react-bootstrap-icons";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -26,6 +27,8 @@ const List = () => {
 
   const [list, setList] = useState({ privacy: null });
   const [listItems, setListItems] = useState([]);
+  const [listIsFaved, setListIsFaved] = useState(false);
+  const [showFavIcon, setShowFavIcon] = useState(true);
 
   const [tab, setTab] = useState(getContextOrDefault("items"));
 
@@ -61,6 +64,44 @@ const List = () => {
     setTab(tab);
   };
 
+  const handleFavClick = () => {
+    setShowFavIcon(false);
+    if (listIsFaved) {
+      axios
+        .delete(
+          `${RestUtils.getApiUrl()}/api/lists/favorite/${listId}`,
+          RestUtils.getHeaders()
+        )
+        .then((response) => {
+          setListIsFaved(false);
+          setShowFavIcon(true);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      axios
+        .put(
+          `${RestUtils.getApiUrl()}/api/lists/favorite/${listId}`,
+          null,
+          RestUtils.getHeaders()
+        )
+        .then((response) => {
+          setListIsFaved(true);
+          setShowFavIcon(true);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const getFavouriteIcon = () => {
+    return (
+      showFavIcon && (
+        <button onClick={handleFavClick}>
+          {listIsFaved ? <StarFill /> : <Star />}
+        </button>
+      )
+    );
+  };
+
   useEffect(() => {
     axios
       .get(
@@ -85,6 +126,20 @@ const List = () => {
       )
       .then((response) => setListPermissions(response.data))
       .catch((err) => console.log(err));
+
+    axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/lists/get/favorites`,
+        RestUtils.getHeaders()
+      )
+      .then((response) =>
+        response.data.forEach((list) => {
+          if (list.id == listId) {
+            setListIsFaved(true);
+          }
+        })
+      )
+      .catch((err) => console.log(err));
   }, [listId]);
 
   return (
@@ -94,7 +149,7 @@ const List = () => {
           <Spinner animation="border" role="status" />
         ) : (
           <h2 className="list-heading">
-            {list.title}
+            {list.title} <span className="fav-icon">{getFavouriteIcon()}</span>
             <PrivacyLabel privacy={list.privacy} />
           </h2>
         )}
