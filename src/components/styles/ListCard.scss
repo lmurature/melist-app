@@ -3,11 +3,11 @@
   margin-right: 10px;
 
   background: rgb(138, 84, 255);
-  background: linear-gradient(90deg, rgba(138, 84, 255, 1) 0%, rgba(155, 190, 252, 1) 100%);
   opacity: 0.55;
 
   border-radius: 10px;
   text-align: center;
+  font-weight: 900;
 
   padding: 5px;
   height: 80px;
@@ -21,12 +21,34 @@
   &:hover {
     border: 1px solid rgb(161, 161, 161);
   }
+
+  &-purple {
+    background: linear-gradient(90deg, rgba(138, 84, 255, 1) 0%, rgba(155, 190, 252, 1) 69%);
+  }
+  &-red {
+    background: linear-gradient(90deg, rgba(185, 242, 100, 1) 0%, rgba(255, 82, 82, 1) 69%);
+  }
+  &-green {
+    background: linear-gradient(90deg, rgba(182, 100, 242, 1) 0%, rgba(54, 210, 87, 1) 69%);
+  }
+  &-brown {
+    background: linear-gradient(90deg, rgba(175, 222, 80, 1) 0%, rgba(166, 119, 73, 1) 69%);
+  }
+  &-blue {
+    background: linear-gradient(90deg, rgba(222, 97, 80, 1) 0%, rgba(57, 91, 185, 1) 69%);
+  }
+  &-pink {
+    background: linear-gradient(90deg, rgba(80, 222, 193, 1) 0%, rgba(201, 89, 177, 1) 69%);
+  }
+  &-orange {
+    background: linear-gradient(90deg, rgba(148, 80, 222, 1) 0%, rgba(250, 154, 22, 1) 69%);
+  }
 }
 
 .list-title {
-  font-size: 16px;
-  font-weight: bolder;
-  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
 }
 
 .unselectable {
