@@ -62,12 +62,13 @@ const Summary = (props) => {
         <div className="my-lists">
           <Row>
             {lists.length > 0 ? (
-              lists.map((l) => {
+              lists.map((l, i) => {
                 return (
                   <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
                     <ListCard
                       key={l.id}
                       id={l.id}
+                      index={i}
                       title={l.title}
                       description={l.description}
                       dateCreated={l.date_created}
@@ -92,12 +93,13 @@ const Summary = (props) => {
         <div className="shared-lists">
           <Row>
             {sharedLists.length > 0 ? (
-              sharedLists.map((l) => {
+              sharedLists.map((l, i) => {
                 return (
                   <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
                     <ListCard
                       key={l.id}
                       id={l.id}
+                      index={i}
                       title={l.title}
                       description={l.description}
                       dateCreated={l.date_created}
@@ -116,22 +118,28 @@ const Summary = (props) => {
         <h2 className="favourites-heading">Favoritos 🌟</h2>
         <div className="favourite-lists">
           <Row>
-            { favouriteLists.length > 0 ? favouriteLists.map((l) => {
-              return (
-                <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
-                  <ListCard
-                    key={l.id}
-                    id={l.id}
-                    title={l.title}
-                    description={l.description}
-                    dateCreated={l.date_created}
-                    privacy={l.privacy}
-                  />
-                </Col>
-              );
-            }) : <Container className="empty-state-text">
-              No tenes ninguna lista favorita, podés explorar las listas públicas
-              </Container>}
+            {favouriteLists.length > 0 ? (
+              favouriteLists.map((l, i) => {
+                return (
+                  <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
+                    <ListCard
+                      key={l.id}
+                      id={l.id}
+                      index={i}
+                      title={l.title}
+                      description={l.description}
+                      dateCreated={l.date_created}
+                      privacy={l.privacy}
+                    />
+                  </Col>
+                );
+              })
+            ) : (
+              <Container className="empty-state-text">
+                No tenes ninguna lista favorita, podés explorar las listas
+                públicas
+              </Container>
+            )}
             <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
               <Button href="/explore" className="search-lists-button">
                 Explorar

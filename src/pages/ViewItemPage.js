@@ -1,5 +1,5 @@
 import axios from "axios";
-import react, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Carousel } from "react-bootstrap";
 import { useParams } from "react-router";
 import NumberFormat from "react-number-format";
@@ -8,15 +8,7 @@ import RestUtils from "../utils/RestUtils";
 import Arrow from "../assets/arrow.png";
 import LinkToMeli from "../components/LinkToMeli";
 import ItemDescription from "../components/ItemDescription";
-import {
-  LineChart,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  Line,
-  ResponsiveContainer,
-} from "recharts";
+import { LineChart, XAxis, YAxis, Tooltip, Legend, Line } from "recharts";
 
 const ViewItemPage = () => {
   const { listId, itemId } = useParams();
@@ -109,6 +101,8 @@ const ViewItemPage = () => {
               <Legend />
               <Line
                 type="monotone"
+                dot={false}
+                animationDuration={5000}
                 dataKey="quantity"
                 stroke="#82ca9d"
                 strokeWidth={5}
@@ -128,6 +122,8 @@ const ViewItemPage = () => {
               <Legend />
               <Line
                 type="monotone"
+                dot={false}
+                animationDuration={5000}
                 dataKey="price"
                 stroke="#8884d8"
                 strokeWidth={5}
@@ -135,6 +131,7 @@ const ViewItemPage = () => {
             </LineChart>
           </Col>
         </Row>
+        {itemData.status !== "active" ? <h1>Este item no esta disponible... Explorar opciones similares</h1> : ""}
       </Container>
     </div>
   ) : (

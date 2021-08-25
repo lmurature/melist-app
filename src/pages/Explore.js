@@ -21,7 +21,7 @@ const Explore = (props) => {
   }, []);
 
   const handleFilter = (e) => {
-    let result = filteredLists.filter((l) => {
+    let result = publicLists.filter((l) => {
       return l.title.toLowerCase().search(e.target.value.toLowerCase()) != -1;
     });
     if (e.target.value !== "") {
@@ -51,12 +51,13 @@ const Explore = (props) => {
       </div>
       <Row>
         {filteredLists &&
-          filteredLists.map((l) => {
+          filteredLists.map((l, i) => {
             return (
               <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
                 <ListCard
                   key={l.id}
                   id={l.id}
+                  index={i}
                   title={l.title}
                   description={l.description}
                   dateCreated={l.date_created}

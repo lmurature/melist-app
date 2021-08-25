@@ -16,7 +16,7 @@ const ListCard = (props) => {
   ];
 
   const getRandomClass = () => {
-    return `list-card unselectable ${classes[parseInt(props.id) % 6]}`;
+    return `list-card unselectable ${classes[parseInt(props.index + 3) % 6]}`;
   };
 
   return (
