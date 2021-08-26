@@ -17,8 +17,8 @@ const ItemSearchModal = (props) => {
           <Carousel
             className="item-img-carousel"
             variant="dark"
-            nextIcon={<img className="icon" src={Arrow} />}
-            prevIcon={<img className="icon icon-prev" src={Arrow} />}
+            nextIcon={<img className="icon" src={Arrow} alt="next" />}
+            prevIcon={<img className="icon icon-prev" src={Arrow} alt="prev" />}
           >
             {data.pictures.map((picture) => {
               return (
@@ -60,7 +60,7 @@ const ItemSearchModal = (props) => {
                   {data.attributes.map((attribute) => {
                     return (
                       <tr key={attribute.id}>
-                        <td>{attribute.name}</td>
+                        <span className="attribute-name">{attribute.name}</span>{" "}
                         <td>{attribute.value_name}</td>
                       </tr>
                     );

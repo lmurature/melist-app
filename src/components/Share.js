@@ -140,8 +140,20 @@ const Share = (props) => {
   };
 
   useEffect(() => {
-    getColaborators();
-  }, []);
+    axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/lists/get/${listId}/shares`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        setColabs(response.data);
+      })
+      .catch((err) =>
+        err.response !== undefined && err.response.status !== 404
+          ? console.log(err)
+          : ""
+      );
+  }, [listId]);
 
   return (
     <div className="share">

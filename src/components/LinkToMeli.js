@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 
 const LinkToMeli = (props) => {
-  const { permalink, centered } = props;
+  const { permalink } = props;
   return (
     <Button
       variant="primary"

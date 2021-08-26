@@ -1,11 +1,19 @@
 .explore {
+  
   &-title {
     font-weight: 900;
     font-size: 40px;
     color: #6853B8;
   }
+
   &-heading {
     margin-top: 20px;
     margin-bottom: 20px;
+  }
+
+  &-main {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding-top: 10px;
   }
 }

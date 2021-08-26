@@ -4,7 +4,6 @@ import ListCard from "../components/ListCard";
 import axios from "axios";
 import RestUtils from "../utils/RestUtils";
 import "./styles/Explore.scss";
-import { search } from "language-tags";
 
 const Explore = (props) => {
   const [publicLists, setPublicLists] = useState(null);
@@ -49,24 +48,26 @@ const Explore = (props) => {
           </Col>
         </Row>
       </div>
-      <Row>
-        {filteredLists &&
-          filteredLists.map((l, i) => {
-            return (
-              <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
-                <ListCard
-                  key={l.id}
-                  id={l.id}
-                  index={i}
-                  title={l.title}
-                  description={l.description}
-                  dateCreated={l.date_created}
-                  privacy={l.privacy}
-                />
-              </Col>
-            );
-          })}
-      </Row>
+      <div className="explore-main">
+        <Row>
+          {filteredLists &&
+            filteredLists.map((l, i) => {
+              return (
+                <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
+                  <ListCard
+                    key={l.id}
+                    id={l.id}
+                    index={i}
+                    title={l.title}
+                    description={l.description}
+                    dateCreated={l.date_created}
+                    privacy={l.privacy}
+                  />
+                </Col>
+              );
+            })}
+        </Row>
+      </div>
     </Container>
   );
 };

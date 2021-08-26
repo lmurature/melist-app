@@ -66,7 +66,8 @@ function Header() {
                 title={getCapitalizedName()}
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item href="/">Inicio</NavDropdown.Item>
+                <NavDropdown.Item href="/summary">Inicio</NavDropdown.Item>
+                <NavDropdown.Item href="/explore">Explorar</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
                   href="/"

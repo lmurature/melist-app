@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Carousel } from "react-bootstrap";
+import { Container, Row, Col, Carousel, Table } from "react-bootstrap";
 import { useParams } from "react-router";
 import NumberFormat from "react-number-format";
 import "./styles/ViewItemPage.scss";
@@ -33,7 +33,7 @@ const ViewItemPage = () => {
       )
       .then((response) => setItemHistory(response.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [itemId]);
 
   return itemData !== null ? (
     <div className="view-item-page">
@@ -44,8 +44,10 @@ const ViewItemPage = () => {
               <Container className="carousel">
                 <Carousel
                   variant="dark"
-                  nextIcon={<img className="icon" src={Arrow} />}
-                  prevIcon={<img className="icon icon-prev" src={Arrow} />}
+                  nextIcon={<img className="icon" src={Arrow} alt="next" />}
+                  prevIcon={
+                    <img className="icon icon-prev" src={Arrow} alt="prev" />
+                  }
                 >
                   {itemData.pictures.map((picture) => {
                     return (
@@ -131,7 +133,31 @@ const ViewItemPage = () => {
             </LineChart>
           </Col>
         </Row>
-        {itemData.status !== "active" ? <h1>Este item no esta disponible... Explorar opciones similares</h1> : ""}
+        <Table striped bordered size="sm">
+          <thead>
+            <tr>
+              <th>Atributo</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            {itemData.attributes.map((attribute) => {
+              return (
+                <tr key={attribute.id}>
+                  <td>
+                    <span className="attribute-name">{attribute.name}</span>
+                  </td>
+                  <td>{attribute.value_name}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+        {itemData.status !== "active" ? (
+          <h1>Este item no esta disponible... Explorar opciones similares</h1>
+        ) : (
+          ""
+        )}
       </Container>
     </div>
   ) : (

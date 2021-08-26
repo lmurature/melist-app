@@ -56,7 +56,7 @@ const Config = (props) => {
     setListTitle(title !== undefined ? title : "");
     setListDesc(description !== undefined ? description : "");
     setListPrivacy(privacy !== undefined ? privacy : "");
-  }, [title]);
+  }, [title, description, privacy]);
 
   const shouldBeDisabled = () => {
     return (
