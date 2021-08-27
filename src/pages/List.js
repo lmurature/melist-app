@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useParams, useLocation, useHistory, Link } from "react-router-dom";
 import RestUtils from "../utils/RestUtils";
 import { Container, Spinner, Tabs, Tab } from "react-bootstrap";
 import Items from "../components/Items";
@@ -9,7 +9,7 @@ import Config from "../components/Config";
 import PrivacyLabel from "../components/PrivacyLabel";
 import axios from "axios";
 import "./styles/List.scss";
-import { Star, StarFill } from "react-bootstrap-icons";
+import { ArrowLeft, Star, StarFill } from "react-bootstrap-icons";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -145,6 +145,9 @@ const List = () => {
   return (
     <Container>
       <div className="list-title">
+        <Link to={`/summary`}>
+          <ArrowLeft /> Atrás
+        </Link>
         {list === null ? (
           <Spinner animation="border" role="status" />
         ) : (
@@ -165,7 +168,11 @@ const List = () => {
         }}
       >
         <Tab key="items" eventKey="items" title="Productos">
-          <Items items={listItems} listId={listId} shareType={listPermissions.share_type}/>
+          <Items
+            items={listItems}
+            listId={listId}
+            shareType={listPermissions.share_type}
+          />
         </Tab>
         <Tab
           key="search"

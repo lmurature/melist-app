@@ -102,20 +102,20 @@ const ItemCard = (props) => {
             prefix={"$"}
           />
         </span>
-        <p className="item-data-title">{getFormattedText(title)} </p>
         <p>
           {itemListStatus === "checked" ? (
             <Badge pill className="pill pill-checked">
               COMPRADO
             </Badge>
-          ) : itemStatus !== "active" ? (
-            <Badge pill className="pill pill-not-active">
-              NO DISPONIBLE
-            </Badge>
           ) : (
-            ""
-          )}{" "}
+            itemStatus !== "active" && (
+              <Badge pill className="pill pill-not-active">
+                NO DISPONIBLE
+              </Badge>
+            )
+          )}
         </p>
+        <p className="item-data-title">{title}</p>
       </div>
     </div>
   );

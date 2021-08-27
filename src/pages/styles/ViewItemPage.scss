@@ -1,6 +1,6 @@
 .carousel {
   height: 500px;
-  width: 400px;
+  width: auto;
   background-color: #FFFFFF;
 }
 
@@ -24,12 +24,14 @@ img {
 
 .vip {
   &-title {
-    font-size: 24px;
+    font-size: 34px;
     font-weight: 900;
     color: #6853B8;
 
     &-box {
       margin-bottom: 20px;
+      margin-top: 20px;
+      text-align: center;
     }
   }
 
@@ -47,5 +49,9 @@ img {
 
 .attribute-name {
   font-weight: bold;
+}
+
+.category-trends {
+  font-size: 18px;
 }
 

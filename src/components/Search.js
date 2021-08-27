@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Form,
@@ -14,20 +14,26 @@ import "./styles/Search.scss";
 import ItemSearchCard from "./ItemSearchCard";
 import ItemSearchModal from "./ItemSearchModal";
 import EmptySearchState from "./EmptySearchState";
+import { useLocation, useHistory } from "react-router-dom";
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 const Search = (props) => {
   const { listId, changeTab } = props;
 
-  const [searchString, setSearchString] = useState("");
+  let query = useQuery();
+  let history = useHistory();
+
+  const [searchString, setSearchString] = useState(
+    query.get("q") == null ? "" : query.get("q")
+  );
 
   const [searchResult, setSearchResult] = useState();
-
   const [showModal, setShowModal] = useState(false);
-
   const [itemData, setItemData] = useState();
-
   const [successAddItem, setSuccessAddItem] = useState(false);
-
   const [errorAddItem, setErrorAddItem] = useState(false);
 
   const handleShow = (itemId) => {
@@ -72,15 +78,24 @@ const Search = (props) => {
     setSearchString(e.target.value);
   };
 
-  const handleSubmitSearch = (e) => {
+  const handleSubmitSearch = () => {
     axios
       .get(
         `${RestUtils.getApiUrl()}/api/items/search?q=${searchString}`,
         RestUtils.getHeaders()
       )
-      .then((response) => setSearchResult(response.data))
+      .then((response) => {
+        setSearchResult(response.data);
+        history.push(`/lists/${listId}?tab=search&q=${searchString}`);
+      })
       .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    if (searchString !== "") {
+      handleSubmitSearch();
+    }
+  }, []);
 
   return (
     <div className="search-items">
@@ -99,6 +114,7 @@ const Search = (props) => {
           size="lg"
           className="search-items-input"
           placeholder="Ej. Memoria RAM 32 GB"
+          value={searchString}
           onChange={handleSearch}
         />
         <Button

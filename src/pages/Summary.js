@@ -49,13 +49,8 @@ const Summary = (props) => {
 
   return (
     <Container className="main">
-      <h1 className="hi-title">
-        Hola{" "}
-        {user !== null
-          ? getCapitalizedName()
-          : apiError !== null
-          ? "Error!"
-          : "..."}{" "}
+      <h1 className="hi-title animate__animated animate__fadeIn">
+        Hola {user && getCapitalizedName()}
         <span className="hi-emoji">👋</span>
       </h1>
       <div className="main-list-view">
