@@ -4,6 +4,7 @@ import axios from "axios";
 import { Container, Button, Row, Col } from "react-bootstrap";
 import ListCard from "../components/ListCard";
 import "./styles/Summary.scss";
+import "animate.css";
 
 const Summary = (props) => {
   const [user, setUser] = useState({ first_name: "", last_name: "" });
@@ -64,7 +65,15 @@ const Summary = (props) => {
             {lists.length > 0 ? (
               lists.map((l, i) => {
                 return (
-                  <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
+                  <Col
+                    className="animate__animated animate__fadeIn"
+                    key={l.id}
+                    lg={2}
+                    md={3}
+                    xl={2}
+                    xs={6}
+                    xxl={2}
+                  >
                     <ListCard
                       key={l.id}
                       id={l.id}
@@ -95,7 +104,15 @@ const Summary = (props) => {
             {sharedLists.length > 0 ? (
               sharedLists.map((l, i) => {
                 return (
-                  <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
+                  <Col
+                    className="animate__animated animate__fadeIn"
+                    key={l.id}
+                    lg={2}
+                    md={3}
+                    xl={2}
+                    xs={6}
+                    xxl={2}
+                  >
                     <ListCard
                       key={l.id}
                       id={l.id}
@@ -121,7 +138,15 @@ const Summary = (props) => {
             {favouriteLists.length > 0 ? (
               favouriteLists.map((l, i) => {
                 return (
-                  <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
+                  <Col
+                    className="animate__animated animate__fadeIn"
+                    key={l.id}
+                    lg={2}
+                    md={3}
+                    xl={2}
+                    xs={6}
+                    xxl={2}
+                  >
                     <ListCard
                       key={l.id}
                       id={l.id}

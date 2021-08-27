@@ -1,11 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import EmptyItemsState from "./EmptyItemsState";
 import ItemCard from "./ItemCard";
+import axios from "axios";
+import RestUtils from "../utils/RestUtils";
 import "./styles/Items.scss";
 
 const Items = (props) => {
-  const listItems = props.items;
+  const { listId, shareType } = props;
+
+  const [listItems, setListItems] = useState([]);
+
+  const handleCheck = (itemId, isCheck) => {
+    axios
+      .put(
+        `${RestUtils.getApiUrl()}/api/lists/${listId}/${
+          isCheck ? "check" : "uncheck"
+        }/${itemId}`,
+        null,
+        RestUtils.getHeaders()
+      )
+      .then((response) => setListItems(response.data))
+      .catch((err) => console.log(err));
+  };
+
+  const handleDelete = (itemId) => {
+    axios
+      .delete(
+        `${RestUtils.getApiUrl()}/api/lists/${listId}/items/${itemId}`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => setListItems(response.data))
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    setListItems(props.items);
+  }, [props]);
 
   return (
     <div className="list-items">
@@ -17,7 +48,15 @@ const Items = (props) => {
           <Row>
             {listItems.map((listItem) => {
               return (
-                <Col key={listItem.item.id} lg={2} md={3} xl={2} xs={4} xxl={2}>
+                <Col
+                  className="animate__animated animate__fadeIn"
+                  key={listItem.item.id}
+                  lg={2}
+                  md={3}
+                  xl={2}
+                  xs={4}
+                  xxl={2}
+                >
                   <ItemCard
                     key={listItem.item.id}
                     id={listItem.item.id}
@@ -31,6 +70,9 @@ const Items = (props) => {
                     listId={listItem.list_id}
                     thumbnail={listItem.item.thumbnail}
                     itemStatus={listItem.item.status}
+                    handleCheck={handleCheck}
+                    handleDelete={handleDelete}
+                    shareType={shareType}
                   />
                 </Col>
               );

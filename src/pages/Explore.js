@@ -4,6 +4,7 @@ import ListCard from "../components/ListCard";
 import axios from "axios";
 import RestUtils from "../utils/RestUtils";
 import "./styles/Explore.scss";
+import "animate.css";
 
 const Explore = (props) => {
   const [publicLists, setPublicLists] = useState(null);
@@ -53,7 +54,14 @@ const Explore = (props) => {
           {filteredLists &&
             filteredLists.map((l, i) => {
               return (
-                <Col key={l.id} lg={2} md={3} xl={2} xs={6} xxl={2}>
+                <Col
+                  className="animate__animated animate__fadeInLeftBig"
+                  lg={2}
+                  md={3}
+                  xl={2}
+                  xs={6}
+                  xxl={2}
+                >
                   <ListCard
                     key={l.id}
                     id={l.id}

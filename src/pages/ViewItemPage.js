@@ -132,6 +132,27 @@ const ViewItemPage = () => {
               />
             </LineChart>
           </Col>
+          <Col>
+            <LineChart
+              width={400}
+              height={250}
+              data={itemHistory}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <XAxis dataKey="date_fetched" />
+              <YAxis name="Opiniones" dataKey="reviews_quantity" />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dot={false}
+                animationDuration={5000}
+                dataKey="reviews_quantity"
+                stroke="#8884d8"
+                strokeWidth={5}
+              />
+            </LineChart>
+          </Col>
         </Row>
         <Table striped bordered size="sm">
           <thead>

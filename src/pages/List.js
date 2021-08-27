@@ -165,7 +165,7 @@ const List = () => {
         }}
       >
         <Tab key="items" eventKey="items" title="Productos">
-          <Items items={listItems} />
+          <Items items={listItems} listId={listId} shareType={listPermissions.share_type}/>
         </Tab>
         <Tab
           key="search"
