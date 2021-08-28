@@ -85,7 +85,7 @@ const CreateList = () => {
             <Form.Control
               size="lg"
               as="textarea"
-              placeholder=" ¿Para qué se va a usar? ¿Hay alguna aclaración que hacer sobre los articulos elegidos para conformar esta lista?"
+              placeholder="Información adicional, redes sociales, para qué se va a usar, dirección de envio, numero de whatsapp o email para consultas."
               style={{ height: "150px" }}
               onChange={handleDescription}
             />

@@ -1,0 +1,10 @@
+.notification {
+  &-background {
+    &-light {
+      background-color: white !important;
+    }
+    &-dark {
+      background-color: #66a1441c !important;
+    }
+  }
+}

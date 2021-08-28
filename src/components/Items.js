@@ -7,7 +7,7 @@ import RestUtils from "../utils/RestUtils";
 import "./styles/Items.scss";
 
 const Items = (props) => {
-  const { listId, shareType } = props;
+  const { listId, shareType, notifications } = props;
 
   const [listItems, setListItems] = useState([]);
 

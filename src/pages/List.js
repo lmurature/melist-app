@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useHistory, Link } from "react-router-dom";
 import RestUtils from "../utils/RestUtils";
-import { Container, Spinner, Tabs, Tab } from "react-bootstrap";
+import { Container, Tabs, Tab } from "react-bootstrap";
 import Items from "../components/Items";
 import Search from "../components/Search";
 import Share from "../components/Share";
 import Config from "../components/Config";
 import PrivacyLabel from "../components/PrivacyLabel";
+import Notifications from "../components/Notifications";
 import axios from "axios";
 import "./styles/List.scss";
 import { ArrowLeft, Star, StarFill } from "react-bootstrap-icons";
@@ -29,6 +30,7 @@ const List = () => {
   const [listItems, setListItems] = useState([]);
   const [listIsFaved, setListIsFaved] = useState(false);
   const [showFavIcon, setShowFavIcon] = useState(true);
+  const [notifications, setNotifications] = useState(null);
 
   const [tab, setTab] = useState(getContextOrDefault("items"));
 
@@ -140,6 +142,13 @@ const List = () => {
         })
       )
       .catch((err) => console.log(err));
+    axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/lists/get/${listId}/notifications`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => setNotifications(response.data))
+      .catch((err) => console.log(err));
   }, [listId]);
 
   return (
@@ -148,13 +157,17 @@ const List = () => {
         <Link to={`/summary`}>
           <ArrowLeft /> Atrás
         </Link>
-        {list === null ? (
-          <Spinner animation="border" role="status" />
-        ) : (
-          <h2 className="list-heading">
-            {list.title} <span className="fav-icon">{getFavouriteIcon()}</span>
-            <PrivacyLabel privacy={list.privacy} />
-          </h2>
+        {list && (
+          <div>
+            <h2 className="list-heading">
+              {list.title}{" "}
+              <span className="fav-icon">{getFavouriteIcon()}</span>
+              <PrivacyLabel privacy={list.privacy} />
+            </h2>
+            <div className="list-description unselectable">
+              {list.description}
+            </div>
+          </div>
         )}
       </div>
       <Tabs
@@ -173,6 +186,13 @@ const List = () => {
             listId={listId}
             shareType={listPermissions.share_type}
           />
+        </Tab>
+        <Tab
+          key="notifications"
+          eventKey="notifications"
+          title="Notificaciones"
+        >
+          <Notifications listNotifications={notifications} />
         </Tab>
         <Tab
           key="search"
