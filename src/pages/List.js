@@ -158,7 +158,7 @@ const List = () => {
         )}
       </div>
       <Tabs
-        activeKey={tab}
+        activeKey={getContextOrDefault("items")}
         onSelect={(k) => {
           history.push(`/lists/${listId}?tab=${k}`);
           if (k === "items") {
