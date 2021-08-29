@@ -11,6 +11,7 @@ import Notifications from "../components/Notifications";
 import axios from "axios";
 import "./styles/List.scss";
 import { ArrowLeft, Star, StarFill } from "react-bootstrap-icons";
+import store from "store";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -31,6 +32,7 @@ const List = () => {
   const [listIsFaved, setListIsFaved] = useState(false);
   const [showFavIcon, setShowFavIcon] = useState(true);
   const [notifications, setNotifications] = useState(null);
+  const [cachedNotifications, setCachedNotifications] = useState(0);
 
   const [tab, setTab] = useState(getContextOrDefault("items"));
 
@@ -104,7 +106,21 @@ const List = () => {
     );
   };
 
+  const getNotificationTabTitle = () => {
+    if (notifications) {
+      let remaining = notifications.length - cachedNotifications;
+      return (
+        notifications &&
+        (remaining === 0 ? "Notificaciones" : `Notificaciones (${remaining})`)
+      );
+    }
+  };
+
   useEffect(() => {
+    if (store.get(`notifications-${listId}`)) {
+      setCachedNotifications(store.get(`notifications-${listId}`));
+    }
+
     axios
       .get(
         `${RestUtils.getApiUrl()}/api/lists/get/${listId}`,
@@ -164,9 +180,7 @@ const List = () => {
               <span className="fav-icon">{getFavouriteIcon()}</span>
               <PrivacyLabel privacy={list.privacy} />
             </h2>
-            <div className="list-description">
-              {list.description}
-            </div>
+            <div className="list-description">{list.description}</div>
           </div>
         )}
       </div>
@@ -176,6 +190,9 @@ const List = () => {
           history.push(`/lists/${listId}?tab=${k}`);
           if (k === "items") {
             reloadItems();
+          } else if (k === "notifications" && notifications) {
+            store.set(`notifications-${listId}`, notifications.length);
+            setCachedNotifications(notifications.length);
           }
           setTab(k);
         }}
@@ -190,7 +207,7 @@ const List = () => {
         <Tab
           key="notifications"
           eventKey="notifications"
-          title="Notificaciones"
+          title={getNotificationTabTitle()}
         >
           <Notifications listNotifications={notifications} />
         </Tab>

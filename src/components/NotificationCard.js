@@ -1,6 +1,7 @@
 import moment from "moment";
 import "moment/locale/es";
 import { Card } from "react-bootstrap";
+import { Dot } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import "./styles/NotificationCard.scss";
 
@@ -22,8 +23,10 @@ const NotificationCard = (props) => {
 
   return (
     <Card body className={getClass()}>
-      <Link to={permalink}>{message}</Link>
-      {" " + getTimeAgo()}
+      <Dot className="unseen-dot" />
+      {message}{" "}
+      <Link to={permalink}>Ver detalle</Link>
+      <span className="time-ago">{" " + getTimeAgo()}</span>
     </Card>
   );
 };
