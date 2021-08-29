@@ -11,6 +11,8 @@ import ItemDescription from "../components/ItemDescription";
 import { LineChart, XAxis, YAxis, Tooltip, Legend, Line } from "recharts";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "react-bootstrap-icons";
+import "moment/locale/es";
+import moment from "moment";
 
 const ViewItemPage = () => {
   const { listId, itemId } = useParams();
@@ -48,7 +50,18 @@ const ViewItemPage = () => {
         `${RestUtils.getApiUrl()}/api/items/${itemId}/history`,
         RestUtils.getHeaders()
       )
-      .then((response) => setItemHistory(response.data))
+      .then((response) => {
+        console.log(response.data);
+        for (let i = 0; i < response.data.length; i++) {
+          let date = response.data[i].date_fetched;
+          response.data[i].date_fetched = moment(date)
+            .locale("es")
+            .subtract(3, "hours")
+            .fromNow();
+        }
+
+        setItemHistory(response.data);
+      })
       .catch((err) => console.log(err));
 
     axios

@@ -164,7 +164,7 @@ const List = () => {
               <span className="fav-icon">{getFavouriteIcon()}</span>
               <PrivacyLabel privacy={list.privacy} />
             </h2>
-            <div className="list-description unselectable">
+            <div className="list-description">
               {list.description}
             </div>
           </div>
