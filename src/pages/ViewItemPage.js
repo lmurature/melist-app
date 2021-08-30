@@ -51,7 +51,6 @@ const ViewItemPage = () => {
         RestUtils.getHeaders()
       )
       .then((response) => {
-        console.log(response.data);
         for (let i = 0; i < response.data.length; i++) {
           let date = response.data[i].date_fetched;
           response.data[i].date_fetched = moment(date)
@@ -155,7 +154,7 @@ const ViewItemPage = () => {
                   />
                 </span>
                 <div>
-                  {itemHistory != null
+                  {itemHistory !== null && itemHistory.length > 0
                     ? itemHistory[itemHistory.length - 1].quantity
                     : itemData.available_quantity + " "}{" "}
                   unidades disponibles
