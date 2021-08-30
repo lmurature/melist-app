@@ -155,7 +155,8 @@ const ViewItemPage = () => {
                   />
                 </span>
                 <div>
-                  {itemData.available_quantity + " "} unidades disponibles
+                  {itemHistory[itemHistory.length - 1].quantity + " "} unidades
+                  disponibles
                 </div>
                 <div>{itemData.sold_quantity + " "} unidades vendidas</div>
               </div>
