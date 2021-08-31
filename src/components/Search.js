@@ -8,6 +8,7 @@ import {
   Row,
   Modal,
   Alert,
+  Pagination,
 } from "react-bootstrap";
 import RestUtils from "../utils/RestUtils";
 import "./styles/Search.scss";
@@ -27,7 +28,7 @@ const Search = (props) => {
   let history = useHistory();
 
   const [searchString, setSearchString] = useState(
-    query.get("q") == null ? "" : query.get("q")
+    query.get("q") === null ? "" : query.get("q")
   );
 
   const [searchResult, setSearchResult] = useState();
@@ -35,6 +36,7 @@ const Search = (props) => {
   const [itemData, setItemData] = useState();
   const [successAddItem, setSuccessAddItem] = useState(false);
   const [errorAddItem, setErrorAddItem] = useState(false);
+  const [offset, setOffset] = useState(0);
 
   const handleShow = (itemId) => {
     getItemData(itemId);
@@ -81,7 +83,7 @@ const Search = (props) => {
   const handleSubmitSearch = () => {
     axios
       .get(
-        `${RestUtils.getApiUrl()}/api/items/search?q=${searchString}`,
+        `${RestUtils.getApiUrl()}/api/items/search?q=${searchString}&offset=${offset}`,
         RestUtils.getHeaders()
       )
       .then((response) => {
@@ -95,7 +97,7 @@ const Search = (props) => {
     if (searchString !== "") {
       handleSubmitSearch();
     }
-  }, []);
+  }, [offset]);
 
   return (
     <div className="search-items">
@@ -127,8 +129,36 @@ const Search = (props) => {
         </Button>
       </div>
       <Container>
+        {searchResult && searchResult.paging && (
+          <div className="results-found">
+            {searchResult.paging.total} resultados encontrados para{" "}
+            {`"${searchResult.query}"`}
+            <div>
+              <Pagination>
+                <Pagination.Prev
+                  onClick={() => {
+                    if (offset > 0) {
+                      setOffset(offset - 50);
+                    }
+                  }}
+                >
+                  Anterior
+                </Pagination.Prev>
+                <Pagination.Next
+                  onClick={() => {
+                    if (offset < 1000) {
+                      setOffset(offset + 50);
+                    }
+                  }}
+                >
+                  Siguiente
+                </Pagination.Next>
+              </Pagination>
+            </div>
+          </div>
+        )}
         <Row>
-          {searchResult !== undefined ? (
+          {searchResult ? (
             searchResult.results.map((item) => {
               return (
                 <Col
@@ -158,6 +188,30 @@ const Search = (props) => {
             <EmptySearchState />
           )}
         </Row>
+        {searchResult && (
+          <div className="pagination-footer">
+            <Pagination>
+              <Pagination.Prev
+                onClick={() => {
+                  if (offset > 0) {
+                    setOffset(offset - 50);
+                  }
+                }}
+              >
+                Anterior
+              </Pagination.Prev>
+              <Pagination.Next
+                onClick={() => {
+                  if (offset < 1000) {
+                    setOffset(offset + 50);
+                  }
+                }}
+              >
+                Siguiente
+              </Pagination.Next>
+            </Pagination>
+          </div>
+        )}
       </Container>
       <Modal
         size="lg"
