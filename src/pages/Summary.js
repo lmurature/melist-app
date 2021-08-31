@@ -77,6 +77,7 @@ const Summary = (props) => {
                       description={l.description}
                       dateCreated={l.date_created}
                       privacy={l.privacy}
+                      notifications={l.notifications}
                     />
                   </Col>
                 );
@@ -116,6 +117,7 @@ const Summary = (props) => {
                       description={l.description}
                       dateCreated={l.date_created}
                       privacy={l.privacy}
+                      notifications={l.notifications}
                     />
                   </Col>
                 );

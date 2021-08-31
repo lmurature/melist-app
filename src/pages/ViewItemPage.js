@@ -155,8 +155,8 @@ const ViewItemPage = () => {
                 </span>
                 <div>
                   {itemHistory !== null && itemHistory.length > 0
-                    ? itemHistory[itemHistory.length - 1].quantity
-                    : itemData.available_quantity + " "}{" "}
+                    ? itemHistory[itemHistory.length - 1].quantity + " "
+                    : itemData.available_quantity + " "}
                   unidades disponibles
                 </div>
                 <div>{itemData.sold_quantity + " "} unidades vendidas</div>
