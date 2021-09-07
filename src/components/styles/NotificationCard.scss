@@ -1,24 +1,31 @@
 @import "../../Variables.scss";
 
-@include themed() {
-  .notification {
-    &-background {
-      &-light {
-        background-color: white !important;
+.notification {
+  &-background {
+    &-light {
+      @include themed() {
+        background-color: t("melist-notification-light");
+        color: t("melist-primary-text");
+
       }
-      &-dark {
-        background-color: #66a1441c !important;
+    }
+    &-dark {
+      @include themed() {
+        color: t("melist-primary-text");
+        background-color: t("melist-notification-dark");
       }
     }
   }
+}
 
 
-  .unseen-dot {
-    color: #4040e2;
-    font-size: 30px;
-  }
+.unseen-dot {
+  color: #4040e2;
+  font-size: 30px;
+}
 
-  .time-ago {
-    color: t("melist-muted-text");
+.time-ago {
+  @include themed() {
+  color: t("melist-muted-text");
   }
 }

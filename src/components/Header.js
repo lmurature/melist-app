@@ -9,8 +9,13 @@ import "./styles/Header.scss";
 function Header() {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState({ first_name: "", last_name: "" });
+  const [nightMode, setNightMode] = useState(false);
 
   useEffect(() => {
+    if (store.get("nightmode")) {
+      setNightMode(true);
+    }
+
     let auth = store.get("access-token");
     if (auth) {
       setAuthenticated(true);
@@ -68,6 +73,18 @@ function Header() {
               >
                 <NavDropdown.Item href="/summary">Inicio</NavDropdown.Item>
                 <NavDropdown.Item href="/explore">Explorar</NavDropdown.Item>
+                <NavDropdown.Item
+                  href="/summary"
+                  onClick={() => {
+                    if (nightMode) {
+                      store.set("nightmode", false);
+                    } else {
+                      store.set("nightmode", true);
+                    }
+                  }}
+                >
+                  {nightMode ? "Modo normal" : "Modo noche"}
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
                   href="/"

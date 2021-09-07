@@ -9,19 +9,22 @@
   user-select: none;
 }
 
-@include themed() {
-  .list-privacy,
-  .list-privacy:hover {
-    color: t("melist-muted-text");
-    margin-top: 5px;
-    margin-bottom: 15px;
-  }
 
-  .list-privacy-center,
-  .list-privacy-center:hover {
-    text-align: center;
-    color: t("melist-muted-text");
-    margin-top: 5px;
-    margin-bottom: 15px;
+.list-privacy,
+.list-privacy:hover {
+  @include themed() {
+  color: t("melist-muted-text");
   }
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.list-privacy-center,
+.list-privacy-center:hover {
+  text-align: center;
+  @include themed() {
+  color: t("melist-muted-text");
+  }
+  margin-top: 5px;
+  margin-bottom: 15px;
 }

@@ -1,22 +1,24 @@
 @import '../../Variables.scss';
 
-@include themed() {
-  .explore {
-    &-title {
-      font-weight: 900;
-      font-size: 40px;
-      color: t("melist-purple");
+.explore {
+  &-title {
+    font-weight: 900;
+    font-size: 40px;
+    @include themed() {
+    color: t("melist-title");
     }
+  }
 
-    &-heading {
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
+  &-heading {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 
-    &-main {
-      background-color: t("melist-muted-blue");
-      border-radius: 10px;
-      padding-top: 10px;
-    }
+  &-main {
+    @include themed() {
+    background-color: t("melist-muted-blue");
+    } 
+    border-radius: 10px;
+    padding-top: 10px;
   }
 }

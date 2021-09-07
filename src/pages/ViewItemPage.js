@@ -228,7 +228,7 @@ const ViewItemPage = () => {
               </LineChart>
             </Col>
           </Row>
-          <Table striped bordered size="sm">
+          <Table className="attribute-table" striped bordered size="sm">
             <thead>
               <tr>
                 <th>Atributo</th>

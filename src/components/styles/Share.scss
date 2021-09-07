@@ -1,41 +1,47 @@
 @import "../../Variables.scss";
 
-@include themed() {
-  .share {
-    padding-top: 30px;
-    background: t("list-view-background");
-    min-height: 600px;
+.share {
+  padding-top: 30px;
+  
+  @include themed() {
+  background: t("list-view-background");
+  color: t("melist-primary-text");
+  }
+  min-height: 600px;
 
-    &-box {
-      background-color: t("melist-muted-blue");
-      margin-top: 30px;
-      padding-top: 20px;
-      height: 350px;
-      border-radius: 10px;
+  &-box {
+    @include themed() {
+    background-color: t("melist-muted-blue");
     }
+    margin-top: 30px;
+    padding-top: 20px;
+    height: 350px;
+    border-radius: 10px;
   }
+}
 
-  .search-users-title {
-    font-weight: 900;
-    font-size: 32px;
-    color: t("melist-purple");
+.search-users-title {
+  font-weight: 900;
+  font-size: 32px;
+  @include themed() {
+  color: t("melist-title");
   }
+}
 
-  .info-bold {
-    font-weight: 750;
-  }
+.info-bold {
+  font-weight: 750;
+}
 
-  .input-form-user {
-    margin-top: 15px;
-    font-size: 20px;
-  }
+.input-form-user {
+  margin-top: 15px;
+  font-size: 20px;
+}
 
-  .share-type-radios {
-    padding-top: 150px;
-    font-size: 14px;
-  }
+.share-type-radios {
+  padding-top: 150px;
+  font-size: 14px;
+}
 
-  .revoke-button {
-    margin-bottom: 10px;
-  }
+.revoke-button {
+  margin-bottom: 10px;
 }

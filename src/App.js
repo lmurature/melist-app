@@ -10,10 +10,17 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ViewItemPage from "./pages/ViewItemPage";
 import Explore from "./pages/Explore";
+import store from "store";
 import "./App.scss";
 
 const App = ({ location }) => (
-  <React.Fragment className={"theme theme--light"}>
+  <div
+    className={
+      store.get("nightmode")
+        ? "app theme theme--dark"
+        : "app theme theme--light"
+    }
+  >
     {location.pathname !== "/auth/authorized" && <Header />}
     <Route exact path="/" component={Home} />
     <Route path="/summary" component={Summary} />
@@ -23,7 +30,7 @@ const App = ({ location }) => (
     <Route exact path="/lists/:listId/:itemId" component={ViewItemPage} />
     <Route exact path="/explore" component={Explore} />
     <Footer />
-  </React.Fragment>
+  </div>
 );
 
 export default withRouter(App);

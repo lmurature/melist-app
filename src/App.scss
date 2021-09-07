@@ -1,10 +1,10 @@
+@import './Variables.scss';
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-@import './Variables.scss';
 
-@include themed() {
-  body {
-    font-family: 'Nunito' !important;
-    background-color: t("muted-green");
+.app {
+  /* font-family: 'Nunito' !important; */
+  @include themed() {
+    background-color: t("background") !important;
   }
 }

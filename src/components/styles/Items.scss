@@ -1,20 +1,25 @@
 @import "../../Variables.scss";
 
-@include themed() {
+.list-items {
+  padding-top: 30px;
+  @include themed() {
+  background: t("list-view-background");
+  }
 
-  .list-items {
-    padding-top: 30px;
-    background: t("list-view-background");
+  @include themed() {
+    color: t("melist-primary-text");
+  }
 
-    &-heading {
-      text-align: center;
-      margin-bottom: 30px;
+  &-heading {
+    text-align: center;
+    margin-bottom: 30px;
 
-      &-title {
-        color: t("melist-title");
-        font-weight: 900;
-        font-size: 30px;
+    &-title {
+      @include themed() {
+      color: t("melist-title");
       }
+      font-weight: 900;
+      font-size: 30px;
     }
-  } 
-}
+  }
+} 

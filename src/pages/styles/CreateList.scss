@@ -1,6 +1,9 @@
 @import "../../Variables.scss";
 
 .list-form {
+  @include themed() {
+    color: t("melist-primary-text");
+  }
   margin: 0 auto;
   margin-bottom: 150px;
 }
@@ -11,18 +14,20 @@
   }
 }
 
-@include themed() {
-  .create-title {
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    font-size: 50px;
-    color: t("melist-purple");
-    font-weight: 900;
+.create-title {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-size: 50px;
+  @include themed() {
+  color: t("melist-purple");
   }
-
-  .create-button {
-    background-color: t("melist-purple") !important;
-    margin-top: 15px;
-  } 
+  font-weight: 900;
 }
+
+.create-button {
+  @include themed() {
+  background-color: t("melist-purple") !important;
+  }
+  margin-top: 15px;
+} 

@@ -1,69 +1,65 @@
 @import "../../Variables.scss";
 
-@include themed() {
-  .list-card {
-    margin-left: 10px;
-    margin-right: 10px;
+.list-card {
+  margin-left: 10px;
+  margin-right: 10px;
 
-    /* opacity: 0.55; */
+  /* opacity: 0.55; */
 
-    border-radius: 10px;
-    text-align: center;
-    font-weight: 900;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 900;
 
-    padding: 5px;
-    height: 80px;
+  padding: 5px;
+  height: 80px;
 
-    padding-bottom: 35px;
+  padding-bottom: 35px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    &:hover {
-      border: 1px solid rgb(161, 161, 161);
-    }
-
-    &-purple {
-      background: linear-gradient(90deg, rgba(138, 84, 255, 0.55) 0%, rgba(155, 190, 252, 1) 89%);
-    }
-    &-red {
-      background: linear-gradient(90deg, rgba(185, 242, 100, 0.55) 0%, rgba(255, 82, 82, 1) 89%);
-    }
-    &-green {
-      background: linear-gradient(90deg, rgba(182, 100, 242, 0.55) 0%, rgba(54, 210, 87, 1) 89%);
-    }
-    &-brown {
-      background: linear-gradient(90deg, rgba(175, 222, 80, 0.55) 0%, rgba(166, 119, 73, 1) 89%);
-    }
-    &-blue {
-      background: linear-gradient(90deg, rgba(222, 97, 80, 0.55) 0%, rgba(57, 91, 185, 1) 89%);
-    }
-    &-pink {
-      background: linear-gradient(90deg, rgba(80, 222, 193, 0.55) 0%, rgba(201, 89, 177, 1) 89%);
-    }
-    &-orange {
-      background: linear-gradient(90deg, rgba(148, 80, 222, 0.55) 0%, rgba(250, 154, 22, 1) 89%);
-    }
+  &-purple {
+    background: linear-gradient(90deg, rgba(138, 84, 255, 0.55) 0%, rgba(155, 190, 252, 1) 89%);
   }
-
-  .list-title {
-    font-size: 18px;
-    font-weight: 900;
-    color: t("melist-text");
+  &-red {
+    background: linear-gradient(90deg, rgba(185, 242, 100, 0.55) 0%, rgba(255, 82, 82, 1) 89%);
   }
-
-  .unselectable {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  &-green {
+    background: linear-gradient(90deg, rgba(182, 100, 242, 0.55) 0%, rgba(54, 210, 87, 1) 89%);
   }
-
-  .link-to-list,
-  .link-to-list:hover {
-    text-decoration: none;
+  &-brown {
+    background: linear-gradient(90deg, rgba(175, 222, 80, 0.55) 0%, rgba(166, 119, 73, 1) 89%);
   }
+  &-blue {
+    background: linear-gradient(90deg, rgba(222, 97, 80, 0.55) 0%, rgba(57, 91, 185, 1) 89%);
+  }
+  &-pink {
+    background: linear-gradient(90deg, rgba(80, 222, 193, 0.55) 0%, rgba(201, 89, 177, 1) 89%);
+  }
+  &-orange {
+    background: linear-gradient(90deg, rgba(148, 80, 222, 0.55) 0%, rgba(250, 154, 22, 1) 89%);
+  }
+}
+
+.list-title {
+  font-size: 18px;
+  font-weight: 900;
+  @include themed() {
+  color: t("melist-text");
+  }
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.link-to-list,
+.link-to-list:hover {
+  text-decoration: none;
 }
