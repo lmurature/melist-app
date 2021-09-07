@@ -1,64 +1,66 @@
 @import '../../Variables.scss';
 
-.search-items {
-  padding-top: 30px;
-  background: $list-view-background;
+@include themed() {
+  .search-items {
+    padding-top: 30px;
+    background: t("list-view-background");
 
-  &-heading {
-    text-align: center;
-    margin-bottom: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
+    &-heading {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-left: 30px;
+      padding-right: 30px;
 
-    &-title {
-      color: $melist-purple;
-      font-weight: 900;
-      font-size: 30px;
+      &-title {
+        color: t("melist-purple");
+        font-weight: 900;
+        font-size: 30px;
+      }
+    }
+
+    &-input {
+      text-align: center;
     }
   }
 
-  &-input {
+  .search-button {
+    background-color: t("melist-purple") !important;
+    border: #FFFFFF !important;
+    margin-top: 15px;
+  }
+
+  button,
+  input[type="submit"],
+  input[type="reset"] {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+  .add-alert {
     text-align: center;
   }
-}
 
-.search-button {
-  background-color: $melist-purple !important;
-  border: #FFFFFF !important;
-  margin-top: 15px;
-}
+  .see-in-list {
+    background: none;
+    border: none;
 
-button,
-input[type="submit"],
-input[type="reset"] {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-}
-
-.add-alert {
-  text-align: center;
-}
-
-.see-in-list {
-  background: none;
-  border: none;
-
-  &:hover {
-    text-decoration: underline;
+    &:hover {
+      text-decoration: underline;
+    }
   }
-}
 
-.results-found {
-  text-align: center;
-  color: $melist-muted-text;
-  margin-bottom: 15px;
-}
+  .results-found {
+    text-align: center;
+    color: t("melist-muted-text");
+    margin-bottom: 15px;
+  }
 
-.pagination-footer {
-  margin-top: 15px;
+  .pagination-footer {
+    margin-top: 15px;
+  }
 }

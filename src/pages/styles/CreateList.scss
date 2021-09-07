@@ -11,16 +11,18 @@
   }
 }
 
-.create-title {
-  text-align: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  font-size: 50px;
-  color: $melist-purple;
-  font-weight: 900;
-}
+@include themed() {
+  .create-title {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 50px;
+    color: t("melist-purple");
+    font-weight: 900;
+  }
 
-.create-button {
-  background-color: $melist-purple !important;
-  margin-top: 15px;
+  .create-button {
+    background-color: t("melist-purple") !important;
+    margin-top: 15px;
+  } 
 }

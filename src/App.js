@@ -13,7 +13,7 @@ import Explore from "./pages/Explore";
 import "./App.scss";
 
 const App = ({ location }) => (
-  <React.Fragment>
+  <React.Fragment className={"theme theme--light"}>
     {location.pathname !== "/auth/authorized" && <Header />}
     <Route exact path="/" component={Home} />
     <Route path="/summary" component={Summary} />

@@ -1,27 +1,29 @@
 @import "../../Variables.scss";
 
-.navbar {
-  background: $melist-navbar-background;
-  color: $melist-navbar-text;
-}
-
-.title {
-  color: $melist-navbar-text;
-  font-size: 24px;
-  line-height: 24px;
-  font-weight: 900;
-}
-
-.login {
-  color: $melist-navbar-text;
-
-  &:hover {
-    color: $melist-muted-text
+@include themed() {
+  .navbar {
+    background: t("melist-navbar-background");
+    color: t("melist-navbar-text");
   }
-}
 
-.logo {
-  width: 30px;
-  height: 30px;
-  margin-bottom: 12px;
+  .title {
+    color: t("melist-navbar-text");
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 900;
+  }
+
+  .login {
+    color: t("melist-navbar-text");
+
+    &:hover {
+      color: t("melist-muted-text")
+    }
+  }
+
+  .logo {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 12px;
+  }
 }

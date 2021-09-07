@@ -1,13 +1,16 @@
 @import "../../Variables.scss";
+@include themed() {
 
-.config {
-  padding-top: 30px;
-  background: $list-view-background;
-  min-height: 800px;
-}
+  .config {
+    padding-top: 30px;
+    background: t("list-view-background");
+    min-height: 800px;
+  }
 
-.form-title {
-  font-weight: 900;
-  font-size: 32px;
-  color: $melist-purple;
+  .form-title {
+    font-weight: 900;
+    font-size: 32px;
+    color: t("melist-purple");
+  } 
+
 }

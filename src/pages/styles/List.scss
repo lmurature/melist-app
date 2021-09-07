@@ -1,22 +1,24 @@
 @import "../../Variables.scss";
 
-.list {
-  &-heading {
-    color: $melist-purple;
-    font-weight: 900;
-    font-size: 50px;
+@include themed() {
+  .list {
+    &-heading {
+      color: t("melist-purple");
+      font-weight: 900;
+      font-size: 50px;
+    }
+
+    &-title {
+      margin-top: 35px;
+    }
+
+    &-description {
+      color: t("melist-muted-text");
+      padding-bottom: 5px;
+    }
   }
 
-  &-title {
-    margin-top: 35px;
+  .fav-icon {
+    color: #FFD100;
   }
-
-  &-description {
-    color: $melist-muted-text;
-    padding-bottom: 5px;
-  }
-}
-
-.fav-icon {
-  color: #FFD100;
 }

@@ -24,36 +24,37 @@ img {
   max-height: 100%;
 }
 
-.vip {
-  &-title {
-    font-size: 34px;
-    font-weight: 900;
-    color: $melist-purple;
+@include themed() {
+  .vip {
+    &-title {
+      font-size: 34px;
+      font-weight: 900;
+      color: t("melist-purple");
 
-    &-box {
-      margin-bottom: 20px;
+      &-box {
+        margin-bottom: 20px;
+        margin-top: 20px;
+        text-align: center;
+      }
+    }
+
+    &-permalink {
       margin-top: 20px;
+      text-align: center;
+    }
+
+    &-price {
+      margin-top: 15px;
+      margin-bottom: 15px;
       text-align: center;
     }
   }
 
-  &-permalink {
-    margin-top: 20px;
-    text-align: center;
+  .attribute-name {
+    font-weight: bold;
   }
 
-  &-price {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    text-align: center;
+  .category-trends {
+    font-size: 18px;
   }
 }
-
-.attribute-name {
-  font-weight: bold;
-}
-
-.category-trends {
-  font-size: 18px;
-}
-

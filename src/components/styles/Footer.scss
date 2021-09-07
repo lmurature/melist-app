@@ -1,21 +1,23 @@
 @import "../../Variables.scss";
 
-.footer {
-  background-color: $melist-footer;
-  height: 100px;
-  opacity: 0.55;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  bottom: 0%;
-  left:0;
-  right:0;
-  margin: 0 auto;
-  bottom: 0;
-  z-index: 2;
-  box-sizing: border-box;
-}
+@include themed() {
+  .footer {
+    background-color: t("melist-footer");
+    height: 100px;
+    opacity: 0.55;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    bottom: 0%;
+    left:0;
+    right:0;
+    margin: 0 auto;
+    bottom: 0;
+    z-index: 2;
+    box-sizing: border-box;
+  }
 
-.info {
-  text-align: center;
-  color: $melist-footer-text;
+  .info {
+    text-align: center;
+    color: t("melist-footer-text");
+  } 
 }

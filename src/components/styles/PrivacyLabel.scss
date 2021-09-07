@@ -9,17 +9,19 @@
   user-select: none;
 }
 
-.list-privacy,
-.list-privacy:hover {
-  color: $melist-muted-text;
-  margin-top: 5px;
-  margin-bottom: 15px;
-}
+@include themed() {
+  .list-privacy,
+  .list-privacy:hover {
+    color: t("melist-muted-text");
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
 
-.list-privacy-center,
-.list-privacy-center:hover {
-  text-align: center;
-  color: $melist-muted-text;
-  margin-top: 5px;
-  margin-bottom: 15px;
+  .list-privacy-center,
+  .list-privacy-center:hover {
+    text-align: center;
+    color: t("melist-muted-text");
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
 }

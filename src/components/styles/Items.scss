@@ -1,17 +1,20 @@
 @import "../../Variables.scss";
 
-.list-items {
-  padding-top: 30px;
-  background: $list-view-background;
+@include themed() {
 
-  &-heading {
-    text-align: center;
-    margin-bottom: 30px;
+  .list-items {
+    padding-top: 30px;
+    background: t("list-view-background");
 
-    &-title {
-      color: $melist-title;
-      font-weight: 900;
-      font-size: 30px;
+    &-heading {
+      text-align: center;
+      margin-bottom: 30px;
+
+      &-title {
+        color: t("melist-title");
+        font-weight: 900;
+        font-size: 30px;
+      }
     }
-  }
+  } 
 }

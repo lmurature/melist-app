@@ -1,47 +1,49 @@
 @import "../../Variables.scss";
 
-.hi-title,
-.my-lists-heading,
-.shared-lists-heading,
-.favourites-heading {
-  color: $melist-purple;
-  font-weight: 900;
-}
+@include themed() {
+  .hi-title,
+  .my-lists-heading,
+  .shared-lists-heading,
+  .favourites-heading {
+    color: t("melist-purple");
+    font-weight: 900;
+  }
 
-.hi-title {
-  font-size: 60px;
-  background: linear-gradient(90deg, rgba(100, 242, 187, 1) 0%, rgba(155, 194, 252, 1) 73%);
-  background-clip: border-box;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 900;
-}
+  .hi-title {
+    font-size: 60px;
+    background: linear-gradient(90deg, rgba(100, 242, 187, 1) 0%, rgba(155, 194, 252, 1) 73%);
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+  }
 
-.hi-emoji {
-  -webkit-text-fill-color: black;
-}
+  .hi-emoji {
+    -webkit-text-fill-color: black;
+  }
 
-.main {
-  margin-top: 35px;
-}
+  .main {
+    margin-top: 35px;
+  }
 
-.my-lists, .favourite-lists, .shared-lists {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  background-color: $melist-muted-blue;
-  padding-top: 15px;
-  border-radius: 10px;
-}
+  .my-lists, .favourite-lists, .shared-lists {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: t("melist-muted-blue");
+    padding-top: 15px;
+    border-radius: 10px;
+  }
 
-.new-list-button,
-.search-lists-button {
-  margin: 20px;
-  background-color: $melist-purple !important;
-  border-radius: 15px !important;
-  font-size: 18px !important;
-  font-weight: bolder !important;
-}
+  .new-list-button,
+  .search-lists-button {
+    margin: 20px;
+    background-color: t("melist-purple") !important;
+    border-radius: 15px !important;
+    font-size: 18px !important;
+    font-weight: bolder !important;
+  }
 
-.empty-state-text {
-  color: $melist-muted-text;
+  .empty-state-text {
+    color: t("melist-muted-text");
+  }
 }

@@ -1,12 +1,49 @@
-$muted-green: rgba(100, 242, 187, 0.10);
-$list-view-background: rgba(132, 220, 198, 0.1);
-$melist-purple: #6853B8;
-$melist-title: $melist-purple;
-$melist-muted-text: #bebebe;
-$melist-muted-blue: rgba(104, 83, 184, 0.1);
-$melist-text: #FFFFFF;
-$melist-footer: #FAFAFA;
-$melist-footer-text: #999999;
-$melist-navbar-background: rgba(144, 100, 238, 0.95);
-$melist-navbar-text: #FFFFFF;
+$themes: (
+  light: (
+    muted-green: rgba(100, 242, 187, 0.10),
+    list-view-background: rgba(132, 220, 198, 0.1),
+    melist-purple: #6853B8,
+    melist-muted-text: #bebebe,
+    melist-muted-blue: rgba(104, 83, 184, 0.1),
+    melist-text: #FFFFFF,
+    melist-footer: #FAFAFA,
+    melist-footer-text: #999999,
+    melist-navbar-background: rgba(144, 100, 238, 0.95),
+    melist-navbar-text: #FFFFFF
+  ),
+  dark: (
+    muted-green: rgba(100, 242, 187, 0.10),
+    list-view-background: rgba(132, 220, 198, 0.1),
+    melist-purple: #6853B8,
+    melist-muted-text: #bebebe,
+    melist-muted-blue: rgba(104, 83, 184, 0.1),
+    melist-text: #FFFFFF,
+    melist-footer: #FAFAFA,
+    melist-footer-text: #999999,
+    melist-navbar-background: rgba(144, 100, 238, 0.95),
+    melist-navbar-text: #FFFFFF
+  )
+);
 
+@mixin themed() {
+
+  @each $theme,
+  $map in $themes {
+    .theme--#{$theme} & {
+      $theme-map: () !global;
+
+      @each $key,
+      $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}
