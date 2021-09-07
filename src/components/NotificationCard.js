@@ -20,7 +20,7 @@ const NotificationCard = (props) => {
 
   return (
     <Card body className={getClass()}>
-      <Dot className="unseen-dot" />
+      {!seen && <Dot className="unseen-dot"/>}
       {message} <Link to={permalink}>Ver detalle</Link>
       <span className="time-ago">{" " + getTimeAgo()}</span>
     </Card>
