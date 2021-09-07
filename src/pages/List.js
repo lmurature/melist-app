@@ -191,8 +191,10 @@ const List = () => {
           if (k === "items") {
             reloadItems();
           } else if (k === "notifications" && notifications) {
-            store.set(`notifications-${listId}`, notifications.length);
             setCachedNotifications(notifications.length);
+            setTimeout(() => {
+              store.set(`notifications-${listId}`, notifications.length);
+            }, 1000);
           }
           setTab(k);
         }}
@@ -209,7 +211,13 @@ const List = () => {
           eventKey="notifications"
           title={getNotificationTabTitle()}
         >
-          <Notifications listNotifications={notifications} />
+          <Notifications
+            listNotifications={notifications}
+            unread={
+              notifications &&
+              notifications.length - store.get(`notifications-${listId}`)
+            }
+          />
         </Tab>
         <Tab
           key="search"
