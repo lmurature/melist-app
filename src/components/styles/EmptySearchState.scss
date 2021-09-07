@@ -1,9 +1,11 @@
+@import "../../Variables.scss";
+
 .empty-state-box {
   text-align: center;
-  color: #FFFFFF;
+  color: $melist-text;
   padding-top: 80px;
   padding-bottom: 80px;
-  background-color: #bfcfbbd5;
+  background-color: $melist-muted-text;
   font-weight: 900;
   font-size: 18px;
   border-radius: 10px;

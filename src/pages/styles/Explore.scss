@@ -1,9 +1,11 @@
+@import '../../Variables.scss';
+
 .explore {
   
   &-title {
     font-weight: 900;
     font-size: 40px;
-    color: #6853B8;
+    color: $melist-purple;
   }
 
   &-heading {
@@ -12,7 +14,7 @@
   }
 
   &-main {
-    background-color: rgba(104, 83, 184, 0.1);
+    background-color: $melist-muted-blue;
     border-radius: 10px;
     padding-top: 10px;
   }

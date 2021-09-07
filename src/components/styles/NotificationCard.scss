@@ -1,3 +1,5 @@
+@import "../../Variables.scss";
+
 .notification {
   &-background {
     &-light {
@@ -15,5 +17,5 @@
 }
 
 .time-ago {
-  color: #838383
+  color: $melist-muted-text;
 }

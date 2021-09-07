@@ -1,6 +1,8 @@
+@import "../../Variables.scss";
+
 .list {
   &-heading {
-    color: #6853B8;
+    color: $melist-purple;
     font-weight: 900;
     font-size: 50px;
   }
@@ -10,7 +12,7 @@
   }
 
   &-description {
-    color: #acacac;
+    color: $melist-muted-text;
     padding-bottom: 5px;
   }
 }

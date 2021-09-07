@@ -1,6 +1,8 @@
+@import '../../Variables.scss';
+
 .search-items {
   padding-top: 30px;
-  background: rgba(132, 220, 198, 0.1);
+  background: $list-view-background;
 
   &-heading {
     text-align: center;
@@ -9,7 +11,7 @@
     padding-right: 30px;
 
     &-title {
-      color: #6853B8;
+      color: $melist-purple;
       font-weight: 900;
       font-size: 30px;
     }
@@ -21,7 +23,7 @@
 }
 
 .search-button {
-  background-color: #6853B8 !important;
+  background-color: $melist-purple !important;
   border: #FFFFFF !important;
   margin-top: 15px;
 }
@@ -53,7 +55,7 @@ input[type="reset"] {
 
 .results-found {
   text-align: center;
-  color:#bebebe;
+  color: $melist-muted-text;
   margin-bottom: 15px;
 }
 

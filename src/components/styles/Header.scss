@@ -1,20 +1,22 @@
+@import "../../Variables.scss";
+
 .navbar {
-  background: rgba(144, 100, 238, 0.95);
-  color: white;
+  background: $melist-navbar-background;
+  color: $melist-navbar-text;
 }
 
 .title {
-  color: #FFFFFF;
+  color: $melist-navbar-text;
   font-size: 24px;
   line-height: 24px;
   font-weight: 900;
 }
 
 .login {
-  color: #FFFFFF;
+  color: $melist-navbar-text;
 
   &:hover {
-    color: #dadada;
+    color: $melist-muted-text
   }
 }
 

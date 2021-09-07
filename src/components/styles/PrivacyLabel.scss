@@ -1,3 +1,5 @@
+@import "../../Variables.scss";
+
 .unselectable {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -9,7 +11,7 @@
 
 .list-privacy,
 .list-privacy:hover {
-  color: grey;
+  color: $melist-muted-text;
   margin-top: 5px;
   margin-bottom: 15px;
 }
@@ -17,7 +19,7 @@
 .list-privacy-center,
 .list-privacy-center:hover {
   text-align: center;
-  color: grey;
+  color: $melist-muted-text;
   margin-top: 5px;
   margin-bottom: 15px;
 }

@@ -1,3 +1,5 @@
+@import "../../Variables.scss";
+
 .list-card {
   margin-left: 10px;
   margin-right: 10px;
@@ -47,7 +49,7 @@
 .list-title {
   font-size: 18px;
   font-weight: 900;
-  color: #FFFFFF;
+  color: $melist-text;
 }
 
 .unselectable {

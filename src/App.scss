@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import './Variables.scss';
 
 body {
   font-family: 'Nunito' !important;
-  background-color: rgba(100, 242, 187, 0.10);
+  background-color: $muted-green;
 }

@@ -1,5 +1,7 @@
+@import "../../Variables.scss";
+
 .footer {
-  background-color: #FAFAFA;/* #dfdfdf; */
+  background-color: $melist-footer;
   height: 100px;
   opacity: 0.55;
   padding-top: 40px;
@@ -15,5 +17,5 @@
 
 .info {
   text-align: center;
-  color: #999999;
+  color: $melist-footer-text;
 }

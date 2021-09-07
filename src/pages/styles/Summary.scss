@@ -1,8 +1,10 @@
+@import "../../Variables.scss";
+
 .hi-title,
 .my-lists-heading,
 .shared-lists-heading,
 .favourites-heading {
-  color: #6853B8;
+  color: $melist-purple;
   font-weight: 900;
 }
 
@@ -26,7 +28,7 @@
 .my-lists, .favourite-lists, .shared-lists {
   margin-top: 30px;
   margin-bottom: 30px;
-  background-color: rgba(104, 83, 184, 0.1);
+  background-color: $melist-muted-blue;
   padding-top: 15px;
   border-radius: 10px;
 }
@@ -34,12 +36,12 @@
 .new-list-button,
 .search-lists-button {
   margin: 20px;
-  background-color: #6853B8 !important;
+  background-color: $melist-purple !important;
   border-radius: 15px !important;
   font-size: 18px !important;
   font-weight: bolder !important;
 }
 
 .empty-state-text {
-  color: #a7a7a7;
+  color: $melist-muted-text;
 }
