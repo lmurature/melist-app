@@ -2,11 +2,21 @@ import reportWebVitals from "./reportWebVitals";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
+import store from "store";
+import "./App.scss";
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <div
+    className={
+      store.get("nightmode")
+        ? "app theme theme--dark"
+        : "app theme theme--light"
+    }
+  >
+    <Router>
+      <App />
+    </Router>
+  </div>,
   document.getElementById("root")
 );
 

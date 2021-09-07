@@ -1,6 +1,6 @@
 $themes: (
   light: (
-    background: rgba(100, 242, 187, 0.10),
+    melist-background: #FFFFFF,
     muted-green: rgba(100, 242, 187, 0.10),
     list-view-background: rgba(132, 220, 198, 0.1),
     melist-title: #000000,
@@ -17,7 +17,7 @@ $themes: (
     melist-navbar-text: #000000,
   ),
   dark: (
-    background: rgb(20, 20, 20),
+    melist-background: rgb(20, 20, 20),
     muted-green: rgb(65, 192, 144),
     list-view-background: rgba(0, 0, 0, 1),
     melist-title: #FFFFFF,
@@ -31,7 +31,7 @@ $themes: (
     melist-notification-dark: #52991f26,
     melist-footer-text: #999999,
     melist-navbar-background: #2f2f2f,
-    melist-navbar-text: #FFFFFF
+    melist-navbar-text: #FFFFFF,
   )
 );
 

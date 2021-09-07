@@ -2,8 +2,14 @@
 
 .navbar {
   @include themed() {
-  background: t("melist-navbar-background");
-  color: t("melist-navbar-text");
+    background: t("melist-navbar-background");
+    color: t("melist-navbar-text");
+  }
+  
+  &-dropdown {
+    @include themed() {
+      color: t("melist-navbar-text") !important;
+    }
   }
 }
 

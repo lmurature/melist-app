@@ -62,12 +62,12 @@ function Header() {
           />{" "}
           <span className="title">ME List</span>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           {authenticated ? (
             <Nav className="ml-auto">
               <NavDropdown
                 alignRight
+                className="navbar-dropdown"
                 title={getCapitalizedName()}
                 id="basic-nav-dropdown"
               >
@@ -83,7 +83,7 @@ function Header() {
                     }
                   }}
                 >
-                  {nightMode ? "Modo normal" : "Modo noche"}
+                {nightMode ? "Modo normal" : "Modo oscuro"}
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item

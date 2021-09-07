@@ -1,10 +1,8 @@
-@import './Variables.scss';
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+  @import './Variables.scss';
+  @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 .app {
-  /* font-family: 'Nunito' !important; */
   @include themed() {
-    background-color: t("background") !important;
+    background-color: t("melist-background");
   }
 }
