@@ -24,7 +24,7 @@ const Authorized = (props) => {
       .then((res) => {
         store.set("access-token", res.data);
         const cookies = new Cookies();
-        cookies.set("access-token", res.data.access_token, {
+        cookies.set("refresh-token", res.data.refresh_token, {
           path: "/summary",
         });
         setToken(res.data);
