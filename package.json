@@ -22,6 +22,7 @@
     "react-scripts": "4.0.3",
     "recharts": "^2.1.1",
     "store": "^2.0.12",
+    "universal-cookie": "^4.0.4",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

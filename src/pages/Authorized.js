@@ -3,6 +3,7 @@ import { useLocation, Redirect } from "react-router-dom";
 import axios from "axios";
 import RestUtils from "../utils/RestUtils";
 import store from "store";
+import Cookies from "universal-cookie";
 import { Spinner } from "react-bootstrap";
 
 function useQuery() {
@@ -22,6 +23,10 @@ const Authorized = (props) => {
       })
       .then((res) => {
         store.set("access-token", res.data);
+        const cookies = new Cookies();
+        cookies.set("access-token", res.data.access_token, {
+          path: "/summary",
+        });
         setToken(res.data);
       })
       .catch((err) => {
