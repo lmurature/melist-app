@@ -4,6 +4,7 @@ import axios from "axios";
 import Logo from "../assets/Frame.png";
 import RestUtils from "../utils/RestUtils";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+import Cookies from "universal-cookie";
 import "./styles/Header.scss";
 
 function Header() {
@@ -83,15 +84,18 @@ function Header() {
                     }
                   }}
                 >
-                {nightMode ? "Modo normal" : "Modo oscuro"}
+                  {nightMode ? "Modo normal" : "Modo oscuro"}
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
                   href="/"
-                  onClick={() => store.remove("access-token")}
+                  onClick={() => {
+                    store.remove("access-token");
+                    const cookies = new Cookies();
+                    cookies.remove("refresh-token", { path: "/summary" });
+                  }}
                 >
-                  {" "}
-                  Cerrar sesión{" "}
+                  Cerrar sesión
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
