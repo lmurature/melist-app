@@ -75,13 +75,13 @@ function Header() {
                 <NavDropdown.Item href="/summary">Inicio</NavDropdown.Item>
                 <NavDropdown.Item href="/explore">Explorar</NavDropdown.Item>
                 <NavDropdown.Item
-                  href="/summary"
                   onClick={() => {
                     if (nightMode) {
                       store.set("nightmode", false);
                     } else {
                       store.set("nightmode", true);
                     }
+                    window.location.reload();
                   }}
                 >
                   {nightMode ? "Modo normal" : "Modo oscuro"}
