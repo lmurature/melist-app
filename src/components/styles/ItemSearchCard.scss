@@ -1,3 +1,5 @@
+@import "../../Variables.scss";
+
 .thumbnail {
   height: 10rem;
   width: 100%;
@@ -14,6 +16,9 @@
   }
 
   &-title {
+    @include themed() {
+      color: t("melist-primary-text");
+    }
     margin-bottom: 0px;
     font-size: 14px;
   }
