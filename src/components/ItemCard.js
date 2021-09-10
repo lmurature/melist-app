@@ -57,7 +57,7 @@ const ItemCard = (props) => {
             alt={description}
           />
         </Link>
-        <Row>
+        <Row className="actionable-buttons">
           {(shareType === "admin" ||
             shareType === "write" ||
             shareType === "check") && (
