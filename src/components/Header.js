@@ -6,6 +6,7 @@ import RestUtils from "../utils/RestUtils";
 import { Navbar, Nav, NavDropdown, Container, Button } from "react-bootstrap";
 import Cookies from "universal-cookie";
 import "./styles/Header.scss";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -66,16 +67,20 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           {authenticated ? (
             <Nav className="ml-auto">
-              <Button href="/list/create" className="add-list-header">
-                Crear nueva lista
-              </Button>
-              <NavDropdown
-                alignRight
-                title={getCapitalizedName()}
-                id="basic-nav-dropdown"
-              >
-                <NavDropdown.Item href="/summary">Inicio</NavDropdown.Item>
-                <NavDropdown.Item href="/explore">Explorar</NavDropdown.Item>
+              <Link className="add-list-header" to="/summary">
+                <Button className="add-list-header">Inicio</Button>
+              </Link>
+
+              <Link className="add-list-header" to="/list/create">
+                <Button className="add-list-header">Crear lista</Button>
+              </Link>
+              <Link className="add-list-header" to="/explore" Explorar>
+                <Button className="add-list-header">Explorar</Button>
+              </Link>
+              <NavDropdown alignRight title={"Menú"} id="basic-nav-dropdown">
+                <NavDropdown.Header className="dropdown-header">
+                  {getCapitalizedName()}
+                </NavDropdown.Header>
                 <NavDropdown.Item
                   onClick={() => {
                     if (nightMode) {
@@ -86,7 +91,7 @@ function Header() {
                     window.location.reload();
                   }}
                 >
-                  {nightMode ? "Modo normal" : "Modo oscuro"}
+                  {nightMode ? "Modo día ☀️" : "Modo noche 🌙"}
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
