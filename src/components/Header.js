@@ -3,7 +3,7 @@ import store from "store";
 import axios from "axios";
 import Logo from "../assets/Frame.png";
 import RestUtils from "../utils/RestUtils";
-import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container, Button } from "react-bootstrap";
 import Cookies from "universal-cookie";
 import "./styles/Header.scss";
 
@@ -66,9 +66,11 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           {authenticated ? (
             <Nav className="ml-auto">
+              <Button href="/list/create" className="add-list-header">
+                Crear nueva lista
+              </Button>
               <NavDropdown
                 alignRight
-                className="navbar-dropdown"
                 title={getCapitalizedName()}
                 id="basic-nav-dropdown"
               >

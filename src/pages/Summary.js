@@ -3,6 +3,7 @@ import RestUtils from "../utils/RestUtils";
 import axios from "axios";
 import { Container, Button, Row, Col } from "react-bootstrap";
 import ListCard from "../components/ListCard";
+import { PlusCircle } from "react-bootstrap-icons";
 import "./styles/Summary.scss";
 import "animate.css";
 
@@ -54,7 +55,12 @@ const Summary = (props) => {
         <span className="hi-emoji">👋</span>
       </h1>
       <div className="main-list-view">
-        <h2 className="my-lists-heading">Mis Listas 📋</h2>
+        <h2 className="my-lists-heading">
+          Mis Listas 📋{" "}
+          <Button href="/list/create" className="new-list-button">
+            Crear nueva lista
+          </Button>
+        </h2>
         <div className="my-lists">
           <Row>
             {lists.length > 0 ? (
@@ -88,8 +94,8 @@ const Summary = (props) => {
               </Container>
             )}
             <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
-              <Button href="/list/create" className="new-list-button">
-                Nueva lista
+              <Button href="/list/create" className="cross-add-list-button">
+                <PlusCircle />
               </Button>
             </Col>
           </Row>
@@ -129,7 +135,12 @@ const Summary = (props) => {
             )}
           </Row>
         </div>
-        <h2 className="favourites-heading">Favoritos 🌟</h2>
+        <h2 className="favourites-heading">
+          Favoritos 🌟{" "}
+          <Button href="/explore" className="search-lists-button">
+            Explorar
+          </Button>
+        </h2>
         <div className="favourite-lists">
           <Row>
             {favouriteLists.length > 0 ? (
@@ -162,11 +173,6 @@ const Summary = (props) => {
                 públicas
               </Container>
             )}
-            <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
-              <Button href="/explore" className="search-lists-button">
-                Explorar
-              </Button>
-            </Col>
           </Row>
         </div>
       </div>

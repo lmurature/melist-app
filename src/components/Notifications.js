@@ -6,7 +6,6 @@ const Notifications = (props) => {
   const { listNotifications, unread } = props;
 
   const isSeen = (index) => {
-    console.log(index, unread, index < unread);
     return index >= unread;
   };
 

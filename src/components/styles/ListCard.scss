@@ -41,7 +41,7 @@
 }
 
 .list-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 900;
   @include themed() {
   color: t("melist-text");

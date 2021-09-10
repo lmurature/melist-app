@@ -11,7 +11,6 @@ const ItemSearchModal = (props) => {
 
   return data !== null && data !== undefined ? (
     <Container>
-      {console.log(data)}
       <Row>
         <Col lg={6} md={6} xl={6} xs={6} xxl={6}>
           <Carousel

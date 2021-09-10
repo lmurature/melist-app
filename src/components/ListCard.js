@@ -8,7 +8,6 @@ import store from "store";
 const ListCard = (props) => {
   let classes = [
     "list-card-purple",
-    //"list-card-red", // discarded for now
     "list-card-green",
     "list-card-brown",
     "list-card-blue",

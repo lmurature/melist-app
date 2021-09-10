@@ -18,7 +18,7 @@
 
   &-price {
     color: #00AF5B;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 900;
   }
 }
@@ -36,10 +36,28 @@
 }
 
 .trash {
+  font-size: 24px;
+  padding-bottom: 5px;
   color: #af0000;
   text-align: right;
+  margin-right: 15%;
+  border-top: 1.5px solid rgba(128, 128, 128, 0.5);
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  border-right: 1.5px solid rgba(128, 128, 128, 0.5);
+  border-bottom: 1.5px solid rgba(128, 128, 128, 0.5);
 }
 
 .check {
+  font-size: 24px;
+  padding-bottom: 5px;
   color: #00AF5B;
+  text-align: left;
+  margin-left: 15%;
+  border-right: 0.5px solid rgba(128, 128, 128, 0.5);
+  border-top: 1.5px solid rgba(128, 128, 128, 0.5);
+  border-bottom: 1.5px solid rgba(128, 128, 128, 0.5);
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  border-left: 1.5px solid rgba(128, 128, 128, 0.5);
 }

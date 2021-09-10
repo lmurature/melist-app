@@ -24,28 +24,11 @@ const ItemCard = (props) => {
     shareType,
   } = props;
 
-  const getFormattedText = (text) => {
-    return itemListStatus === "checked"
-      ? text
-          .split("")
-          .map((char) => char + "\u0336")
-          .join("")
-      : text;
-  };
-
   const checkItem = () => {
     if (itemListStatus === "not_checked") {
-      if (window.confirm("¿Marcar el producto como comprado?")) {
-        handleCheck(id, true);
-      }
+      handleCheck(id, true);
     } else {
-      if (
-        window.confirm(
-          "Este producto está marcado como comprado, ¿Estás seguro que deseas marcarlo como no comprado?"
-        )
-      ) {
-        handleCheck(id, false);
-      }
+      handleCheck(id, false);
     }
   };
 
@@ -61,37 +44,37 @@ const ItemCard = (props) => {
 
   return (
     <div>
-      <Row>
-        {(shareType === "admin" ||
-          shareType === "write" ||
-          shareType === "check") && (
-          <Col className="check">
-            <button onClick={checkItem}>
-              {itemListStatus === "checked" ? (
-                <PatchCheckFill />
-              ) : (
-                <PatchCheck />
-              )}
-            </button>
-          </Col>
-        )}
-        {(shareType === "admin" || shareType === "write") && (
-          <Col className="trash">
-            <button onClick={deleteItem}>
-              <Trash />
-            </button>
-          </Col>
-        )}
-      </Row>
-      <Link to={`/lists/${listId}/${id}`}>
-        <div className="thumbnail-div">
+      <div className="thumbnail-div">
+        <Link to={`/lists/${listId}/${id}`}>
           <img
             className="thumbnail"
             src={itemStatus === "active" ? thumbnail : placeHolder}
             alt={description}
           />
-        </div>
-      </Link>
+        </Link>
+        <Row>
+          {(shareType === "admin" ||
+            shareType === "write" ||
+            shareType === "check") && (
+            <Col className="check">
+              <button onClick={checkItem}>
+                {itemListStatus === "checked" ? (
+                  <PatchCheckFill />
+                ) : (
+                  <PatchCheck />
+                )}
+              </button>
+            </Col>
+          )}
+          {(shareType === "admin" || shareType === "write") && (
+            <Col className="trash">
+              <button onClick={deleteItem}>
+                <Trash />
+              </button>
+            </Col>
+          )}
+        </Row>
+      </div>
       <div className="item-data">
         <span className="item-data-price">
           <NumberFormat
@@ -102,7 +85,7 @@ const ItemCard = (props) => {
             prefix={"$"}
           />
         </span>
-        <p>
+        <div>
           {itemListStatus === "checked" ? (
             <Badge pill className="pill pill-checked">
               COMPRADO
@@ -114,7 +97,7 @@ const ItemCard = (props) => {
               </Badge>
             )
           )}
-        </p>
+        </div>
         <p className="item-data-title">{title}</p>
       </div>
     </div>

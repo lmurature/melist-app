@@ -5,11 +5,11 @@
     background: t("melist-navbar-background");
     color: t("melist-navbar-text");
   }
-  
-  &-dropdown {
-    @include themed() {
-      color: t("melist-navbar-text") !important;
-    }
+}
+
+#basic-nav-dropdown {
+  @include themed() {
+    color: t("melist-navbar-text") !important;
   }
 }
 
@@ -38,4 +38,15 @@
   width: 30px;
   height: 30px;
   margin-bottom: 12px;
+}
+
+.add-list-header {
+  background-color: transparent !important;
+  @include themed() {
+    color: t("melist-navbar-text") !important;
+  }
+  border-radius: 15px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border: 0 !important;
 }
