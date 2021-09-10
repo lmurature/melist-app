@@ -10,8 +10,10 @@ const Items = (props) => {
   const { listId, shareType, notifications } = props;
 
   const [listItems, setListItems] = useState([]);
+  const [readyToRequest, setReadyToRequest] = useState(true);
 
   const handleCheck = (itemId, isCheck) => {
+    setReadyToRequest(false);
     axios
       .put(
         `${RestUtils.getApiUrl()}/api/lists/${listId}/${
@@ -20,8 +22,11 @@ const Items = (props) => {
         null,
         RestUtils.getHeaders()
       )
-      .then((response) => setListItems(response.data))
-      .catch((err) => console.log(err));
+      .then((response) => {
+        setListItems(response.data);
+        setReadyToRequest(true);
+      })
+      .catch((err) => setReadyToRequest(true));
   };
 
   const handleDelete = (itemId) => {
@@ -73,6 +78,7 @@ const Items = (props) => {
                     handleCheck={handleCheck}
                     handleDelete={handleDelete}
                     shareType={shareType}
+                    readyToRequest={readyToRequest}
                   />
                 </Col>
               );

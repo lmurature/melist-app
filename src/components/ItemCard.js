@@ -22,6 +22,7 @@ const ItemCard = (props) => {
     handleCheck,
     handleDelete,
     shareType,
+    readyToRequest,
   } = props;
 
   const checkItem = () => {
@@ -42,6 +43,10 @@ const ItemCard = (props) => {
     }
   };
 
+  const getCheckClass = () => {
+    return readyToRequest ? "check ready" : "check wait";
+  };
+
   return (
     <div>
       <div className="thumbnail-div">
@@ -56,14 +61,12 @@ const ItemCard = (props) => {
           {(shareType === "admin" ||
             shareType === "write" ||
             shareType === "check") && (
-            <Col className="check">
-              <button onClick={checkItem}>
-                {itemListStatus === "checked" ? (
-                  <PatchCheckFill />
-                ) : (
-                  <PatchCheck />
-                )}
-              </button>
+            <Col className={getCheckClass()} onClick={checkItem}>
+              {itemListStatus === "checked" ? (
+                <PatchCheckFill />
+              ) : (
+                <PatchCheck />
+              )}
             </Col>
           )}
           {(shareType === "admin" || shareType === "write") && (
