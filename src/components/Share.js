@@ -159,12 +159,8 @@ const Share = (props) => {
     <div className="share">
       <Container>
         <Row>
-          <Col>
+          <Col lg={6} md={6} xl={6} xxl={6}>
             <div className="search-users-title">Buscar usuarios</div>
-          </Col>
-          <Col lg={1} md={1} xl={1} xs={1} xxl={1} />
-          <Col>
-            <div className="search-users-title">Colaboradores</div>
           </Col>
         </Row>
         <Row>
@@ -189,7 +185,6 @@ const Share = (props) => {
               </Col>
             </Row>
           </Col>
-          <Col lg={1} md={1} xl={1} xs={1} xxl={1} />
           <Col>
             <Container>
               <div>
@@ -234,56 +229,49 @@ const Share = (props) => {
               </Container>
             </div>
           </Col>
-          <Col lg={1} md={1} xl={1} xs={1} xxl={1}>
-            <Row>
-              <Col>
-                <div className="share-type-radios">
-                  <Form.Check
-                    checked={shouldBeChecked("read")}
-                    onChange={handleRadio}
-                    type="radio"
-                    label="Read"
-                    value="read"
-                  />
-                  <Form.Check
-                    checked={shouldBeChecked("write")}
-                    onChange={handleRadio}
-                    type="radio"
-                    label="Write"
-                    value="write"
-                  />
-                  <Form.Check
-                    checked={shouldBeChecked("check")}
-                    onChange={handleRadio}
-                    type="radio"
-                    label="Check"
-                    value="check"
-                  />
-                </div>
-              </Col>
-              <Col>
-                <div className="button-box">
-                  <Button
-                    className="search-button"
-                    onClick={handleShareRequest}
-                  >
-                    Guardar
-                  </Button>
-                </div>
-              </Col>
-            </Row>
+          <Col sm={12} lg={2} md={2} xl={2} xxl={2} className="type-save">
+            <div className="share-type-radios">
+              <div className="checkbox-title">Otorgar acceso</div>
+              <Form.Check
+                checked={shouldBeChecked("read")}
+                onChange={handleRadio}
+                type="radio"
+                label="Read"
+                value="read"
+              />
+              <Form.Check
+                checked={shouldBeChecked("write")}
+                onChange={handleRadio}
+                type="radio"
+                label="Write"
+                value="write"
+              />
+              <Form.Check
+                checked={shouldBeChecked("check")}
+                onChange={handleRadio}
+                type="radio"
+                label="Check"
+                value="check"
+              />
+            </div>
+            <div className="save-box">
+              <Button
+                className="search-button"
+                onClick={handleShareRequest}
+              >
+                Guardar
+              </Button>
+            </div>
           </Col>
           <Col>
             <div className="share-box">
               <Container>
                 {colabs.map((c) => {
                   return (
-                    <div key={c.user_id}>
+                    <div className="colabs" key={c.user_id}>
                       <Row>
                         <Col lg={8} md={8} xl={8} xs={8} xxl={8}>
                           {c.user.first_name +
-                            " " +
-                            c.user.last_name +
                             " " +
                             "(" +
                             c.user.nickname +

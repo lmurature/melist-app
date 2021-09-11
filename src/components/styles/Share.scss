@@ -26,6 +26,22 @@
   @include themed() {
   color: t("melist-title");
   }
+  @media only screen and (max-width: 480px) {
+    font-size: 24px;
+  }
+}
+
+.checkbox-title {
+  font-size: 16px;
+    font-weight: 900;
+
+  @include themed() {
+    color: t("melist-title");
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 12px;
+  }
 }
 
 .info-bold {
@@ -38,10 +54,24 @@
 }
 
 .share-type-radios {
-  padding-top: 150px;
+  padding-top: 15px;
+  @media only screen and (min-width: 620px) {
+      padding-top: 105px;
+  }
   font-size: 14px;
+  margin: auto !important;
 }
 
 .revoke-button {
   margin-bottom: 10px;
+}
+
+.colabs {
+  @media only screen and (max-width: 480px) {
+    font-size: 16px;
+  }
+}
+
+.type-save {
+  text-align: center;
 }
