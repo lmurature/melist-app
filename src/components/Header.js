@@ -54,16 +54,18 @@ function Header() {
   return (
     <Navbar className="navbar" sticky="top">
       <Container>
-        <Navbar.Brand href="/summary" className="text-white">
-          <img
-            src={Logo}
-            alt="ME List"
-            width="30"
-            height="30"
-            className="logo"
-          />{" "}
-          <span className="title">ME List</span>
-        </Navbar.Brand>
+        <Link to="/summary">
+          <Navbar.Brand className="text-white">
+            <img
+              src={Logo}
+              alt="ME List"
+              width="30"
+              height="30"
+              className="logo"
+            />{" "}
+            <span className="title">ME List</span>
+          </Navbar.Brand>
+        </Link>
         <Navbar.Collapse id="basic-navbar-nav">
           {authenticated ? (
             <Nav className="ml-auto">

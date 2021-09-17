@@ -6,6 +6,7 @@ import ListCard from "../components/ListCard";
 import { PlusCircle } from "react-bootstrap-icons";
 import "./styles/Summary.scss";
 import "animate.css";
+import { Link } from "react-router-dom";
 
 const Summary = (props) => {
   const [user, setUser] = useState({ first_name: "", last_name: "" });
@@ -57,9 +58,9 @@ const Summary = (props) => {
       <div className="main-list-view">
         <h2 className="my-lists-heading">
           Mis Listas 📋{" "}
-          <Button href="/list/create" className="new-list-button">
-            Crear nueva lista
-          </Button>
+          <Link to="/list/create">
+            <Button className="new-list-button">Crear nueva lista</Button>
+          </Link>
         </h2>
         <div className="my-lists">
           <Row>
@@ -94,9 +95,11 @@ const Summary = (props) => {
               </Container>
             )}
             <Col lg={2} md={3} xl={2} xs={6} xxl={2}>
-              <Button href="/list/create" className="cross-add-list-button">
-                <PlusCircle />
-              </Button>
+              <Link to="/list/create">
+                <Button className="cross-add-list-button">
+                  <PlusCircle />
+                </Button>
+              </Link>
             </Col>
           </Row>
         </div>
@@ -137,9 +140,11 @@ const Summary = (props) => {
         </div>
         <h2 className="favourites-heading">
           Favoritos 🌟{" "}
-          <Button href="/explore" className="search-lists-button">
-            Explorar
-          </Button>
+          <Link to="/explore">
+            <Button className="search-lists-button">
+              Explorar
+            </Button>
+          </Link>
         </h2>
         <div className="favourite-lists">
           <Row>

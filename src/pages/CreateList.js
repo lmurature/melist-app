@@ -72,6 +72,9 @@ const CreateList = () => {
       <Col>
         <Form className="list-form">
           <h1 className="create-title">Crear nueva Lista</h1>
+          <div className="text-center">
+            {submitted ? showSpinnerListOrApiError() : ""}
+          </div>
           <Form.Group className="mb-3">
             <Form.Label>Nombre de la lista</Form.Label>
             <Form.Control
@@ -113,9 +116,6 @@ const CreateList = () => {
             >
               Crear lista
             </Button>
-          </div>
-          <div className="text-center">
-            {submitted ? showSpinnerListOrApiError() : ""}
           </div>
         </Form>
       </Col>
