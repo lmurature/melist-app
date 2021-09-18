@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import ListCard from "../components/ListCard";
-import axios from "axios";
-import RestUtils from "../utils/RestUtils";
 import "./styles/Explore.scss";
 import "animate.css";
+import ListsRepository from "../services/repositories/ListsRepository";
 
 const Explore = (props) => {
   const [publicLists, setPublicLists] = useState(null);
   const [filteredLists, setFilteredLists] = useState(null);
+  const [apiError, setApiError] = useState(null); // TODO: manage
+
+  const fetchData = async () => {
+    try {
+      const publicResult = await ListsRepository.getPublicLists();
+      setPublicLists(publicResult);
+      setFilteredLists(publicResult);
+    } catch (err) {
+      setApiError(err);
+    }
+  };
 
   useEffect(() => {
-    axios
-      .get(`${RestUtils.getApiUrl()}/api/lists/search`, RestUtils.getHeaders())
-      .then((response) => {
-        setPublicLists(response.data);
-        setFilteredLists(response.data);
-      })
-      .catch((err) => console.log(err));
+    fetchData();
   }, []);
 
   const handleFilter = (e) => {

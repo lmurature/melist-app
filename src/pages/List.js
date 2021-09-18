@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useHistory, Link } from "react-router-dom";
-import RestUtils from "../utils/RestUtils";
 import { Container, Tabs, Tab } from "react-bootstrap";
 import Items from "../components/Items";
 import Search from "../components/Search";
@@ -8,10 +7,10 @@ import Share from "../components/Share";
 import Config from "../components/Config";
 import PrivacyLabel from "../components/PrivacyLabel";
 import Notifications from "../components/Notifications";
-import axios from "axios";
 import "./styles/List.scss";
 import { ArrowLeft, Star, StarFill } from "react-bootstrap-icons";
 import store from "store";
+import ListsRepository from "../services/repositories/ListsRepository";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -33,19 +32,19 @@ const List = () => {
   const [showFavIcon, setShowFavIcon] = useState(true);
   const [notifications, setNotifications] = useState(null);
   const [cachedNotifications, setCachedNotifications] = useState(0);
+  const [apiErr, setApiErr] = useState(null); // TODO: Manage
 
   const [tab, setTab] = useState(getContextOrDefault("items"));
 
   const [listPermissions, setListPermissions] = useState({});
 
-  const reloadItems = () => {
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/${listId}/items?info=true`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setListItems(response.data))
-      .catch((err) => console.log(err));
+  const reloadItems = async () => {
+    try {
+      const items = await ListsRepository.getListItems(listId, true);
+      setListItems(items);
+    } catch (err) {
+      setApiErr(err);
+    }
   };
 
   const shouldBeDisabled = (tabKey) => {
@@ -68,31 +67,20 @@ const List = () => {
     setTab(tab);
   };
 
-  const handleFavClick = () => {
+  const handleFavClick = async () => {
     setShowFavIcon(false);
-    if (listIsFaved) {
-      axios
-        .delete(
-          `${RestUtils.getApiUrl()}/api/lists/favorite/${listId}`,
-          RestUtils.getHeaders()
-        )
-        .then((response) => {
-          setListIsFaved(false);
-          setShowFavIcon(true);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      axios
-        .put(
-          `${RestUtils.getApiUrl()}/api/lists/favorite/${listId}`,
-          null,
-          RestUtils.getHeaders()
-        )
-        .then((response) => {
-          setListIsFaved(true);
-          setShowFavIcon(true);
-        })
-        .catch((err) => console.log(err));
+    try {
+      if (listIsFaved) {
+        await ListsRepository.deleteFavorite(listId);
+        setListIsFaved(false);
+        setShowFavIcon(true);
+      } else {
+        await ListsRepository.setListAsFavorite(listId);
+        setListIsFaved(true);
+        setShowFavIcon(true);
+      }
+    } catch (err) {
+      setApiErr(err);
     }
   };
 
@@ -116,55 +104,38 @@ const List = () => {
     }
   };
 
+  const fetchData = async () => {
+    try {
+      const listResult = await ListsRepository.getList(listId);
+      setList(listResult);
+
+      const items = await ListsRepository.getListItems(listId, true);
+      setListItems(items);
+
+      const permissions = await ListsRepository.getListPermissions(listId);
+      setListPermissions(permissions);
+
+      const favorites = await ListsRepository.getFavoriteLists();
+      favorites.forEach((list) => {
+        if (list.id == listId) {
+          setListIsFaved(true);
+        }
+      });
+
+      const listNotifications = await ListsRepository.getListNotifications(
+        listId
+      );
+      setNotifications(listNotifications);
+    } catch (err) {
+      setApiErr(err);
+    }
+  };
+
   useEffect(() => {
     if (store.get(`notifications-${listId}`)) {
       setCachedNotifications(store.get(`notifications-${listId}`));
     }
-
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/get/${listId}`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setList(response.data))
-      .catch((err) => console.log(err));
-
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/${listId}/items?info=true`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setListItems(response.data))
-      .catch((err) => console.log(err));
-
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/get/${listId}/permissions`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setListPermissions(response.data))
-      .catch((err) => console.log(err));
-
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/get/favorites`,
-        RestUtils.getHeaders()
-      )
-      .then((response) =>
-        response.data.forEach((list) => {
-          if (list.id == listId) {
-            setListIsFaved(true);
-          }
-        })
-      )
-      .catch((err) => console.log(err));
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/get/${listId}/notifications`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setNotifications(response.data))
-      .catch((err) => console.log(err));
+    fetchData();
   }, [listId]);
 
   return (

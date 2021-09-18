@@ -1,49 +1,40 @@
 import { useEffect, useState } from "react";
-import RestUtils from "../utils/RestUtils";
-import axios from "axios";
 import { Container, Button, Row, Col } from "react-bootstrap";
 import ListCard from "../components/ListCard";
 import { PlusCircle } from "react-bootstrap-icons";
 import "./styles/Summary.scss";
 import "animate.css";
 import { Link } from "react-router-dom";
+import UsersService from "../services/UsersService";
+import ListsService from "../services/ListsService";
 
 const Summary = (props) => {
   const [user, setUser] = useState({ first_name: "", last_name: "" });
   const [lists, setLists] = useState([]);
   const [sharedLists, setSharedLists] = useState([]);
   const [favouriteLists, setFavouriteLists] = useState([]);
-  const [apiError, setApiError] = useState(null);
+  const [apiError, setApiError] = useState(null); // TODO: manage apiError.
+
+  const fetchData = async () => {
+    try {
+      const [first_name, last_name] = await UsersService.getUser();
+      setUser({ first_name: first_name, last_name: last_name });
+
+      const favorites = await ListsService.getFavoriteLists();
+      setFavouriteLists(favorites);
+
+      const ownedLists = await ListsService.getOwnedLists();
+      setLists(ownedLists);
+
+      const shared = await ListsService.getSharedLists();
+      setSharedLists(shared);
+    } catch (err) {
+      setApiError(err);
+    }
+  };
 
   useEffect(() => {
-    axios
-      .get(`${RestUtils.getApiUrl()}/api/users/me`, RestUtils.getHeaders())
-      .then((response) => setUser(response.data))
-      .catch((err) => setApiError(err));
-
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/get/all_owned`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setLists(response.data))
-      .catch((err) => setApiError(err));
-
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/get/all_shared`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setSharedLists(response.data))
-      .catch((err) => setApiError(err));
-
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/get/favorites`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setFavouriteLists(response.data))
-      .catch((err) => setApiError(err));
+    fetchData();
   }, []);
 
   const getCapitalizedName = () =>
@@ -64,7 +55,7 @@ const Summary = (props) => {
         </h2>
         <div className="my-lists">
           <Row>
-            {lists.length > 0 ? (
+            {lists.length ? (
               lists.map((l, i) => {
                 return (
                   <Col
@@ -106,7 +97,7 @@ const Summary = (props) => {
         <h2 className="shared-lists-heading">Compartidas conmigo 🙋‍♂️</h2>
         <div className="shared-lists">
           <Row>
-            {sharedLists.length > 0 ? (
+            {sharedLists.length ? (
               sharedLists.map((l, i) => {
                 return (
                   <Col
@@ -141,14 +132,12 @@ const Summary = (props) => {
         <h2 className="favourites-heading">
           Favoritos 🌟{" "}
           <Link to="/explore">
-            <Button className="search-lists-button">
-              Explorar
-            </Button>
+            <Button className="search-lists-button">Explorar</Button>
           </Link>
         </h2>
         <div className="favourite-lists">
           <Row>
-            {favouriteLists.length > 0 ? (
+            {favouriteLists.length ? (
               favouriteLists.map((l, i) => {
                 return (
                   <Col

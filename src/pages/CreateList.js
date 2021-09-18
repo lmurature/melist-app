@@ -1,9 +1,8 @@
 import { useState } from "react";
-import RestUtils from "../utils/RestUtils";
-import axios from "axios";
 import { Container, Button, Form, Col, Spinner, Alert } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./styles/CreateList.scss";
+import ListsRepository from "../services/repositories/ListsRepository";
 
 const CreateList = () => {
   const [title, setTitle] = useState("");
@@ -15,17 +14,15 @@ const CreateList = () => {
   const [apiError, setApiError] = useState("");
   const [list, setList] = useState(null);
 
-  const createList = (e) => {
+  const createList = async (e) => {
     e.preventDefault();
     setSubmitted(true);
-    axios
-      .post(
-        `${RestUtils.getApiUrl()}/api/lists/create`,
-        getBody(),
-        RestUtils.getHeaders()
-      )
-      .then((response) => setList(response.data))
-      .catch((err) => setApiError(err.response.data));
+    try {
+      const listResult = await ListsRepository.createList(getBody());
+      setList(listResult);
+    } catch (err) {
+      setApiError(err);
+    }
   };
 
   const getBody = () => {
@@ -60,8 +57,12 @@ const CreateList = () => {
     }
 
     if (apiError !== "") {
-      let {message, status} = apiError
-      return <Alert variant="danger">Status: {status}, Error: {message}</Alert>;
+      let { message, status } = apiError;
+      return (
+        <Alert variant="danger">
+          Status: {status}, Error: {message}
+        </Alert>
+      );
     }
 
     return <Redirect to={`/lists/${list.id}`} />;
