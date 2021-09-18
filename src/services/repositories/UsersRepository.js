@@ -12,13 +12,13 @@ class UsersRepository {
       .then((res) => {
         const { access_token, refresh_token, user_id } = res.data;
 
-        store.set("access-token", access_token);
+        store.set("access-token", res.data);
         const cookies = new Cookies();
         cookies.set("refresh-token", refresh_token, {
           path: "/summary",
         });
 
-        return res.data;
+        return [access_token, refresh_token, user_id];
       })
       .catch((err) => {
         console.log("Error while trying to refresh token", err);
