@@ -8,6 +8,10 @@ class UsersService {
   static getUser() {
     return UsersRepository.getUser();
   }
+
+  static refreshToken(token) {
+    return UsersRepository.refreshToken(token);
+  }
 }
 
 export default UsersService;

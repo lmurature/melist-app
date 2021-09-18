@@ -21,6 +21,21 @@ class UsersRepository {
         return [access_token, refresh_token, user_id];
       })
       .catch((err) => {
+        console.log("Error while trying to generate token", err);
+        throw err;
+      });
+  }
+
+  static async refreshToken(token) {
+    return axios
+      .post(`${RestUtils.getApiUrl()}/api/users/auth/refresh_token`, {
+        refresh_token: token,
+      })
+      .then((response) => {
+        store.set("access-token", response.data);
+        return;
+      })
+      .catch((err) => {
         console.log("Error while trying to refresh token", err);
         throw err;
       });

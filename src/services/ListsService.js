@@ -44,6 +44,10 @@ class ListsService {
   static deleteFavorite(listId) {
     return ListsRepository.deleteFavorite(listId);
   }
+
+  static getItemListStatus(listId, itemId) {
+    return ListsRepository.getItemListStatus(listId, itemId);
+  }
 }
 
 export default ListsService;

@@ -7,11 +7,22 @@ import { Navbar, Nav, NavDropdown, Container, Button } from "react-bootstrap";
 import Cookies from "universal-cookie";
 import "./styles/Header.scss";
 import { Link } from "react-router-dom";
+import UsersRepository from "../services/repositories/UsersRepository";
 
 function Header() {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState({ first_name: "", last_name: "" });
   const [nightMode, setNightMode] = useState(false);
+  const [apiError, setApiError] = useState(null); // TODO: manage
+
+  const fetchData = async () => {
+    try {
+      const [first, last] = await UsersRepository.getUser();
+      setUser({ first_name: first, last_name: last });
+    } catch (err) {
+      setApiError(err);
+    }
+  };
 
   useEffect(() => {
     if (store.get("nightmode")) {
@@ -21,28 +32,7 @@ function Header() {
     let auth = store.get("access-token");
     if (auth) {
       setAuthenticated(true);
-      axios
-        .get(`${RestUtils.getApiUrl()}/api/users/me`, RestUtils.getHeaders())
-        .then((response) => setUser(response.data))
-        .catch((err) => {
-          if (err.response && err.response.status === 403) {
-            axios
-              .post(`${RestUtils.getApiUrl()}/api/users/auth/refresh_token`, {
-                refresh_token: auth.refresh_token,
-              })
-              .then((response) => {
-                store.set("access-token", response.data);
-                axios
-                  .get(
-                    `${RestUtils.getApiUrl()}/api/users/me`,
-                    RestUtils.getHeaders()
-                  )
-                  .then((response) => setUser(response.data))
-                  .catch((err) => console.log(err));
-              })
-              .catch((err) => console.log(err));
-          }
-        });
+      fetchData();
     } else {
       setAuthenticated(false);
     }

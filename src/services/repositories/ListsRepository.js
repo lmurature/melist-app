@@ -175,6 +175,22 @@ class ListsRepository {
         throw err;
       });
   }
+
+  static async getItemListStatus(listId, itemId) {
+    return axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/lists/${listId}/status/${itemId}`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const listStatus = response.data;
+        return listStatus;
+      })
+      .catch((err) => {
+        console.log("Error while trying to get list status",err);
+        throw err;
+      });
+  }
 }
 
 export default ListsRepository;

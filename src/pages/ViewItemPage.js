@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 import { ArrowLeft } from "react-bootstrap-icons";
 import "moment/locale/es";
 import moment from "moment";
+import ItemsRepository from "../services/repositories/ItemsRepository";
+import ListsRepository from "../services/repositories/ListsRepository";
 
 const ViewItemPage = () => {
   const { listId, itemId } = useParams();
@@ -25,51 +27,44 @@ const ViewItemPage = () => {
 
   const [listItemStatus, setListItemStatus] = useState(null);
 
-  const fetchCategoryTrends = () => {
-    if (itemData)
-      axios
-        .get(
-          `${RestUtils.getApiUrl()}/api/items/trends/${itemData.category_id}`,
-          RestUtils.getHeaders()
-        )
-        .then((response) => setCategoryTrends(response.data))
-        .catch((err) => console.log(err));
+  const [apiError, setApiError] = useState(null); // TODO: manage
+
+  const fetchCategoryTrends = async () => {
+    if (itemData) {
+      const trends = await ItemsRepository.getCategoryTrends(
+        itemData.category_id
+      );
+      setCategoryTrends(trends);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const item = await ItemsRepository.getItem(itemId);
+      setItemData(item);
+
+      const history = await ItemsRepository.getItemsHistory(itemId);
+      for (let i = 0; i < history.length; i++) {
+        let date = history[i].date_fetched;
+        history[i].date_fetched = moment(date)
+          .locale("es")
+          .subtract(3, "hours")
+          .fromNow();
+      }
+      setItemHistory(history);
+
+      const listStatus = await ListsRepository.getItemListStatus(
+        listId,
+        itemId
+      );
+      setListItemStatus(listStatus);
+    } catch (err) {
+      setApiError(err);
+    }
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/items/${itemId}`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setItemData(response.data))
-      .catch((err) => console.log(err));
-
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/items/${itemId}/history`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => {
-        for (let i = 0; i < response.data.length; i++) {
-          let date = response.data[i].date_fetched;
-          response.data[i].date_fetched = moment(date)
-            .locale("es")
-            .subtract(3, "hours")
-            .fromNow();
-        }
-
-        setItemHistory(response.data);
-      })
-      .catch((err) => console.log(err));
-
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/${listId}/status/${itemId}`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setListItemStatus(response.data))
-      .catch((err) => console.log(err));
+    fetchData();
   }, [itemId]);
 
   useEffect(() => {
