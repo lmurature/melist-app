@@ -9,7 +9,7 @@ import "./styles/ItemSearchModal.scss";
 const ItemSearchModal = (props) => {
   const { data } = props;
 
-  return data !== null && data !== undefined ? (
+  return data !== null && data !== undefined && (
     <Container>
       <Row>
         <Col lg={6} md={6} xl={6} xs={6} xxl={6}>
@@ -79,8 +79,6 @@ const ItemSearchModal = (props) => {
         </Col>
       </Row>
     </Container>
-  ) : (
-    ""
   );
 };
 

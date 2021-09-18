@@ -45,7 +45,6 @@ const Config = (props) => {
       )
       .then((response) => setSuccessUpdateList(true))
       .catch((err) => setErrorUpdateList(true));
-    window.scrollTo(0, 0);
     setTimeout(() => {
       setSuccessUpdateList(false);
       setErrorUpdateList(false);

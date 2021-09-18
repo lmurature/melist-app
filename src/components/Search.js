@@ -22,7 +22,7 @@ function useQuery() {
 }
 
 const Search = (props) => {
-  const { listId, changeTab } = props;
+  const { listId } = props;
 
   let query = useQuery();
   let history = useHistory();
@@ -102,10 +102,7 @@ const Search = (props) => {
   return (
     <div className="search-items">
       <Alert show={successAddItem} variant="success" className="add-alert">
-        ¡Producto agregado con éxito!{" "}
-        <button className="see-in-list" onClick={() => changeTab("items")}>
-          Ver en la lista
-        </button>
+        ¡Producto agregado con éxito!
       </Alert>
       <Alert show={errorAddItem} variant="danger" className="add-alert">
         Oh... Parece que ocurrió un error al agregar este producto a tu lista.
@@ -196,6 +193,7 @@ const Search = (props) => {
                   if (offset > 0) {
                     setOffset(offset - 50);
                   }
+                  window.scrollTo(0, 500);
                 }}
               >
                 Anterior
@@ -205,6 +203,7 @@ const Search = (props) => {
                   if (offset < 1000) {
                     setOffset(offset + 50);
                   }
+                  window.scrollTo(0, 500);
                 }}
               >
                 Siguiente

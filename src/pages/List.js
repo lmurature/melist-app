@@ -95,13 +95,20 @@ const List = () => {
   };
 
   const getNotificationTabTitle = () => {
+    let remaining = 0;
     if (notifications) {
-      let remaining = notifications.length - cachedNotifications;
-      return (
-        notifications &&
-        (remaining === 0 ? "Notificaciones" : `Notificaciones (${remaining})`)
-      );
+      remaining = notifications.length - cachedNotifications;
     }
+
+    return notifications && notifications.length && remaining !== 0
+      ? `Notificaciones (${remaining})`
+      : "Notificaciones";
+  };
+
+  const getItemsTabTitle = () => {
+    return listItems && listItems.length
+      ? `Productos (${listItems.length})`
+      : "Productos";
   };
 
   const fetchData = async () => {
@@ -170,7 +177,7 @@ const List = () => {
           setTab(k);
         }}
       >
-        <Tab key="items" eventKey="items" title="Productos">
+        <Tab key="items" eventKey="items" title={getItemsTabTitle()}>
           <Items
             items={listItems}
             listId={listId}
