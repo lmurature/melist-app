@@ -18,7 +18,7 @@ class UsersRepository {
           path: "/summary",
         });
 
-        return [access_token, refresh_token, user_id];
+        return res.data;
       })
       .catch((err) => {
         console.log("Error while trying to refresh token", err);
