@@ -16,6 +16,7 @@ class UsersRepository {
         const cookies = new Cookies();
         cookies.set("refresh-token", refresh_token, {
           path: "/summary",
+          expires: new Date(Date.now() + 25920000),
         });
 
         return [access_token, refresh_token, user_id];
