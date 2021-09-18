@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, Redirect } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import UsersService from "../services/UsersService";
+import RestUtils from "../utils/RestUtils";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -32,7 +33,7 @@ const Authorized = (props) => {
     return (
       <div>
         There was an error trying to authenticate with Mercado Libre
-        <a href="https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=5112680121711673&redirect_uri=http://localhost:3000/auth/authorized">
+        <a href={RestUtils.getAuthUrl()}>
           Try again
         </a>
       </div>
