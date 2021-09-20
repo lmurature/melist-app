@@ -13,6 +13,7 @@ import Explore from "./pages/Explore";
 import store from "store";
 import "./App.scss";
 import UsersRepository from "./services/repositories/UsersRepository";
+import { Spinner } from "react-bootstrap";
 
 const App = ({ location }) => {
   const [apiError, setApiError] = useState(null);
@@ -36,26 +37,26 @@ const App = ({ location }) => {
     }
   }, []);
 
-  return (
-    readyToRender && (
-      <div
-        className={
-          store.get("nightmode")
-            ? "app theme theme--dark"
-            : "app theme theme--light"
-        }
-      >
-        {location.pathname !== "/auth/authorized" && <Header />}
-        <Route exact path="/" component={Home} />
-        <Route path="/summary" component={Summary} />
-        <Route path="/auth/authorized" component={Authorized} />
-        <Route path="/list/create" component={CreateList} />
-        <Route exact path="/lists/:listId" component={List} />
-        <Route exact path="/lists/:listId/:itemId" component={ViewItemPage} />
-        <Route exact path="/explore" component={Explore} />
-        <Footer />
-      </div>
-    )
+  return readyToRender ? (
+    <div
+      className={
+        store.get("nightmode")
+          ? "app theme theme--dark"
+          : "app theme theme--light"
+      }
+    >
+      {location.pathname !== "/auth/authorized" && <Header />}
+      <Route exact path="/" component={Home} />
+      <Route path="/summary" component={Summary} />
+      <Route path="/auth/authorized" component={Authorized} />
+      <Route path="/list/create" component={CreateList} />
+      <Route exact path="/lists/:listId" component={List} />
+      <Route exact path="/lists/:listId/:itemId" component={ViewItemPage} />
+      <Route exact path="/explore" component={Explore} />
+      <Footer />
+    </div>
+  ) : (
+    <Spinner animation="border" />
   );
 };
 
