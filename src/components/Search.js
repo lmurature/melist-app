@@ -16,6 +16,9 @@ import ItemSearchCard from "./ItemSearchCard";
 import ItemSearchModal from "./ItemSearchModal";
 import EmptySearchState from "./EmptySearchState";
 import { useLocation, useHistory } from "react-router-dom";
+import ListsService from "../services/ListsService";
+import ItemsService from "../services/ItemsService";
+import ItemsRepository from "../services/repositories/ItemsRepository";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -36,6 +39,7 @@ const Search = (props) => {
   const [itemData, setItemData] = useState();
   const [successAddItem, setSuccessAddItem] = useState(false);
   const [errorAddItem, setErrorAddItem] = useState(false);
+  const [apiError, setApiError] = useState(null); // TODO: manage
   const [offset, setOffset] = useState(0);
 
   const handleShow = (itemId) => {
@@ -48,15 +52,14 @@ const Search = (props) => {
     setItemData(null);
   };
 
-  const handleAddToList = (itemId) => {
-    axios
-      .post(
-        `${RestUtils.getApiUrl()}/api/lists/${listId}/items/${itemData.id}`,
-        {},
-        RestUtils.getHeaders()
-      )
-      .then((response) => setSuccessAddItem(true))
-      .catch((err) => setErrorAddItem(true));
+  const handleAddToList = async (itemId) => {
+    try {
+      const result = await ListsService.addItemToList(listId, itemData.id);
+      setSuccessAddItem(true);
+    } catch (err) {
+      setErrorAddItem(true);
+    }
+
     window.scrollTo(0, 0);
     handleClose();
     setTimeout(() => {
@@ -65,14 +68,13 @@ const Search = (props) => {
     }, 10000);
   };
 
-  const getItemData = (itemId) => {
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/items/${itemId}`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setItemData(response.data))
-      .catch((err) => console.log(err));
+  const getItemData = async (itemId) => {
+    try {
+      const item = await ItemsService.getItem(itemId);
+      setItemData(item);
+    } catch (err) {
+      setApiError(err);
+    }
   };
 
   const handleSearch = (e) => {
@@ -80,17 +82,14 @@ const Search = (props) => {
     setSearchString(e.target.value);
   };
 
-  const handleSubmitSearch = () => {
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/items/search?q=${searchString}&offset=${offset}`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => {
-        setSearchResult(response.data);
-        history.push(`/lists/${listId}?tab=search&q=${searchString}`);
-      })
-      .catch((err) => console.log(err));
+  const handleSubmitSearch = async () => {
+    try {
+      const result = await ItemsRepository.searchItems(searchString, offset);
+      setSearchResult(result);
+      history.push(`/lists/${listId}?tab=search&q=${searchString}`);
+    } catch (err) {
+      setApiError(err);
+    }
   };
 
   useEffect(() => {

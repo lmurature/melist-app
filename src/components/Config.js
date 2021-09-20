@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import RestUtils from "../utils/RestUtils";
 import { Container, Button, Form, Col, Row, Alert } from "react-bootstrap";
 import "./styles/Config.scss";
+import ListsRepository from "../services/repositories/ListsRepository";
 
 const Config = (props) => {
   const { title, description, privacy, listId } = props;
@@ -36,15 +37,18 @@ const Config = (props) => {
       : "Si tu lista era publica, y pasa a ser privada, se revocarán todos los favoritos de tu lista.";
   };
 
-  const handleSubmit = () => {
-    axios
-      .put(
-        `${RestUtils.getApiUrl()}/api/lists/update/${listId}`,
-        { title: listTitle, description: listDesc, privacy: listPrivacy },
-        RestUtils.getHeaders()
-      )
-      .then((response) => setSuccessUpdateList(true))
-      .catch((err) => setErrorUpdateList(true));
+  const handleSubmit = async () => {
+    try {
+      await ListsRepository.updateList(
+        listId,
+        listTitle,
+        listDesc,
+        listPrivacy
+      );
+      setSuccessUpdateList(true);
+    } catch (err) {
+      setErrorUpdateList(true);
+    }
     setTimeout(() => {
       setSuccessUpdateList(false);
       setErrorUpdateList(false);
@@ -52,9 +56,9 @@ const Config = (props) => {
   };
 
   useEffect(() => {
-    setListTitle(title !== undefined ? title : "");
-    setListDesc(description !== undefined ? description : "");
-    setListPrivacy(privacy !== undefined ? privacy : "");
+    setListTitle(title || "");
+    setListDesc(description || "");
+    setListPrivacy(privacy || "");
   }, [title, description, privacy]);
 
   const shouldBeDisabled = () => {

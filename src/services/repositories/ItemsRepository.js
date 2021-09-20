@@ -49,6 +49,19 @@ class ItemsRepository {
         throw err;
       });
   }
+
+  static async searchItems(query, offset) {
+    return axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/items/search?q=${query}&offset=${offset}`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const result = response.data;
+        return response.data;
+      })
+      .catch((err) => console.log(err));
+  }
 }
 
 export default ItemsRepository;

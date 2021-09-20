@@ -5,38 +5,39 @@ import ItemCard from "./ItemCard";
 import axios from "axios";
 import RestUtils from "../utils/RestUtils";
 import "./styles/Items.scss";
+import ListsService from "../services/ListsService";
 
 const Items = (props) => {
   const { listId, shareType, notifications } = props;
 
   const [listItems, setListItems] = useState([]);
   const [readyToRequest, setReadyToRequest] = useState(true);
+  const [apiError, setApiError] = useState(null); // TODO: manage
 
-  const handleCheck = (itemId, isCheck) => {
+  const handleCheck = async (itemId, isCheck) => {
     setReadyToRequest(false);
-    axios
-      .put(
-        `${RestUtils.getApiUrl()}/api/lists/${listId}/${
-          isCheck ? "check" : "uncheck"
-        }/${itemId}`,
-        null,
-        RestUtils.getHeaders()
-      )
-      .then((response) => {
-        setListItems(response.data);
-        setReadyToRequest(true);
-      })
-      .catch((err) => setReadyToRequest(true));
+
+    try {
+      const listResult = await ListsService.setItemListStatus(
+        listId,
+        itemId,
+        isCheck
+      );
+      setListItems(listResult);
+    } catch (err) {
+      setApiError(err);
+    }
+
+    setReadyToRequest(true);
   };
 
-  const handleDelete = (itemId) => {
-    axios
-      .delete(
-        `${RestUtils.getApiUrl()}/api/lists/${listId}/items/${itemId}`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setListItems(response.data))
-      .catch((err) => console.log(err));
+  const handleDelete = async (itemId) => {
+    try {
+      const listResult = await ListsService.deleteItemFromList(listId, itemId);
+      setListItems(listResult);
+    } catch (err) {
+      setApiError(err);
+    }
   };
 
   useEffect(() => {

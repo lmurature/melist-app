@@ -12,6 +12,10 @@ class ItemsService {
   static getCategoryTrends(categoryId) {
     return ItemsRepository.getCategoryTrends(categoryId);
   }
+
+  static searchItems(query, offset) {
+    return ItemsRepository.searchItems(query, offset);
+  }
 }
 
 export default ItemsService;

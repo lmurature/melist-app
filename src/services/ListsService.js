@@ -5,6 +5,10 @@ class ListsService {
     return ListsRepository.createList(list);
   }
 
+  static updateList(listId, listTitle, listDesc, listPrivacy) {
+    return ListsRepository.updateList(listId, listTitle, listDesc, listPrivacy);
+  }
+
   static getList(listId) {
     return ListsRepository.getList(listId);
   }
@@ -47,6 +51,18 @@ class ListsService {
 
   static getItemListStatus(listId, itemId) {
     return ListsRepository.getItemListStatus(listId, itemId);
+  }
+
+  static addItemToList(listId, itemId) {
+    return ListsRepository.addItemToList(listId, itemId);
+  }
+
+  static setItemListStatus(listId, itemId, isCheck) {
+    return ListsRepository.setItemListStatus(listId, itemId, isCheck);
+  }
+
+  static deleteItemFromList(listId, itemId) {
+    return ListsRepository.deleteItemFromList(listId, itemId);
   }
 }
 

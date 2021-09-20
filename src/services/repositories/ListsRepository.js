@@ -18,6 +18,23 @@ class ListsRepository {
       });
   }
 
+  static async updateList(listId, listTitle, listDesc, listPrivacy) {
+    return axios
+      .put(
+        `${RestUtils.getApiUrl()}/api/lists/update/${listId}`,
+        { title: listTitle, description: listDesc, privacy: listPrivacy },
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const result = response.data;
+        return result;
+      })
+      .catch((err) => {
+        console.log("Error while trying to update list", err);
+        throw err;
+      });
+  }
+
   static async getList(listId) {
     return axios
       .get(
@@ -187,7 +204,59 @@ class ListsRepository {
         return listStatus;
       })
       .catch((err) => {
-        console.log("Error while trying to get list status",err);
+        console.log("Error while trying to get list status", err);
+        throw err;
+      });
+  }
+
+  static async addItemToList(listId, itemId) {
+    return axios
+      .post(
+        `${RestUtils.getApiUrl()}/api/lists/${listId}/items/${itemId}`,
+        {},
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const result = response.data;
+        return result;
+      })
+      .catch((err) => {
+        console.log("Error while trying to add item to list", err);
+        throw err;
+      });
+  }
+
+  static async setItemListStatus(listId, itemId, isCheck) {
+    return axios
+      .put(
+        `${RestUtils.getApiUrl()}/api/lists/${listId}/${
+          isCheck ? "check" : "uncheck"
+        }/${itemId}`,
+        null,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const listItems = response.data;
+        return listItems;
+      })
+      .catch((err) => {
+        console.log("Error while trying to change item list status", err);
+        throw err;
+      });
+  }
+
+  static async deleteItemFromList(listId, itemId) {
+    return axios
+      .delete(
+        `${RestUtils.getApiUrl()}/api/lists/${listId}/items/${itemId}`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const listResult = response.data;
+        return listResult;
+      })
+      .catch((err) => {
+        console.log("Error while trying to delete item from list", err);
         throw err;
       });
   }

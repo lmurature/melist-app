@@ -33,7 +33,16 @@ class UsersRepository {
         refresh_token: token,
       })
       .then((response) => {
+        const { refresh_token } = response.data;
+        
         store.set("access-token", response.data);
+
+        const cookies = new Cookies();
+        cookies.set("refresh-token", refresh_token, {
+          path: "/summary",
+          expires: new Date(Date.now() + 25920000),
+        });
+
         return;
       })
       .catch((err) => {
