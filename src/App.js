@@ -56,7 +56,9 @@ const App = ({ location }) => {
       <Footer />
     </div>
   ) : (
-    <Spinner animation="border" />
+    <div className="loading">
+      <Spinner animation="border" />
+    </div>
   );
 };
 

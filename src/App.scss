@@ -6,3 +6,10 @@
     background-color: t("melist-background");
   }
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 18rem;
+}
