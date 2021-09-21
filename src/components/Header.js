@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import store from "store";
-import axios from "axios";
 import Logo from "../assets/Frame.png";
 import RestUtils from "../utils/RestUtils";
-import { Navbar, Nav, NavDropdown, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container, Button, Alert } from "react-bootstrap";
 import Cookies from "universal-cookie";
 import "./styles/Header.scss";
 import { Link } from "react-router-dom";
@@ -13,7 +12,7 @@ function Header() {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState({ first_name: "", last_name: "" });
   const [nightMode, setNightMode] = useState(false);
-  const [apiError, setApiError] = useState(null); // TODO: manage
+  const [apiError, setApiError] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -56,6 +55,9 @@ function Header() {
             <span className="title">ME List</span>
           </Navbar.Brand>
         </Link>
+        <Alert show={apiError} variant="danger">
+          Hubo un error al conectar con el servidor
+        </Alert>
         <Navbar.Collapse id="basic-navbar-nav">
           {authenticated ? (
             <Nav className="ml-auto">

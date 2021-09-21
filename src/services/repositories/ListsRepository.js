@@ -260,6 +260,59 @@ class ListsRepository {
         throw err;
       });
   }
+
+  static async getListColaborators(listId) {
+    return axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/lists/get/${listId}/shares`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const colabs = response.data;
+        return colabs;
+      })
+      .catch((err) => {
+        if (err.response && err.response.status === 404) {
+          return [];
+        } else {
+          console.log("Error while trying to get list colaborators", err);
+          throw err;
+        }
+      });
+  }
+
+  static async giveAccessToUsers(listId, request) {
+    return axios
+      .put(
+        `${RestUtils.getApiUrl()}/api/lists/access/${listId}`,
+        request,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const data = response.data;
+        return data;
+      })
+      .catch((err) => {
+        console.log("Error while trying to give access to users", err);
+        throw err;
+      });
+  }
+
+  static async revokeAccessToUser(listId, userId) {
+    return axios
+      .delete(
+        `${RestUtils.getApiUrl()}/api/lists/access/${listId}?user_id=${userId}`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const colabs = response.data;
+        return colabs;
+      })
+      .catch((err) => {
+        console.log("Error while trying to revoke access to user", err);
+        throw err;
+      });
+  }
 }
 
 export default ListsRepository;

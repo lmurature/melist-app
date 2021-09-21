@@ -32,7 +32,7 @@ const List = () => {
   const [showFavIcon, setShowFavIcon] = useState(true);
   const [notifications, setNotifications] = useState(null);
   const [cachedNotifications, setCachedNotifications] = useState(0);
-  const [apiErr, setApiErr] = useState(null); // TODO: Manage
+  const [apiErr, setApiErr] = useState(null);
 
   const [tab, setTab] = useState(getContextOrDefault("items"));
 
@@ -182,6 +182,7 @@ const List = () => {
             items={listItems}
             listId={listId}
             shareType={listPermissions.share_type}
+            itemsError={apiErr}
           />
         </Tab>
         <Tab

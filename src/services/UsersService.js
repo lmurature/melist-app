@@ -12,6 +12,10 @@ class UsersService {
   static refreshToken(token) {
     return UsersRepository.refreshToken(token);
   }
+
+  static searchUsers(query) {
+    return UsersRepository.searchUsers(query);
+  }
 }
 
 export default UsersService;

@@ -2,6 +2,7 @@
 
 .list-items {
   padding-top: 30px;
+  min-height: 500px;
   @include themed() {
   background: t("list-view-background");
   }

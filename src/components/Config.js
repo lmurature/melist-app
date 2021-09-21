@@ -1,6 +1,4 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import RestUtils from "../utils/RestUtils";
 import { Container, Button, Form, Col, Row, Alert } from "react-bootstrap";
 import "./styles/Config.scss";
 import ListsRepository from "../services/repositories/ListsRepository";

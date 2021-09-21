@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Alert } from "react-bootstrap";
 import EmptyItemsState from "./EmptyItemsState";
 import ItemCard from "./ItemCard";
-import axios from "axios";
-import RestUtils from "../utils/RestUtils";
 import "./styles/Items.scss";
 import ListsService from "../services/ListsService";
 
 const Items = (props) => {
-  const { listId, shareType, notifications } = props;
+  const { listId, shareType, notifications, itemsError } = props;
 
   const [listItems, setListItems] = useState([]);
   const [readyToRequest, setReadyToRequest] = useState(true);
-  const [apiError, setApiError] = useState(null); // TODO: manage
+  const [apiError, setApiError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleCheck = async (itemId, isCheck) => {
     setReadyToRequest(false);
@@ -50,7 +49,13 @@ const Items = (props) => {
         <h3 className="list-items-heading-title">Productos en la Lista</h3>
       </div>
       <Container>
-        {listItems.length > 0 ? (
+        <Alert show={apiError} variant="danger">
+          Hubo un error al ejecutar la acción en el servidor.
+        </Alert>
+        <Alert show={itemsError} variant="danger">
+          Hubo un error al buscar los productos de la lista.
+        </Alert>
+        {listItems ? (
           <Row>
             {listItems.map((listItem) => {
               return (
@@ -86,7 +91,7 @@ const Items = (props) => {
             })}
           </Row>
         ) : (
-          <EmptyItemsState />
+          !itemsError && <EmptyItemsState />
         )}
       </Container>
     </div>

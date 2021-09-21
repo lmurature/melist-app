@@ -34,7 +34,7 @@ class UsersRepository {
       })
       .then((response) => {
         const { refresh_token } = response.data;
-        
+
         store.set("access-token", response.data);
 
         const cookies = new Cookies();
@@ -60,6 +60,22 @@ class UsersRepository {
       })
       .catch((err) => {
         console.log("Error while trying to get user data", err);
+        throw err;
+      });
+  }
+
+  static async searchUsers(query) {
+    return axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/users/search?q=${query}`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const searchResult = response.data;
+        return searchResult;
+      })
+      .catch((err) => {
+        console.log("Error while trying to search users", err);
         throw err;
       });
   }

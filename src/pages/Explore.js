@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Form } from "react-bootstrap";
+import { Container, Row, Col, Form, Alert } from "react-bootstrap";
 import ListCard from "../components/ListCard";
 import "./styles/Explore.scss";
 import "animate.css";
@@ -8,7 +8,7 @@ import ListsRepository from "../services/repositories/ListsRepository";
 const Explore = (props) => {
   const [publicLists, setPublicLists] = useState(null);
   const [filteredLists, setFilteredLists] = useState(null);
-  const [apiError, setApiError] = useState(null); // TODO: manage
+  const [apiError, setApiError] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -54,6 +54,9 @@ const Explore = (props) => {
         </Row>
       </div>
       <div className="explore-main">
+        <Alert show={apiError} variant="danger">
+          Hubo un error al buscar listas públicas.
+        </Alert>
         <Row>
           {filteredLists &&
             filteredLists.map((l, i) => {

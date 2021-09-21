@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
   Container,
@@ -10,7 +9,6 @@ import {
   Alert,
   Pagination,
 } from "react-bootstrap";
-import RestUtils from "../utils/RestUtils";
 import "./styles/Search.scss";
 import ItemSearchCard from "./ItemSearchCard";
 import ItemSearchModal from "./ItemSearchModal";
@@ -39,7 +37,7 @@ const Search = (props) => {
   const [itemData, setItemData] = useState();
   const [successAddItem, setSuccessAddItem] = useState(false);
   const [errorAddItem, setErrorAddItem] = useState(false);
-  const [apiError, setApiError] = useState(null); // TODO: manage
+  const [apiError, setApiError] = useState(null);
   const [offset, setOffset] = useState(0);
 
   const handleShow = (itemId) => {
@@ -100,6 +98,9 @@ const Search = (props) => {
 
   return (
     <div className="search-items">
+      <Alert show={apiError} variant="danger">
+        Hubo un error al conectar con el servidor
+      </Alert>
       <Alert show={successAddItem} variant="success" className="add-alert">
         ¡Producto agregado con éxito!
       </Alert>

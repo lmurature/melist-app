@@ -13,7 +13,7 @@ const Summary = (props) => {
   const [lists, setLists] = useState([]);
   const [sharedLists, setSharedLists] = useState([]);
   const [favouriteLists, setFavouriteLists] = useState([]);
-  const [apiError, setApiError] = useState(null); // TODO: manage apiError.
+  const [apiError, setApiError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {

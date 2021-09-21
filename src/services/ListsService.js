@@ -64,6 +64,18 @@ class ListsService {
   static deleteItemFromList(listId, itemId) {
     return ListsRepository.deleteItemFromList(listId, itemId);
   }
+
+  static getListColaborators(listId) {
+    return ListsRepository.getListColaborators(listId);
+  }
+
+  static giveAccessToUsers(listId, request) {
+    return ListsRepository.giveAccessToUsers(listId, request);
+  } 
+
+  static revokeAccessToUser(listId, userId) {
+    return ListsRepository.revokeAccessToUser(listId, userId);
+  }
 }
 
 export default ListsService;

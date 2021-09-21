@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Container, Button, Form, Col, Row } from "react-bootstrap";
-import RestUtils from "../utils/RestUtils";
-import axios from "axios";
+import { Container, Button, Form, Col, Row, Alert } from "react-bootstrap";
 import "./styles/Share.scss";
+import ListsRepository from "../services/repositories/ListsRepository";
+import ListsService from "../services/ListsService";
+import UsersService from "../services/UsersService";
 
 const Share = (props) => {
   const { listId, ownerId } = props;
@@ -15,18 +16,21 @@ const Share = (props) => {
   const [usersToRequest, setUsersToRequest] = useState(new Map());
   const [shareTypeRequest, setShareTypeRequest] = useState("read");
 
+  const [apiErr, setApiErr] = useState(null);
+  const [searchError, setSearchError] = useState(null);
+
   const handleUserInput = (e) => {
     setUserInput(e.target.value);
   };
 
-  const handleSearch = () => {
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/users/search?q=${userInput}`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => setSearchResult(response.data))
-      .catch((err) => alert("No se encontraron usuarios."));
+  const handleSearch = async () => {
+    try {
+      const result = await UsersService.searchUsers(userInput);
+      setSearchResult(result);
+    } catch (err) {
+      setSearchError(err);
+      setApiErr(err);
+    }
   };
 
   const shouldCheckboxBeDisabled = (userId) => {
@@ -67,7 +71,7 @@ const Share = (props) => {
     setUsersToRequest(new Map());
   };
 
-  const handleShareRequest = () => {
+  const handleShareRequest = async () => {
     let finalRequest = [];
     usersToRequest.forEach((isChecked, userId) => {
       if (isChecked) {
@@ -79,35 +83,21 @@ const Share = (props) => {
       }
     });
 
-    axios
-      .put(
-        `${RestUtils.getApiUrl()}/api/lists/access/${listId}`,
-        finalRequest,
-        RestUtils.getHeaders()
-      )
-      .then((response) => {
-        clearState();
-      })
-      .catch((err) => {
-        alert("Hubo un error al compartir tu lista");
-        console.log(err);
-      });
+    try {
+      await ListsService.giveAccessToUsers(listId, finalRequest);
+      clearState();
+    } catch (err) {
+      setApiErr(err);
+    }
   };
 
-  const getColaborators = () => {
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/get/${listId}/shares`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => {
-        setColabs(response.data);
-      })
-      .catch((err) =>
-        err.response !== undefined && err.response.status !== 404
-          ? console.log(err)
-          : ""
-      );
+  const getColaborators = async () => {
+    try {
+      const listColabs = await ListsRepository.getListColaborators(listId);
+      setColabs(listColabs);
+    } catch (err) {
+      setApiErr(err);
+    }
   };
 
   const formatShareType = (shareType) => {
@@ -123,41 +113,45 @@ const Share = (props) => {
     }
   };
 
-  const revokeColaborator = (userId) => {
+  const revokeColaborator = async (userId) => {
     if (
       window.confirm(
         "¿Estás seguro que quieres revocarle el acceso a este usuario?"
       )
     ) {
-      axios
-        .delete(
-          `${RestUtils.getApiUrl()}/api/lists/access/${listId}?user_id=${userId}`,
-          RestUtils.getHeaders()
-        )
-        .then((response) => setColabs(response.data))
-        .catch((err) => alert("Hubo un error al quitar los permisos."));
+      try {
+        const colabResult = await ListsRepository.revokeAccessToUser(
+          listId,
+          userId
+        );
+        setColabs(colabResult);
+      } catch (err) {
+        setApiErr(err);
+      }
     }
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `${RestUtils.getApiUrl()}/api/lists/get/${listId}/shares`,
-        RestUtils.getHeaders()
-      )
-      .then((response) => {
-        setColabs(response.data);
-      })
-      .catch((err) =>
-        err.response !== undefined && err.response.status !== 404
-          ? console.log(err)
-          : ""
-      );
+    getColaborators();
   }, [listId]);
 
   return (
     <div className="share">
       <Container>
+        <Alert
+          show={apiErr && apiErr.response.status !== 404}
+          variant="danger"
+          className="add-alert"
+        >
+          Hubo un error al ejecutar la acción en el servidor.
+        </Alert>
+        <Alert
+          show={searchError && searchError.response.status === 404}
+          variant="warning"
+          className="add-alert"
+        >
+          No se encontraron usuarios en la búsqueda.
+        </Alert>
         <Row>
           <Col lg={6} md={6} xl={6} xxl={6}>
             <div className="search-users-title">Buscar usuarios</div>
@@ -206,26 +200,27 @@ const Share = (props) => {
           <Col>
             <div className="share-box">
               <Container>
-                {searchResult.map((user) => {
-                  return (
-                    <Form.Check
-                      key={user.id}
-                      disabled={shouldCheckboxBeDisabled(user.id)}
-                      onClick={handleCheckbox}
-                      value={user.id}
-                      type="checkbox"
-                      label={
-                        user.first_name +
-                        " " +
-                        user.last_name +
-                        " " +
-                        "(" +
-                        user.nickname +
-                        ")"
-                      }
-                    />
-                  );
-                })}
+                {searchResult &&
+                  searchResult.map((user) => {
+                    return (
+                      <Form.Check
+                        key={user.id}
+                        disabled={shouldCheckboxBeDisabled(user.id)}
+                        onClick={handleCheckbox}
+                        value={user.id}
+                        type="checkbox"
+                        label={
+                          user.first_name +
+                          " " +
+                          user.last_name +
+                          " " +
+                          "(" +
+                          user.nickname +
+                          ")"
+                        }
+                      />
+                    );
+                  })}
               </Container>
             </div>
           </Col>
@@ -255,10 +250,7 @@ const Share = (props) => {
               />
             </div>
             <div className="save-box">
-              <Button
-                className="search-button"
-                onClick={handleShareRequest}
-              >
+              <Button className="search-button" onClick={handleShareRequest}>
                 Guardar
               </Button>
             </div>
@@ -266,33 +258,34 @@ const Share = (props) => {
           <Col>
             <div className="share-box">
               <Container>
-                {colabs.map((c) => {
-                  return (
-                    <div className="colabs" key={c.user_id}>
-                      <Row>
-                        <Col lg={8} md={8} xl={8} xs={8} xxl={8}>
-                          {c.user.first_name +
-                            " " +
-                            "(" +
-                            c.user.nickname +
-                            ")" +
-                            " " +
-                            formatShareType(c.share_type)}
-                        </Col>
-                        <Col>
-                          <Button
-                            size="sm"
-                            className="revoke-button"
-                            variant="danger"
-                            onClick={() => revokeColaborator(c.user_id)}
-                          >
-                            Revocar
-                          </Button>
-                        </Col>
-                      </Row>
-                    </div>
-                  );
-                })}
+                {colabs &&
+                  colabs.map((c) => {
+                    return (
+                      <div className="colabs" key={c.user_id}>
+                        <Row>
+                          <Col lg={8} md={8} xl={8} xs={8} xxl={8}>
+                            {c.user.first_name +
+                              " " +
+                              "(" +
+                              c.user.nickname +
+                              ")" +
+                              " " +
+                              formatShareType(c.share_type)}
+                          </Col>
+                          <Col>
+                            <Button
+                              size="sm"
+                              className="revoke-button"
+                              variant="danger"
+                              onClick={() => revokeColaborator(c.user_id)}
+                            >
+                              Revocar
+                            </Button>
+                          </Col>
+                        </Row>
+                      </div>
+                    );
+                  })}
               </Container>
             </div>
           </Col>
