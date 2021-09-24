@@ -1,0 +1,67 @@
+@import "../../Variables.scss";
+
+.info{
+  &-main {
+    min-height: 500px;
+    /**/
+  }
+
+  &-title {
+    @include themed() {
+      color: t("melist-title");
+    }
+    padding-top: 60px;
+    font-weight: 900;
+    font-size: 32px;
+  }
+
+  &-gift {
+    padding-top: 60px;
+    height: 350px;
+    width: 525px;
+  }
+
+  &-subtitle {
+    @include themed() {
+      color: t("melist-title");
+    }
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  &-how-it-works {
+    min-height: 500px;
+    background-color: rgb(92, 218, 186);
+    text-align: center;
+    padding-top: 30px;
+    color: #FFFFFF;
+
+    &-title {
+      text-align: center;
+      font-weight: 900;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.step {
+  &-count {
+    font-weight: 900;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  &-description {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+}
+
+.start-button {
+  margin-top: 20px;
+}
+
+a {
+  color: #7273c5 !important;
+}
