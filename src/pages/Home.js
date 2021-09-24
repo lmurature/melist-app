@@ -164,10 +164,10 @@ const Home = (props) => {
                 <div className="step-count">5. Comprá en el momento ideal.</div>
                 <div className="step-description">
                   Todos los productos que estén en listas de ME List son
-                  trackeados día a día. Nosotros te notificamos, nuestro
+                  trackeados día a día. Nuestro
                   monitoreo cambios de precio, activación de ofertas,
                   liquidación de unidades de stock lograrán que encuentres el
-                  mejor momento para realizar la compra.
+                  mejor momento para realizar la compra. Nosotros te notificamos.
                 </div>
               </Col>
             </Row>
