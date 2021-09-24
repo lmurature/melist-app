@@ -2,10 +2,12 @@ import store from "store";
 import React, { useEffect, useState } from "react";
 import RestUtils from "../utils/RestUtils";
 import MainImg from "../assets/friendsgift.jpg";
+import Fast from "../assets/fast.png";
+import Colaborative from "../assets/colaborative.png";
+import Accesible from "../assets/accesible.png";
 import { Redirect } from "react-router";
 import "./styles/Home.scss";
 import { Col, Container, Row, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 const Home = (props) => {
   const [startUrl, setStartUrl] = useState(RestUtils.getAuthUrl());
@@ -35,7 +37,7 @@ const Home = (props) => {
               </Col>
               <Col md={6} xl={6}>
                 <div className="info-title">
-                  Tus necesidades y deseos, ahora colaborativos 💛
+                  Tus necesidades y deseos, ahora pueden ser colaborativos 💛
                 </div>
                 <div className="info-subtitle">
                   Crea listas de regalos para compartir con amigos y familia,
@@ -57,49 +59,121 @@ const Home = (props) => {
             </Row>
           </Container>
         </div>
+        <div className="info-properties">
+          <Container>
+            <div className="properties">
+              <Row>
+                <Col xs={12} sm={12} lg md xl xxl>
+                  <div className="properties-title">Facil y rápido</div>
+                </Col>
+                <Col xs={12} sm={12} lg md xl xxl>
+                  <div className="properties-description">
+                    Creá tus listas y comenzá a utilizar ME List. Agregá productos utilizando la búsqueda, monitorea
+                    los cambios de precio y stock y compra en el momento ideal.
+                  </div>
+                </Col>
+                <Col xs={12} sm={12} lg md xl xxl>
+                  <div className="properties-img">
+                    <img src={Fast} />
+                  </div>
+                </Col>
+              </Row>
+            </div>
+            <div className="properties">
+              <Row>
+                <Col xs={12} sm={12} lg md xl xxl>
+                  <div className="properties-title">Colaborativo</div>
+                </Col>
+                <Col xs={12} sm={12} lg md xl xxl>
+                  <div className="properties-description">
+                    Otorgales a tus amigos y familiares acceso a tus listas. 
+                    Que sepan cuales son tus gustos, que querés que te regalen.
+                    Ellos podrán marcar los productos como comprados, agregar nuevos o modificar la lista, 
+                    dependiendo el acceso que les otorgues.
+                  </div>
+                </Col>
+                <Col xs={12} sm={12} lg md xl xxl>
+                  <div className="properties-img">
+                    <img src={Colaborative} />
+                  </div>
+                </Col>
+              </Row>
+            </div>
+            <div className="properties">
+              <Row>
+                <Col xs={12} sm={12} lg md xl xxl>
+                  <div className="properties-title">Accesible</div>
+                </Col>
+                <Col xs={12} sm={12} lg md xl xxl>
+                  <div className="properties-description">
+                    ME List te provee una forma de organizar tus deseos o listas de compras utilizando publicaciones 
+                    de Mercadolibre. Podés agregar productos a tus listas utilizando la búsqueda o la extensión de Chrome.
+                  </div>
+                </Col>
+                <Col xs={12} sm={12} lg md xl xxl>
+                  <div className="properties-img">
+                    <img src={Accesible} />
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </Container>
+        </div>
         <div className="info-how-it-works">
           <Container>
             <div className="info-how-it-works-title">¿Cómo funciona?</div>
-            <Row className="step-count">
-              <Col>1. Ingresá con tu cuenta de Mercadolibre</Col>
-              <Col>2. Creá tus listas</Col>
-              <Col>3. Agregá productos</Col>
-              <Col>4. Otorgale acceso a tus amigos</Col>
-              <Col>
-                5. Comprá en el momento ideal.
-                Nosotros te notificamos.
+            <Row>
+              <Col xs={12} sm={12} lg md xl xxl>
+                <div className="step-count">1. Ingresa con Mercadolibre</div>
+                <div className="step-description">
+                  Podés conectarte con tu cuenta de Mercadolibre para comenzar a
+                  crear tus listas de publicaciones con los productos que
+                  desees.
+                </div>
+              </Col>
+              <Col xs={12} sm={12} lg md xl xxl>
+                <div className="step-count">2. Creá tus listas</div>
+                <div className="step-description">
+                  Crea tus listas con un título atrapante, agregales una
+                  descripción y elegí el tipo de privacidad que mejor te siente.
+                </div>
+              </Col>
+              <Col xs={12} sm={12} lg md xl xxl>
+                <div className="step-count">3. Agregá productos</div>
+                <div className="step-description">
+                  Agrega los productos que quieras de la plataforma de
+                  Mercadolibre utilizando la web ME List o la{" "}
+                  <a href="https://chrome.google.com/webstore/detail/extension-me-list/eghehobahpmfohnhhhoekagidlfpfjna?hl=es">
+                    extension de Chrome
+                  </a>{" "}
+                  para navegar por Mercadolibre e ir agregando los productos que
+                  te encuentres.
+                </div>
+              </Col>
+              <Col xs={12} sm={12} lg md xl xxl>
+                <div className="step-count">
+                  4. Otorgale acceso a tus amigos
+                </div>
+                <div className="step-description">
+                  Agrega a tus amigos como colaboradores en tus listas, podés
+                  otorgarles acceso de lectura, modificación o qué puedan marcar
+                  los productos como comprados o reservados.
+                </div>
+              </Col>
+              <Col xs={12} sm={12} lg md xl xxl>
+                <div className="step-count">5. Comprá en el momento ideal.</div>
+                <div className="step-description">
+                  Todos los productos que estén en listas de ME List son
+                  trackeados día a día. Nosotros te notificamos, nuestro
+                  monitoreo cambios de precio, activación de ofertas,
+                  liquidación de unidades de stock lograrán que encuentres el
+                  mejor momento para realizar la compra.
+                </div>
               </Col>
             </Row>
-            <Row className="step-description">
-              <Col>
-                Podés conectarte con tu cuenta de Mercadolibre para comenzar a
-                crear tus listas de publicaciones con los productos que desees.
-              </Col>
-              <Col>
-                Crea tus listas con un título atrapante, agregales una
-                descripción y elegí el tipo de privacidad que mejor te siente.
-              </Col>
-              <Col>
-                Agrega los productos que quieras de la plataforma de
-                Mercadolibre utilizando la web ME List o la{" "}
-                <a href="https://chrome.google.com/webstore/detail/extension-me-list/eghehobahpmfohnhhhoekagidlfpfjna?hl=es">
-                  extension de Chrome
-                </a>{" "}
-                para navegar por Mercadolibre e ir agregando los productos que
-                te encuentres.
-              </Col>
-              <Col>
-                Agrega a tus amigos como colaboradores en tus listas, podés
-                otorgarles acceso de lectura, modificación o qué puedan marcar
-                los productos como comprados o reservados.{" "}
-              </Col>
-              <Col>
-                Todos los productos que estén en listas de ME List son
-                trackeados día a día. Monitoreando cambios de precio, activación
-                de ofertas, liquidación de unidades de stock y las nuevas
-                revisiónes que otros usuarios realicen sobre ellos.
-              </Col>
-            </Row>
+            <a href={startUrl}>
+              <Button className="new-list-button">Quiero comenzar</Button>
+            </a>
           </Container>
         </div>
       </div>

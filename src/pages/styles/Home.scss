@@ -30,7 +30,7 @@
   }
 
   &-how-it-works {
-    min-height: 500px;
+    min-height: 600px;
     background-color: rgb(92, 218, 186);
     text-align: center;
     padding-top: 30px;
@@ -43,6 +43,11 @@
       margin-bottom: 10px;
     }
   }
+
+  &-properties {
+    min-height: 650px;
+    border-top: 1px solid #ededed;
+  }
 }
 
 .step {
@@ -50,12 +55,32 @@
     font-weight: 900;
     font-size: 18px;
     margin-top: 20px;
+    height: 110px;
+    @media only screen and (max-width: 600px) {
+      height: 70px;
+    }
   }
 
   &-description {
-    margin-top: 20px;
     font-size: 16px;
+    font-weight: 300;
   }
+}
+
+.properties {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  text-align: center;
+  @include themed() {
+    color: t("melist-title");
+  }
+
+  &-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 900;
+  }
+
 }
 
 .start-button {
