@@ -68,8 +68,9 @@ const Home = (props) => {
                 </Col>
                 <Col xs={12} sm={12} lg md xl xxl>
                   <div className="properties-description">
-                    Creá tus listas y comenzá a utilizar ME List. Agregá productos utilizando la búsqueda, monitorea
-                    los cambios de precio y stock y compra en el momento ideal.
+                    Creá tus listas y comenzá a utilizar ME List. Agregá
+                    productos utilizando la búsqueda, monitorea los cambios de
+                    precio y stock y compra en el momento ideal.
                   </div>
                 </Col>
                 <Col xs={12} sm={12} lg md xl xxl>
@@ -86,10 +87,11 @@ const Home = (props) => {
                 </Col>
                 <Col xs={12} sm={12} lg md xl xxl>
                   <div className="properties-description">
-                    Otorgales a tus amigos y familiares acceso a tus listas. 
-                    Que sepan cuales son tus gustos, que querés que te regalen.
-                    Ellos podrán marcar los productos como comprados, agregar nuevos o modificar la lista, 
-                    dependiendo el acceso que les otorgues.
+                    Otorgales a tus amigos y familiares acceso a tus listas. Que
+                    sepan cuales son tus gustos, que querés que te regalen.
+                    Ellos podrán marcar los productos como comprados, agregar
+                    nuevos o modificar la lista, dependiendo el acceso que les
+                    otorgues.
                   </div>
                 </Col>
                 <Col xs={12} sm={12} lg md xl xxl>
@@ -106,8 +108,10 @@ const Home = (props) => {
                 </Col>
                 <Col xs={12} sm={12} lg md xl xxl>
                   <div className="properties-description">
-                    ME List te provee una forma de organizar tus deseos o listas de compras utilizando publicaciones 
-                    de Mercadolibre. Podés agregar productos a tus listas utilizando la búsqueda o la extensión de Chrome.
+                    ME List te provee una forma de organizar tus deseos o listas
+                    de compras utilizando publicaciones de Mercadolibre. Podés
+                    agregar productos a tus listas utilizando la búsqueda o la
+                    extensión de Chrome.
                   </div>
                 </Col>
                 <Col xs={12} sm={12} lg md xl xxl>
@@ -163,11 +167,12 @@ const Home = (props) => {
               <Col xs={12} sm={12} lg md xl xxl>
                 <div className="step-count">5. Comprá en el momento ideal.</div>
                 <div className="step-description">
+                  Cuidamos tu bolsillo, hacemos que tus compras sean inteligentes.
                   Todos los productos que estén en listas de ME List son
-                  trackeados día a día. Nuestro
-                  monitoreo cambios de precio, activación de ofertas,
-                  liquidación de unidades de stock lograrán que encuentres el
-                  mejor momento para realizar la compra. Nosotros te notificamos.
+                  trackeados día a día. Nuestro monitoreo de cambios de precio,
+                  activación de ofertas y liquidación de unidades de stock
+                  lograrán que encuentres el mejor momento para realizar la
+                  compra.
                 </div>
               </Col>
             </Row>
