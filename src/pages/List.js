@@ -198,35 +198,41 @@ const List = () => {
             }
           />
         </Tab>
-        <Tab
-          key="search"
-          eventKey="search"
-          title="Búsqueda"
-          disabled={shouldBeDisabled("search")}
-        >
-          <Search changeTab={handleChangeTab} listId={listId} />
-        </Tab>
-        <Tab
-          key="share"
-          eventKey="share"
-          title="Compartir"
-          disabled={shouldBeDisabled("share")}
-        >
-          <Share listId={listId} ownerId={list.owner_id} />
-        </Tab>
-        <Tab
-          key="config"
-          eventKey="configuration"
-          title="Ajustes"
-          disabled={shouldBeDisabled("config")}
-        >
-          <Config
-            listId={listId}
-            title={list.title}
-            description={list.description}
-            privacy={list.privacy}
-          />
-        </Tab>
+        {!shouldBeDisabled("search") && (
+          <Tab
+            key="search"
+            eventKey="search"
+            title="Búsqueda"
+            disabled={shouldBeDisabled("search")}
+          >
+            <Search changeTab={handleChangeTab} listId={listId} />
+          </Tab>
+        )}
+        {!shouldBeDisabled("share") && (
+          <Tab
+            key="share"
+            eventKey="share"
+            title="Compartir"
+            disabled={shouldBeDisabled("share")}
+          >
+            <Share listId={listId} ownerId={list.owner_id} />
+          </Tab>
+        )}
+        {!shouldBeDisabled("config") && (
+          <Tab
+            key="config"
+            eventKey="configuration"
+            title="Ajustes"
+            disabled={shouldBeDisabled("config")}
+          >
+            <Config
+              listId={listId}
+              title={list.title}
+              description={list.description}
+              privacy={list.privacy}
+            />
+          </Tab>
+        )}
       </Tabs>
     </Container>
   );

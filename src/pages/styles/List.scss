@@ -24,3 +24,9 @@
 .fav-icon {
   color: #FFD100;
 }
+
+.disabled {
+  @include themed() {
+    color: t("melist-muted-text") !important;
+  }
+}
