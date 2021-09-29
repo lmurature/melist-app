@@ -31,7 +31,7 @@ const Config = (props) => {
 
   const getPrivacyMutedText = () => {
     return listPrivacy === "public"
-      ? "Si tu lista era privada y pasa a ser pública, cualquier tendrá acceso de 'Read' y tu lista aparecera en la seccion de 'Explorar'. Para administrar accesos de 'Write' o 'Check' a los usuarios que desees lo deberás configurar en la seccion 'Compartir'"
+      ? "Si tu lista era privada y pasa a ser pública, cualquier tendrá acceso de 'Lectura' y tu lista aparecera en la seccion de 'Explorar'. Para administrar accesos de 'Modificación' o 'Comprador' a los usuarios que desees lo deberás configurar en la seccion 'Compartir'"
       : "Si tu lista era publica, y pasa a ser privada, se revocarán todos los favoritos de tu lista.";
   };
 

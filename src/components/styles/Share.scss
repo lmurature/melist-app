@@ -71,6 +71,12 @@
   @media only screen and (max-width: 480px) {
     font-size: 16px;
   }
+
+  &-type {
+    @include themed() {
+      color: t("melist-muted-text");
+    }
+  }
 }
 
 .type-save {

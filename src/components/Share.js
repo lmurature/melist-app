@@ -103,11 +103,11 @@ const Share = (props) => {
   const formatShareType = (shareType) => {
     switch (shareType) {
       case "read":
-        return "👀";
+        return "Lector";
       case "write":
-        return "📝";
+        return "Modificador";
       case "check":
-        return "✅";
+        return "Comprador";
       default:
         return "";
     }
@@ -182,15 +182,15 @@ const Share = (props) => {
           <Col>
             <Container>
               <div>
-                <span className="info-bold">· Read 👀</span>: Puede ver tu
+                <span className="info-bold">· Lectura 👀</span>: Puede ver tu
                 lista.
               </div>
               <div>
-                <span className="info-bold">· Write 📝</span>: Puede agregar y
-                eliminar productos.
+                <span className="info-bold">· Modificación 📝</span>: Puede
+                agregar y eliminar productos.
               </div>
               <div>
-                <span className="info-bold">· Check ✅</span>: Puede marcar
+                <span className="info-bold">· Comprador ✅</span>: Puede marcar
                 productos como comprados.
               </div>
             </Container>
@@ -231,21 +231,21 @@ const Share = (props) => {
                 checked={shouldBeChecked("read")}
                 onChange={handleRadio}
                 type="radio"
-                label="Read"
+                label="Lectura"
                 value="read"
               />
               <Form.Check
                 checked={shouldBeChecked("write")}
                 onChange={handleRadio}
                 type="radio"
-                label="Write"
+                label="Modificación"
                 value="write"
               />
               <Form.Check
                 checked={shouldBeChecked("check")}
                 onChange={handleRadio}
                 type="radio"
-                label="Check"
+                label="Comprador"
                 value="check"
               />
             </div>
@@ -269,8 +269,10 @@ const Share = (props) => {
                               "(" +
                               c.user.nickname +
                               ")" +
-                              " " +
-                              formatShareType(c.share_type)}
+                              " "}
+                            <span className="colabs-type">
+                              {formatShareType(c.share_type)}
+                            </span>
                           </Col>
                           <Col>
                             <Button
