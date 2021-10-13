@@ -22,7 +22,7 @@ const ItemSearchCard = (props) => {
     <div>
       <button onClick={handleClick}>
         <div className="thumbnail-div">
-          <img className="thumbnail" src={thumbnail} alt={description} />
+          <img className="thumbnail thumbnail-search" src={thumbnail} alt={description} />
         </div>
         <div className="item-data">
           <span className="item-data-price">
