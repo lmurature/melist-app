@@ -30,7 +30,7 @@ img {
 .vip {
   &-title {
     font-size: 34px;
-    font-weight: 900;
+    font-weight: 700;
     @include themed() {
       color: t("melist-title");
     }

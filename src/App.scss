@@ -1,10 +1,12 @@
-  @import './Variables.scss';
-  @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import './Variables.scss';
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
 
 .app {
   @include themed() {
     background-color: t("melist-background");
   }
+  font-family: 'Poppins', sans-serif;
 }
 
 .loading {
