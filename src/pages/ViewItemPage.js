@@ -188,8 +188,10 @@ const ViewItemPage = () => {
                   width={400}
                   height={250}
                   data={
-                    itemHistory &&
-                    uniqBy(itemHistory, (entry) => entry.quantity)
+                    itemHistory && [
+                      ...uniqBy(itemHistory, (entry) => entry.quantity),
+                      itemHistory[itemHistory.length - 1],
+                    ]
                   }
                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                 >
@@ -212,7 +214,10 @@ const ViewItemPage = () => {
                   width={400}
                   height={250}
                   data={
-                    itemHistory && uniqBy(itemHistory, (entry) => entry.price)
+                    itemHistory && [
+                      ...uniqBy(itemHistory, (entry) => entry.price),
+                      itemHistory[itemHistory.length - 1],
+                    ]
                   }
                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                 >
@@ -235,8 +240,10 @@ const ViewItemPage = () => {
                   width={400}
                   height={250}
                   data={
-                    itemHistory &&
-                    uniqBy(itemHistory, (entry) => entry.reviews_quantity)
+                    itemHistory && [
+                      ...uniqBy(itemHistory, (entry) => entry.reviews_quantity),
+                      itemHistory[itemHistory.length - 1],
+                    ]
                   }
                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                 >
