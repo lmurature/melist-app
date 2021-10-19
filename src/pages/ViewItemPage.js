@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Carousel, Table, Alert } from "react-bootstrap";
-import { useParams } from "react-router";
-import NumberFormat from "react-number-format";
-import "./styles/ViewItemPage.scss";
-import Arrow from "../assets/arrow.png";
-import LinkToMeli from "../components/LinkToMeli";
-import ItemDescription from "../components/ItemDescription";
-import { LineChart, XAxis, YAxis, Tooltip, Legend, Line } from "recharts";
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "react-bootstrap-icons";
-import "moment/locale/es";
-import moment from "moment";
-import ItemsRepository from "../services/repositories/ItemsRepository";
-import ListsRepository from "../services/repositories/ListsRepository";
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Carousel, Table, Alert } from 'react-bootstrap';
+import { useParams } from 'react-router';
+import NumberFormat from 'react-number-format';
+import './styles/ViewItemPage.scss';
+import Arrow from '../assets/arrow.png';
+import LinkToMeli from '../components/LinkToMeli';
+import ItemDescription from '../components/ItemDescription';
+import { LineChart, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts';
+import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'react-bootstrap-icons';
+import 'moment/locale/es';
+import moment from 'moment';
+import ItemsRepository from '../services/repositories/ItemsRepository';
+import ListsRepository from '../services/repositories/ListsRepository';
 
 const ViewItemPage = () => {
   const { listId, itemId } = useParams();
@@ -26,6 +26,24 @@ const ViewItemPage = () => {
   const [listItemStatus, setListItemStatus] = useState(null);
 
   const [apiError, setApiError] = useState(null);
+
+  const uniqBy = (arr, predicate) => {
+    const cb =
+      typeof predicate === 'function' ? predicate : (o) => o[predicate];
+    const result = [];
+    const map = new Map();
+
+    arr.forEach((item) => {
+      const key = item === null || item === undefined ? item : cb(item);
+
+      if (!map.has(key)) {
+        map.set(key, item);
+        result.push(item);
+      }
+    });
+
+    return result;
+  };
 
   const fetchCategoryTrends = async () => {
     if (itemData) {
@@ -45,8 +63,8 @@ const ViewItemPage = () => {
       for (let i = 0; i < history.length; i++) {
         let date = history[i].date_fetched;
         history[i].date_fetched = moment(date)
-          .locale("es")
-          .subtract(3, "hours")
+          .locale('es')
+          .subtract(3, 'hours')
           .fromNow();
       }
       setItemHistory(history);
@@ -83,10 +101,10 @@ const ViewItemPage = () => {
             <div className="vip-title-box">
               <span className="vip-title">{itemData.title}</span>
             </div>
-            {listItemStatus && listItemStatus.status === "checked" && (
+            {listItemStatus && listItemStatus.status === 'checked' && (
               <Alert variant="success">¡Este producto ya fue comprado!</Alert>
             )}
-            {itemData.status !== "active" && (
+            {itemData.status !== 'active' && (
               <React.Fragment>
                 <Alert variant="warning">
                   Este producto no está disponible en Mercado Libre actualmente.
@@ -148,19 +166,19 @@ const ViewItemPage = () => {
                   <span className="item-data-price-modal">
                     <NumberFormat
                       value={itemData.price}
-                      displayType={"text"}
-                      thousandSeparator={"."}
-                      decimalSeparator={","}
-                      prefix={"$"}
+                      displayType={'text'}
+                      thousandSeparator={'.'}
+                      decimalSeparator={','}
+                      prefix={'$'}
                     />
                   </span>
                   <div>
                     {itemHistory !== null && itemHistory.length > 0
-                      ? itemHistory[itemHistory.length - 1].quantity + " "
-                      : itemData.available_quantity + " "}
+                      ? itemHistory[itemHistory.length - 1].quantity + ' '
+                      : itemData.available_quantity + ' '}
                     unidades disponibles
                   </div>
-                  <div>{itemData.sold_quantity + " "} unidades vendidas</div>
+                  <div>{itemData.sold_quantity + ' '} unidades vendidas</div>
                 </div>
               </Col>
             </Row>
@@ -169,11 +187,14 @@ const ViewItemPage = () => {
                 <LineChart
                   width={400}
                   height={250}
-                  data={itemHistory}
+                  data={
+                    itemHistory &&
+                    uniqBy(itemHistory, (entry) => entry.quantity)
+                  }
                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                 >
                   <XAxis dataKey="date_fetched" />
-                  <YAxis unit={" u."} dataKey="quantity" />
+                  <YAxis unit={' u.'} dataKey="quantity" />
                   <Tooltip />
                   <Legend />
                   <Line
@@ -190,11 +211,13 @@ const ViewItemPage = () => {
                 <LineChart
                   width={400}
                   height={250}
-                  data={itemHistory}
+                  data={
+                    itemHistory && uniqBy(itemHistory, (entry) => entry.price)
+                  }
                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                 >
                   <XAxis dataKey="date_fetched" />
-                  <YAxis name="Precio" unit={"$"} dataKey="price" />
+                  <YAxis name="Precio" unit={'$'} dataKey="price" />
                   <Tooltip />
                   <Legend />
                   <Line
@@ -211,7 +234,10 @@ const ViewItemPage = () => {
                 <LineChart
                   width={400}
                   height={250}
-                  data={itemHistory}
+                  data={
+                    itemHistory &&
+                    uniqBy(itemHistory, (entry) => entry.reviews_quantity)
+                  }
                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                 >
                   <XAxis dataKey="date_fetched" />
