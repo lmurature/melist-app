@@ -8,7 +8,7 @@ const Notifications = (props) => {
   const [filter, setFilter] = useState('');
 
   const isSeen = (index) => {
-    return index >= unread;
+    return filter === '' ? index >= unread : true;
   };
 
   const handleFilter = (f) => {
