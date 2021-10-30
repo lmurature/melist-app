@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import NumberFormat from "react-number-format";
-import { Badge, Row, Col } from "react-bootstrap";
-import placeHolder from "../assets/default-placeholder.png";
-import { PatchCheck, PatchCheckFill, Trash } from "react-bootstrap-icons";
-import "./styles/ItemCard.scss";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import NumberFormat from 'react-number-format';
+import { Badge, Row, Col } from 'react-bootstrap';
+import placeHolder from '../assets/default-placeholder.png';
+import { PatchCheck, PatchCheckFill, Trash } from 'react-bootstrap-icons';
+import './styles/ItemCard.scss';
 
 const ItemCard = (props) => {
   const {
@@ -26,7 +26,7 @@ const ItemCard = (props) => {
   } = props;
 
   const checkItem = () => {
-    if (itemListStatus === "not_checked") {
+    if (itemListStatus === 'not_checked') {
       handleCheck(id, true);
     } else {
       handleCheck(id, false);
@@ -36,7 +36,7 @@ const ItemCard = (props) => {
   const deleteItem = () => {
     if (
       window.confirm(
-        "¿Estás seguro que deseas borrar este producto de la lista?"
+        '¿Estás seguro que deseas borrar este producto de la lista?'
       )
     ) {
       handleDelete(id);
@@ -44,7 +44,7 @@ const ItemCard = (props) => {
   };
 
   const getCheckClass = () => {
-    return readyToRequest ? "check ready" : "check wait";
+    return readyToRequest ? 'check ready' : 'check wait';
   };
 
   return (
@@ -53,23 +53,23 @@ const ItemCard = (props) => {
         <Link to={`/lists/${listId}/${id}`}>
           <img
             className="thumbnail"
-            src={itemStatus === "active" ? thumbnail : placeHolder}
+            src={itemStatus === 'active' ? thumbnail : placeHolder}
             alt={description}
           />
         </Link>
         <Row className="actionable-buttons">
-          {(shareType === "admin" ||
-            shareType === "write" ||
-            shareType === "check") && (
+          {(shareType === 'admin' ||
+            shareType === 'write' ||
+            shareType === 'check') && (
             <Col className={getCheckClass()} onClick={checkItem}>
-              {itemListStatus === "checked" ? (
+              {itemListStatus === 'checked' ? (
                 <PatchCheckFill />
               ) : (
                 <PatchCheck />
               )}
             </Col>
           )}
-          {(shareType === "admin" || shareType === "write") && (
+          {(shareType === 'admin' || shareType === 'write') && (
             <Col className="trash">
               <button onClick={deleteItem}>
                 <Trash />
@@ -82,23 +82,24 @@ const ItemCard = (props) => {
         <span className="item-data-price">
           <NumberFormat
             value={price}
-            displayType={"text"}
-            thousandSeparator={"."}
-            decimalSeparator={","}
-            prefix={"$"}
+            displayType={'text'}
+            thousandSeparator={'.'}
+            decimalSeparator={','}
+            prefix={'$'}
           />
         </span>
         <div>
-          {itemListStatus === "checked" ? (
+          {itemListStatus === 'checked' ? (
             <Badge pill className="pill pill-checked">
               COMPRADO
             </Badge>
           ) : (
-            itemStatus !== "active" && (
-              <Badge pill className="pill pill-not-active">
-                NO DISPONIBLE
-              </Badge>
-            )
+            ''
+          )}
+          {itemStatus !== 'active' && (
+            <Badge pill className="pill pill-not-active">
+              NO DISPONIBLE
+            </Badge>
           )}
         </div>
         <p className="item-data-title">{title}</p>
