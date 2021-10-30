@@ -104,6 +104,7 @@ const Items = (props) => {
                     thousandSeparator={'.'}
                     decimalSeparator={','}
                     prefix={'$'}
+                    decimalScale={2}
                   />
                 </span>
               </div>
@@ -118,6 +119,7 @@ const Items = (props) => {
                     thousandSeparator={'.'}
                     decimalSeparator={','}
                     prefix={'$'}
+                    decimalScale={2}
                   />
                 </span>{' '}
                 ({getCheckedItems()})
