@@ -23,4 +23,18 @@
       font-size: 30px;
     }
   }
-} 
+
+  &-summary {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 14px;
+    @include themed() {
+      color: t("melist-muted-text");
+    }
+
+    &-values {
+      font-size: 16px;
+      color: #000;
+    }
+  }
+}

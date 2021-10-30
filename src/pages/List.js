@@ -154,7 +154,7 @@ const List = () => {
         {list && (
           <div>
             <h2 className="list-heading">
-              {list.title}{" "}
+              {list.title}{' '}
               <span className="fav-icon">{getFavouriteIcon()}</span>
               <PrivacyLabel privacy={list.privacy} />
             </h2>
@@ -163,12 +163,12 @@ const List = () => {
         )}
       </div>
       <Tabs
-        activeKey={getContextOrDefault("items")}
+        activeKey={getContextOrDefault('items')}
         onSelect={(k) => {
           history.push(`/lists/${listId}?tab=${k}`);
-          if (k === "items") {
+          if (k === 'items') {
             reloadItems();
-          } else if (k === "notifications" && notifications) {
+          } else if (k === 'notifications' && notifications) {
             setCachedNotifications(notifications.length);
             setTimeout(() => {
               store.set(`notifications-${listId}`, notifications.length);
@@ -198,32 +198,32 @@ const List = () => {
             }
           />
         </Tab>
-        {!shouldBeDisabled("search") && (
+        {!shouldBeDisabled('search') && (
           <Tab
             key="search"
             eventKey="search"
             title="Búsqueda"
-            disabled={shouldBeDisabled("search")}
+            disabled={shouldBeDisabled('search')}
           >
             <Search changeTab={handleChangeTab} listId={listId} />
           </Tab>
         )}
-        {!shouldBeDisabled("share") && (
+        {!shouldBeDisabled('share') && (
           <Tab
             key="share"
             eventKey="share"
             title="Compartir"
-            disabled={shouldBeDisabled("share")}
+            disabled={shouldBeDisabled('share')}
           >
             <Share listId={listId} ownerId={list.owner_id} />
           </Tab>
         )}
-        {!shouldBeDisabled("config") && (
+        {!shouldBeDisabled('config') && (
           <Tab
             key="config"
             eventKey="configuration"
             title="Ajustes"
-            disabled={shouldBeDisabled("config")}
+            disabled={shouldBeDisabled('config')}
           >
             <Config
               listId={listId}
