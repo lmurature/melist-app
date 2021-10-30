@@ -22,7 +22,7 @@ const Reviews = (props) => {
 
       const revs = await ItemsService.getItemReviews(
         itemId,
-        item.catalog_product_id
+        item.catalog_product_id || ''
       );
       setItemReviews(revs);
     } catch (err) {
