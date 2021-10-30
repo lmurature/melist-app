@@ -1,0 +1,39 @@
+@import "../../Variables.scss";
+
+.reviews {
+  &-page {
+    margin-top: 50px;
+
+    @include themed() {
+      color: t("melist-primary-text");
+    }
+  }
+
+  &-title {
+    font-size: 34px;
+    font-weight: 700;
+
+    @include themed() {
+      color: t("melist-title");
+    }
+
+    &-box {
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+  }
+
+  &-average {
+
+    &-stars {
+      font-size: 26px;
+      color: #FFD100;
+    }
+
+    &-title {
+      @include themed() {
+        color: t("melist-primary-text");
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+@import "../../Variables.scss";
+
+.review-card {
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  &-timeago {
+    font-size: 12px;
+    @include themed() {
+      color: t("melist-muted-text");
+    }
+  }
+
+  &-title {
+    font-weight: 700;
+  }
+}
+
+.thumb-icon {
+  color: rgb(180, 180, 180);
+  font-size: 14px;
+}

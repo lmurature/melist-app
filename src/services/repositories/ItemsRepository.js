@@ -1,5 +1,5 @@
-import axios from "axios";
-import RestUtils from "../../utils/RestUtils";
+import axios from 'axios';
+import RestUtils from '../../utils/RestUtils';
 
 class ItemsRepository {
   static async getItem(itemId) {
@@ -13,7 +13,7 @@ class ItemsRepository {
         return item;
       })
       .catch((err) => {
-        console.log("Error while trying to get item", err);
+        console.log('Error while trying to get item', err);
         throw err;
       });
   }
@@ -29,7 +29,7 @@ class ItemsRepository {
         return history;
       })
       .catch((err) => {
-        console.log("Error while trying to get item history", err);
+        console.log('Error while trying to get item history', err);
         throw err;
       });
   }
@@ -45,7 +45,7 @@ class ItemsRepository {
         return trends;
       })
       .catch((err) => {
-        console.log("Error while trying to get category trends", err);
+        console.log('Error while trying to get category trends', err);
         throw err;
       });
   }
@@ -61,6 +61,21 @@ class ItemsRepository {
         return response.data;
       })
       .catch((err) => console.log(err));
+  }
+
+  static async getItemReviews(itemId, catalogProductId) {
+    return axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/items/${itemId}/reviews?catalog_product_id=${catalogProductId}`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const { paging, reviews, rating_average } = response.data;
+        return { paging, reviews, ratingAverage: rating_average };
+      })
+      .catch((err) => {
+        throw err;
+      });
   }
 }
 

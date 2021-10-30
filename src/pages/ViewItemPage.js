@@ -11,8 +11,8 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'react-bootstrap-icons';
 import 'moment/locale/es';
 import moment from 'moment';
-import ItemsRepository from '../services/repositories/ItemsRepository';
-import ListsRepository from '../services/repositories/ListsRepository';
+import ItemsService from '../services/ItemsService';
+import ListsService from '../services/ListsService';
 
 const ViewItemPage = () => {
   const { listId, itemId } = useParams();
@@ -47,19 +47,17 @@ const ViewItemPage = () => {
 
   const fetchCategoryTrends = async () => {
     if (itemData) {
-      const trends = await ItemsRepository.getCategoryTrends(
-        itemData.category_id
-      );
+      const trends = await ItemsService.getCategoryTrends(itemData.category_id);
       setCategoryTrends(trends);
     }
   };
 
   const fetchData = async () => {
     try {
-      const item = await ItemsRepository.getItem(itemId);
+      const item = await ItemsService.getItem(itemId);
       setItemData(item);
 
-      const history = await ItemsRepository.getItemsHistory(itemId);
+      const history = await ItemsService.getItemsHistory(itemId);
       for (let i = 0; i < history.length; i++) {
         let date = history[i].date_fetched;
         history[i].date_fetched = moment(date)
@@ -69,10 +67,7 @@ const ViewItemPage = () => {
       }
       setItemHistory(history);
 
-      const listStatus = await ListsRepository.getItemListStatus(
-        listId,
-        itemId
-      );
+      const listStatus = await ListsService.getItemListStatus(listId, itemId);
       setListItemStatus(listStatus);
     } catch (err) {
       setApiError(err);
@@ -260,6 +255,13 @@ const ViewItemPage = () => {
                     strokeWidth={5}
                   />
                 </LineChart>
+              </Col>
+              <Col>
+                <div className="reviews-link">
+                  <Link to={`/lists/${listId}/${itemId}/reviews`}>
+                    Opiniones
+                  </Link>
+                </div>
               </Col>
             </Row>
             <Table className="attribute-table" striped bordered size="sm">

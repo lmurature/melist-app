@@ -1,4 +1,4 @@
-import ItemsRepository from "./repositories/ItemsRepository";
+import ItemsRepository from './repositories/ItemsRepository';
 
 class ItemsService {
   static getItem(itemId) {
@@ -15,6 +15,10 @@ class ItemsService {
 
   static searchItems(query, offset) {
     return ItemsRepository.searchItems(query, offset);
+  }
+
+  static getItemReviews(itemId, catalogProductId) {
+    return ItemsRepository.getItemReviews(itemId, catalogProductId);
   }
 }
 
