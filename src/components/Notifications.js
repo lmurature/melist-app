@@ -40,7 +40,7 @@ const Notifications = (props) => {
     <Container className="notifications-root">
       <div className="notifications-filter">Filtrar por:</div>
       <div className="notifications-filter-selector">
-        <Row>
+        <Row md="auto">
           <Col onClick={() => handleFilter('')}>
             <div className="unselectable notifications-filter-item">Todas</div>
           </Col>
@@ -77,10 +77,8 @@ const Notifications = (props) => {
               Liquidación
             </div>
           </Col>
-          <Col onClick={() => handleFilter('lista a sus favoritos!')}>
-            <div className="unselectable notifications-filter-item">
-              Favoritos
-            </div>
+          <Col onClick={() => handleFilter('ya no se puede comprar')}>
+            <div className="unselectable notifications-filter-item">Estado</div>
           </Col>
         </Row>
       </div>
