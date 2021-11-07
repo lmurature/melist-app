@@ -13,6 +13,7 @@ const Items = (props) => {
   const [readyToRequest, setReadyToRequest] = useState(true);
   const [apiError, setApiError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [groupedItems, setGroupedItems] = useState(null);
 
   const handleCheck = async (itemId, isCheck) => {
     setReadyToRequest(false);
@@ -78,6 +79,24 @@ const Items = (props) => {
 
   useEffect(() => {
     setListItems(props.items);
+    if (props.items) {
+      let grouped = new Map();
+      props.items.map((li) => {
+        grouped.set(
+          li.item.root_category,
+          grouped.get(li.item.root_category)
+            ? [...grouped.get(li.item.root_category), li]
+            : [li]
+        );
+      });
+
+      let ar = [];
+      grouped.forEach((val, key) => {
+        const ob = { key, val };
+        ar.push(ob);
+      });
+      setGroupedItems(ar);
+    }
   }, [props]);
 
   return (
@@ -148,44 +167,49 @@ const Items = (props) => {
             </ListGroup.Item>
           </ListGroup>
         </div>
-        {listItems && listItems.length > 0 ? (
-          <Row>
-            {listItems.map((listItem) => {
+        {groupedItems && groupedItems.length > 0
+          ? groupedItems.map((ob) => {
               return (
-                <Col
-                  className="animate__animated animate__fadeIn"
-                  key={listItem.item.id}
-                  lg={2}
-                  md={3}
-                  xl={2}
-                  xs={4}
-                  xxl={2}
-                >
-                  <ItemCard
-                    key={listItem.item.id}
-                    id={listItem.item.id}
-                    pictures={listItem.item.pictures}
-                    title={listItem.item.title}
-                    description={listItem.item.description}
-                    price={listItem.item.price}
-                    stock={listItem.item.vailable_quantity}
-                    permalink={listItem.item.permalink}
-                    itemListStatus={listItem.status}
-                    listId={listItem.list_id}
-                    thumbnail={listItem.item.thumbnail}
-                    itemStatus={listItem.item.status}
-                    handleCheck={handleCheck}
-                    handleDelete={handleDelete}
-                    shareType={shareType}
-                    readyToRequest={readyToRequest}
-                  />
-                </Col>
+                <div>
+                  <div className="list-items-category-title">{ob.key}</div>
+                  <Row>
+                    {ob.val.map((listItem) => {
+                      return (
+                        <Col
+                          className="animate__animated animate__fadeIn"
+                          key={listItem.item.id}
+                          lg={2}
+                          md={3}
+                          xl={2}
+                          xs={4}
+                          xxl={2}
+                        >
+                          <ItemCard
+                            key={listItem.item.id}
+                            id={listItem.item.id}
+                            pictures={listItem.item.pictures}
+                            title={listItem.item.title}
+                            description={listItem.item.description}
+                            price={listItem.item.price}
+                            stock={listItem.item.vailable_quantity}
+                            permalink={listItem.item.permalink}
+                            itemListStatus={listItem.status}
+                            listId={listItem.list_id}
+                            thumbnail={listItem.item.thumbnail}
+                            itemStatus={listItem.item.status}
+                            handleCheck={handleCheck}
+                            handleDelete={handleDelete}
+                            shareType={shareType}
+                            readyToRequest={readyToRequest}
+                          />
+                        </Col>
+                      );
+                    })}
+                  </Row>
+                </div>
               );
-            })}
-          </Row>
-        ) : (
-          !itemsError && <EmptyItemsState />
-        )}
+            })
+          : !itemsError && <EmptyItemsState />}
       </Container>
     </div>
   );
