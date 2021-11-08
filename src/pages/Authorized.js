@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, Redirect } from "react-router-dom";
-import { Spinner } from "react-bootstrap";
-import UsersService from "../services/UsersService";
-import RestUtils from "../utils/RestUtils";
+import React, { useEffect, useState } from 'react';
+import { useLocation, Redirect } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
+import UsersService from '../services/UsersService';
+import RestUtils from '../utils/RestUtils';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -17,12 +17,18 @@ const Authorized = (props) => {
   const fetchData = async () => {
     try {
       const [access_token] = await UsersService.generateToken(
-        query.get("code")
+        query.get('code')
       );
       setToken(access_token);
     } catch (err) {
       setError(err);
     }
+  };
+
+  const redirect = () => {
+    const path = store.get('path-to-redirect');
+    store.set('path-to-redirect', null);
+    window.location.pathname = path ? path : '/summary';
   };
 
   useEffect(() => {
@@ -33,9 +39,7 @@ const Authorized = (props) => {
     return (
       <div>
         There was an error trying to authenticate with Mercado Libre
-        <a href={RestUtils.getAuthUrl()}>
-          Try again
-        </a>
+        <a href={RestUtils.getAuthUrl()}>Try again</a>
       </div>
     );
   };
@@ -49,7 +53,7 @@ const Authorized = (props) => {
       ) : err != null ? (
         retryLink()
       ) : (
-        <Redirect to="/summary" />
+        redirect()
       )}
     </div>
   );
