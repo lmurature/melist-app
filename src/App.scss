@@ -15,3 +15,36 @@
   align-items: center;
   padding-top: 18rem;
 }
+
+.login-to-see {
+  margin-top: 150px;
+  margin-bottom: 150px;
+  text-align: center;
+
+  &-greet {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  &-hi {
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  &-button {
+    color: #fff;
+  }
+
+  &-back {
+    background-color: #b8b8b8;
+    margin: 20px;
+    border-radius: 15px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border: 0 !important;
+  }
+
+  &-back:hover {
+    background-color: #b8b8b8 !important;
+  }
+}
