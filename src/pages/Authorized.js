@@ -3,6 +3,7 @@ import { useLocation, Redirect } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 import UsersService from '../services/UsersService';
 import RestUtils from '../utils/RestUtils';
+import store from 'store';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
