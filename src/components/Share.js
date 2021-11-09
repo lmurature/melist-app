@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Container, Button, Form, Col, Row, Alert } from "react-bootstrap";
-import "./styles/Share.scss";
-import ListsRepository from "../services/repositories/ListsRepository";
-import ListsService from "../services/ListsService";
-import UsersService from "../services/UsersService";
+import React, { useEffect, useState } from 'react';
+import { Container, Button, Form, Col, Row, Alert } from 'react-bootstrap';
+import './styles/Share.scss';
+import ListsRepository from '../services/repositories/ListsRepository';
+import ListsService from '../services/ListsService';
+import UsersService from '../services/UsersService';
 
 const Share = (props) => {
   const { listId, ownerId } = props;
 
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState('');
 
   const [searchResult, setSearchResult] = useState([]);
   const [colabs, setColabs] = useState([]);
 
   const [usersToRequest, setUsersToRequest] = useState(new Map());
-  const [shareTypeRequest, setShareTypeRequest] = useState("read");
+  const [shareTypeRequest, setShareTypeRequest] = useState('read');
 
   const [apiErr, setApiErr] = useState(null);
   const [searchError, setSearchError] = useState(null);
@@ -24,6 +24,7 @@ const Share = (props) => {
   };
 
   const handleSearch = async () => {
+    setUsersToRequest(new Map());
     try {
       const result = await UsersService.searchUsers(userInput);
       setSearchResult(result);
@@ -102,21 +103,21 @@ const Share = (props) => {
 
   const formatShareType = (shareType) => {
     switch (shareType) {
-      case "read":
-        return "Lector";
-      case "write":
-        return "Modificador";
-      case "check":
-        return "Comprador";
+      case 'read':
+        return 'Lector';
+      case 'write':
+        return 'Modificador';
+      case 'check':
+        return 'Comprador';
       default:
-        return "";
+        return '';
     }
   };
 
   const revokeColaborator = async (userId) => {
     if (
       window.confirm(
-        "¿Estás seguro que quieres revocarle el acceso a este usuario?"
+        '¿Estás seguro que quieres revocarle el acceso a este usuario?'
       )
     ) {
       try {
@@ -211,12 +212,12 @@ const Share = (props) => {
                         type="checkbox"
                         label={
                           user.first_name +
-                          " " +
+                          ' ' +
                           user.last_name +
-                          " " +
-                          "(" +
+                          ' ' +
+                          '(' +
                           user.nickname +
-                          ")"
+                          ')'
                         }
                       />
                     );
@@ -228,21 +229,21 @@ const Share = (props) => {
             <div className="share-type-radios">
               <div className="checkbox-title">Otorgar acceso</div>
               <Form.Check
-                checked={shouldBeChecked("read")}
+                checked={shouldBeChecked('read')}
                 onChange={handleRadio}
                 type="radio"
                 label="Lectura"
                 value="read"
               />
               <Form.Check
-                checked={shouldBeChecked("write")}
+                checked={shouldBeChecked('write')}
                 onChange={handleRadio}
                 type="radio"
                 label="Modificación"
                 value="write"
               />
               <Form.Check
-                checked={shouldBeChecked("check")}
+                checked={shouldBeChecked('check')}
                 onChange={handleRadio}
                 type="radio"
                 label="Comprador"
@@ -265,11 +266,11 @@ const Share = (props) => {
                         <Row>
                           <Col lg={8} md={8} xl={8} xs={8} xxl={8}>
                             {c.user.first_name +
-                              " " +
-                              "(" +
+                              ' ' +
+                              '(' +
                               c.user.nickname +
-                              ")" +
-                              " "}
+                              ')' +
+                              ' '}
                             <span className="colabs-type">
                               {formatShareType(c.share_type)}
                             </span>
