@@ -79,9 +79,12 @@ const Items = (props) => {
 
   useEffect(() => {
     setListItems(props.items);
-    if (props.items) {
+  }, [props]);
+
+  useEffect(() => {
+    if (listItems) {
       let grouped = new Map();
-      props.items.map((li) => {
+      listItems.map((li) => {
         grouped.set(
           li.item.root_category,
           grouped.get(li.item.root_category)
@@ -97,7 +100,7 @@ const Items = (props) => {
       });
       setGroupedItems(ar);
     }
-  }, [props]);
+  }, [listItems]);
 
   return (
     <div className="list-items">
