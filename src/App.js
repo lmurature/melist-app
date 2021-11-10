@@ -67,7 +67,7 @@ const App = ({ location }) => {
             component={Reviews}
           />
         </React.Fragment>
-      ) : (
+      ) : location.pathname !== '/auth/authorized' ? (
         <Container className="login-to-see">
           <div className="login-to-see-greet">
             <span className="login-to-see-hi">Hola!</span>
@@ -93,6 +93,8 @@ const App = ({ location }) => {
             </a>
           </Button>
         </Container>
+      ) : (
+        <React.Fragment></React.Fragment>
       )}
 
       <Footer />
