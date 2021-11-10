@@ -1,4 +1,4 @@
-import ListsRepository from "./repositories/ListsRepository";
+import ListsRepository from './repositories/ListsRepository';
 
 class ListsService {
   static createList(list) {
@@ -71,7 +71,7 @@ class ListsService {
 
   static giveAccessToUsers(listId, request) {
     return ListsRepository.giveAccessToUsers(listId, request);
-  } 
+  }
 
   static revokeAccessToUser(listId, userId) {
     return ListsRepository.revokeAccessToUser(listId, userId);
@@ -79,6 +79,10 @@ class ListsService {
 
   static getPendingUserInvites(listId) {
     return ListsRepository.getPendingUserInvites(listId);
+  }
+
+  static inviteUsersByEmail(email, listId, shareType) {
+    return ListsRepository.inviteUsersByEmail(email, listId, shareType);
   }
 }
 

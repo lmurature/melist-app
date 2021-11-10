@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Button, Form, Col, Row, Alert } from 'react-bootstrap';
+import {
+  Container,
+  Button,
+  Form,
+  Col,
+  Row,
+  Alert,
+  Modal,
+  Dropdown,
+} from 'react-bootstrap';
 import './styles/Share.scss';
 import ListsRepository from '../services/repositories/ListsRepository';
 import ListsService from '../services/ListsService';
@@ -14,14 +23,22 @@ const Share = (props) => {
   const [colabs, setColabs] = useState([]);
 
   const [pendings, setPendings] = useState([]);
+  const [showInviteModal, setShowInviteModal] = useState(true);
 
   const [usersToRequest, setUsersToRequest] = useState(new Map());
   const [shareTypeRequest, setShareTypeRequest] = useState('read');
+
+  const [inviteTypeRequest, setInviteTypeRequest] = useState('read');
+  const [emailToInvite, setEmailToInvite] = useState('');
 
   const [apiErr, setApiErr] = useState(null);
   const [searchError, setSearchError] = useState(null);
 
   const [submitted, setSubmitted] = useState(false);
+
+  const handleClose = () => {
+    setShowInviteModal(false);
+  };
 
   const handleUserInput = (e) => {
     setUserInput(e.target.value);
@@ -70,13 +87,26 @@ const Share = (props) => {
     setShareTypeRequest(e.target.value);
   };
 
+  const handleRadioInvite = (e) => {
+    setInviteTypeRequest(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmailToInvite(e.target.value);
+  };
+
   const shouldBeChecked = (button) => {
     return button === shareTypeRequest;
+  };
+
+  const shouldBeCheckedInvite = (button) => {
+    return button === inviteTypeRequest;
   };
 
   const clearState = () => {
     setSearchResult([]);
     setSearchResult(searchResult);
+    setEmailToInvite('');
     getColaborators();
     getPendings();
     setUsersToRequest(new Map());
@@ -99,6 +129,18 @@ const Share = (props) => {
       clearState();
     } catch (err) {
       setApiErr(err);
+    }
+  };
+
+  const handleEmailInvitation = async () => {
+    if (!emailIsAlreadyInvited() && emailToInvite !== '') {
+      const email = emailToInvite.trim();
+      try {
+        await ListsService.inviteUsersByEmail(email, listId, inviteTypeRequest);
+        clearState();
+      } catch (err) {
+        setApiErr(err);
+      }
     }
   };
 
@@ -149,6 +191,11 @@ const Share = (props) => {
         setApiErr(err);
       }
     }
+  };
+
+  const emailIsAlreadyInvited = () => {
+    console.log(pendings);
+    return pendings.filter((p) => p.email === emailToInvite.trim()).length > 0;
   };
 
   useEffect(() => {
@@ -236,9 +283,18 @@ const Share = (props) => {
                       );
                     })
                   : submitted && (
-                      <div>
-                        Si no encontras usuarios podés invitarlos via email.
-                      </div>
+                      <Container className="no-users-found">
+                        <div>
+                          No se encontraron usuarios registrados en Melist según
+                          el criterio de búsqueda
+                        </div>
+                        <div
+                          className="invite"
+                          onClick={() => setShowInviteModal(true)}
+                        >
+                          Enviar invitaciones via E-Mail
+                        </div>
+                      </Container>
                     )}
               </Container>
             </div>
@@ -312,6 +368,89 @@ const Share = (props) => {
           </Col>
         </Row>
       </Container>
+      <Modal
+        size="lg"
+        show={showInviteModal}
+        onHide={handleClose}
+        animation={true}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Invitar usuarios</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            Podés invitar usuarios que no estén registrados en Melist utilizando
+            sus E-Mails.
+          </div>
+          <div>Una vez inicien sesión, serán colaboradores de tu lista.</div>
+          <div className="pendings">
+            <div className="pendings-title">Invitar a colaborar</div>
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  value={emailToInvite}
+                  onChange={handleEmailChange}
+                />
+                {emailIsAlreadyInvited() && (
+                  <div className="user-already-invited">
+                    Este usuario ya fue invitado
+                  </div>
+                )}
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Tipo de Acceso</Form.Label>
+                <Form.Check
+                  checked={shouldBeCheckedInvite('read')}
+                  onChange={handleRadioInvite}
+                  type="radio"
+                  label="Lectura"
+                  value="read"
+                />
+                <Form.Check
+                  checked={shouldBeCheckedInvite('write')}
+                  onChange={handleRadioInvite}
+                  type="radio"
+                  label="Modificación"
+                  value="write"
+                />
+                <Form.Check
+                  checked={shouldBeCheckedInvite('check')}
+                  onChange={handleRadioInvite}
+                  type="radio"
+                  label="Comprador"
+                  value="check"
+                />
+              </Form.Group>
+              <Form.Group>
+                <Button
+                  disabled={emailIsAlreadyInvited()}
+                  onClick={handleEmailInvitation}
+                >
+                  Invitar
+                </Button>
+              </Form.Group>
+            </Form>
+          </div>
+          <div className="pendings">
+            <div className="pendings-title">Invitados pendientes</div>
+            {pendings &&
+              pendings.map((p) => {
+                return (
+                  <div key={p.email}>
+                    {p.email} <span>{formatShareType(p.share_type)}</span>
+                  </div>
+                );
+              })}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Volver atrás
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

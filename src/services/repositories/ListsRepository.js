@@ -329,6 +329,23 @@ class ListsRepository {
         throw err;
       });
   }
+
+  static async inviteUsersByEmail(email, listId, shareType) {
+    return axios
+      .post(
+        `${RestUtils.getApiUrl()}/api/users/invite?email=${email}&share_type=${shareType}&list_id=${listId}`,
+        {},
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const result = response.data;
+        return result;
+      })
+      .catch((err) => {
+        console.log('Error while trying to invite user by mail to list', err);
+        throw err;
+      });
+  }
 }
 
 export default ListsRepository;
