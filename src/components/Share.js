@@ -13,24 +13,33 @@ const Share = (props) => {
   const [searchResult, setSearchResult] = useState([]);
   const [colabs, setColabs] = useState([]);
 
+  const [pendings, setPendings] = useState([]);
+
   const [usersToRequest, setUsersToRequest] = useState(new Map());
   const [shareTypeRequest, setShareTypeRequest] = useState('read');
 
   const [apiErr, setApiErr] = useState(null);
   const [searchError, setSearchError] = useState(null);
 
+  const [submitted, setSubmitted] = useState(false);
+
   const handleUserInput = (e) => {
     setUserInput(e.target.value);
   };
 
   const handleSearch = async () => {
-    setUsersToRequest(new Map());
-    try {
-      const result = await UsersService.searchUsers(userInput);
-      setSearchResult(result);
-    } catch (err) {
-      setSearchError(err);
-      setApiErr(err);
+    if (userInput !== '') {
+      setUsersToRequest(new Map());
+      try {
+        const result = await UsersService.searchUsers(userInput);
+        setSearchResult(result);
+      } catch (err) {
+        setSearchResult([]);
+        setSearchError(err);
+        setApiErr(err);
+      }
+
+      setSubmitted(true);
     }
   };
 
@@ -69,6 +78,7 @@ const Share = (props) => {
     setSearchResult([]);
     setSearchResult(searchResult);
     getColaborators();
+    getPendings();
     setUsersToRequest(new Map());
   };
 
@@ -96,6 +106,15 @@ const Share = (props) => {
     try {
       const listColabs = await ListsRepository.getListColaborators(listId);
       setColabs(listColabs);
+    } catch (err) {
+      setApiErr(err);
+    }
+  };
+
+  const getPendings = async () => {
+    try {
+      const listColabs = await ListsRepository.getPendingUserInvites(listId);
+      setPendings(listColabs);
     } catch (err) {
       setApiErr(err);
     }
@@ -134,6 +153,7 @@ const Share = (props) => {
 
   useEffect(() => {
     getColaborators();
+    getPendings();
   }, [listId]);
 
   return (
@@ -145,13 +165,6 @@ const Share = (props) => {
           className="add-alert"
         >
           Hubo un error al ejecutar la acción en el servidor.
-        </Alert>
-        <Alert
-          show={searchError && searchError.response.status === 404}
-          variant="warning"
-          className="add-alert"
-        >
-          No se encontraron usuarios en la búsqueda.
         </Alert>
         <Row>
           <Col lg={6} md={6} xl={6} xxl={6}>
@@ -201,27 +214,32 @@ const Share = (props) => {
           <Col>
             <div className="share-box">
               <Container>
-                {searchResult &&
-                  searchResult.map((user) => {
-                    return (
-                      <Form.Check
-                        key={user.id}
-                        disabled={shouldCheckboxBeDisabled(user.id)}
-                        onClick={handleCheckbox}
-                        value={user.id}
-                        type="checkbox"
-                        label={
-                          user.first_name +
-                          ' ' +
-                          user.last_name +
-                          ' ' +
-                          '(' +
-                          user.nickname +
-                          ')'
-                        }
-                      />
-                    );
-                  })}
+                {searchResult && searchResult.length
+                  ? searchResult.map((user) => {
+                      return (
+                        <Form.Check
+                          key={user.id}
+                          disabled={shouldCheckboxBeDisabled(user.id)}
+                          onClick={handleCheckbox}
+                          value={user.id}
+                          type="checkbox"
+                          label={
+                            user.first_name +
+                            ' ' +
+                            user.last_name +
+                            ' ' +
+                            '(' +
+                            user.nickname +
+                            ')'
+                          }
+                        />
+                      );
+                    })
+                  : submitted && (
+                      <div>
+                        Si no encontras usuarios podés invitarlos via email.
+                      </div>
+                    )}
               </Container>
             </div>
           </Col>

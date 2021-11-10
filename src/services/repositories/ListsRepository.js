@@ -1,5 +1,5 @@
-import axios from "axios";
-import RestUtils from "../../utils/RestUtils";
+import axios from 'axios';
+import RestUtils from '../../utils/RestUtils';
 
 class ListsRepository {
   static async createList(list) {
@@ -30,7 +30,7 @@ class ListsRepository {
         return result;
       })
       .catch((err) => {
-        console.log("Error while trying to update list", err);
+        console.log('Error while trying to update list', err);
         throw err;
       });
   }
@@ -46,7 +46,7 @@ class ListsRepository {
         return list;
       })
       .catch((err) => {
-        console.log("Error while trying to get list", err);
+        console.log('Error while trying to get list', err);
         throw err;
       });
   }
@@ -62,7 +62,7 @@ class ListsRepository {
         return listItems;
       })
       .catch((err) => {
-        console.log("Error while trying to get list items", err);
+        console.log('Error while trying to get list items', err);
         throw err;
       });
   }
@@ -78,7 +78,7 @@ class ListsRepository {
         return listPermissions;
       })
       .catch((err) => {
-        console.log("Error while trying to get user list permissions", err);
+        console.log('Error while trying to get user list permissions', err);
         throw err;
       });
   }
@@ -94,7 +94,7 @@ class ListsRepository {
         return notifications;
       })
       .catch((err) => {
-        console.log("Error while trying to get list notifications", err);
+        console.log('Error while trying to get list notifications', err);
         throw err;
       });
   }
@@ -107,7 +107,7 @@ class ListsRepository {
         return publicLists;
       })
       .catch((err) => {
-        console.log("Error while trying to get public lists", err);
+        console.log('Error while trying to get public lists', err);
         throw err;
       });
   }
@@ -123,7 +123,7 @@ class ListsRepository {
         return ownedLists;
       })
       .catch((err) => {
-        console.log("Error while trying to get user owned lists", err);
+        console.log('Error while trying to get user owned lists', err);
         throw err;
       });
   }
@@ -139,7 +139,7 @@ class ListsRepository {
         return sharedLists;
       })
       .catch((err) => {
-        console.log("Error while trying to get user shared lists", err);
+        console.log('Error while trying to get user shared lists', err);
         throw err;
       });
   }
@@ -155,7 +155,7 @@ class ListsRepository {
         return favoriteLists;
       })
       .catch((err) => {
-        console.log("Error while trying to get user favorite lists", err);
+        console.log('Error while trying to get user favorite lists', err);
         throw err;
       });
   }
@@ -172,7 +172,7 @@ class ListsRepository {
         return data;
       })
       .catch((err) => {
-        console.log("Error while trying to add list to favorites", err);
+        console.log('Error while trying to add list to favorites', err);
         throw err;
       });
   }
@@ -188,7 +188,7 @@ class ListsRepository {
         return data;
       })
       .catch((err) => {
-        console.log("Error while trying to delete list to favorites", err);
+        console.log('Error while trying to delete list to favorites', err);
         throw err;
       });
   }
@@ -204,7 +204,7 @@ class ListsRepository {
         return listStatus;
       })
       .catch((err) => {
-        console.log("Error while trying to get list status", err);
+        console.log('Error while trying to get list status', err);
         throw err;
       });
   }
@@ -221,7 +221,7 @@ class ListsRepository {
         return result;
       })
       .catch((err) => {
-        console.log("Error while trying to add item to list", err);
+        console.log('Error while trying to add item to list', err);
         throw err;
       });
   }
@@ -230,7 +230,7 @@ class ListsRepository {
     return axios
       .put(
         `${RestUtils.getApiUrl()}/api/lists/${listId}/${
-          isCheck ? "check" : "uncheck"
+          isCheck ? 'check' : 'uncheck'
         }/${itemId}`,
         null,
         RestUtils.getHeaders()
@@ -240,7 +240,7 @@ class ListsRepository {
         return listItems;
       })
       .catch((err) => {
-        console.log("Error while trying to change item list status", err);
+        console.log('Error while trying to change item list status', err);
         throw err;
       });
   }
@@ -256,7 +256,7 @@ class ListsRepository {
         return listResult;
       })
       .catch((err) => {
-        console.log("Error while trying to delete item from list", err);
+        console.log('Error while trying to delete item from list', err);
         throw err;
       });
   }
@@ -275,7 +275,7 @@ class ListsRepository {
         if (err.response && err.response.status === 404) {
           return [];
         } else {
-          console.log("Error while trying to get list colaborators", err);
+          console.log('Error while trying to get list colaborators', err);
           throw err;
         }
       });
@@ -293,7 +293,7 @@ class ListsRepository {
         return data;
       })
       .catch((err) => {
-        console.log("Error while trying to give access to users", err);
+        console.log('Error while trying to give access to users', err);
         throw err;
       });
   }
@@ -309,7 +309,23 @@ class ListsRepository {
         return colabs;
       })
       .catch((err) => {
-        console.log("Error while trying to revoke access to user", err);
+        console.log('Error while trying to revoke access to user', err);
+        throw err;
+      });
+  }
+
+  static async getPendingUserInvites(listId) {
+    return axios
+      .get(
+        `${RestUtils.getApiUrl()}/api/users/invite/pending?list_id=${listId}`,
+        RestUtils.getHeaders()
+      )
+      .then((response) => {
+        const pendings = response.data;
+        return pendings;
+      })
+      .catch((err) => {
+        console.log('Error while trying to get pending users of list', err);
         throw err;
       });
   }

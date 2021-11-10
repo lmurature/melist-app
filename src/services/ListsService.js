@@ -76,6 +76,10 @@ class ListsService {
   static revokeAccessToUser(listId, userId) {
     return ListsRepository.revokeAccessToUser(listId, userId);
   }
+
+  static getPendingUserInvites(listId) {
+    return ListsRepository.getPendingUserInvites(listId);
+  }
 }
 
 export default ListsService;
