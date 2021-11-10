@@ -23,7 +23,7 @@ const Share = (props) => {
   const [colabs, setColabs] = useState([]);
 
   const [pendings, setPendings] = useState([]);
-  const [showInviteModal, setShowInviteModal] = useState(true);
+  const [showInviteModal, setShowInviteModal] = useState(false);
 
   const [usersToRequest, setUsersToRequest] = useState(new Map());
   const [shareTypeRequest, setShareTypeRequest] = useState('read');
@@ -194,8 +194,10 @@ const Share = (props) => {
   };
 
   const emailIsAlreadyInvited = () => {
-    console.log(pendings);
-    return pendings.filter((p) => p.email === emailToInvite.trim()).length > 0;
+    return (
+      pendings.filter((p) => p.email === emailToInvite.trim()).length > 0 ||
+      colabs.filter((c) => c.user.email === emailToInvite.trim()).length > 0
+    );
   };
 
   useEffect(() => {
@@ -286,7 +288,7 @@ const Share = (props) => {
                       <Container className="no-users-found">
                         <div>
                           No se encontraron usuarios registrados en Melist según
-                          el criterio de búsqueda
+                          el criterio de búsqueda.
                         </div>
                         <div
                           className="invite"
@@ -395,7 +397,7 @@ const Share = (props) => {
                 />
                 {emailIsAlreadyInvited() && (
                   <div className="user-already-invited">
-                    Este usuario ya fue invitado
+                    Este usuario ya fue invitado o ya es colaborador de la lista.
                   </div>
                 )}
               </Form.Group>
