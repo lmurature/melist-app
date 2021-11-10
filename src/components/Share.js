@@ -30,6 +30,7 @@ const Share = (props) => {
 
   const [inviteTypeRequest, setInviteTypeRequest] = useState('read');
   const [emailToInvite, setEmailToInvite] = useState('');
+  const [readyToSubmitInvite, setReadyToSubmitInvite] = useState(false);
 
   const [apiErr, setApiErr] = useState(null);
   const [searchError, setSearchError] = useState(null);
@@ -134,6 +135,7 @@ const Share = (props) => {
 
   const handleEmailInvitation = async () => {
     if (!emailIsAlreadyInvited() && emailToInvite !== '') {
+      setReadyToSubmitInvite(false);
       const email = emailToInvite.trim();
       try {
         await ListsService.inviteUsersByEmail(email, listId, inviteTypeRequest);
@@ -141,6 +143,7 @@ const Share = (props) => {
       } catch (err) {
         setApiErr(err);
       }
+      setReadyToSubmitInvite(true);
     }
   };
 
@@ -397,7 +400,8 @@ const Share = (props) => {
                 />
                 {emailIsAlreadyInvited() && (
                   <div className="user-already-invited">
-                    Este usuario ya fue invitado o ya es colaborador de la lista.
+                    Este usuario ya fue invitado o ya es colaborador de la
+                    lista.
                   </div>
                 )}
               </Form.Group>
@@ -427,7 +431,7 @@ const Share = (props) => {
               </Form.Group>
               <Form.Group>
                 <Button
-                  disabled={emailIsAlreadyInvited()}
+                  disabled={emailIsAlreadyInvited() || !readyToSubmitInvite}
                   onClick={handleEmailInvitation}
                 >
                   Invitar
