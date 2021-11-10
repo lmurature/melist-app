@@ -30,7 +30,7 @@ const Share = (props) => {
 
   const [inviteTypeRequest, setInviteTypeRequest] = useState('read');
   const [emailToInvite, setEmailToInvite] = useState('');
-  const [readyToSubmitInvite, setReadyToSubmitInvite] = useState(false);
+  const [readyToSubmitInvite, setReadyToSubmitInvite] = useState(true);
 
   const [apiErr, setApiErr] = useState(null);
   const [searchError, setSearchError] = useState(null);
