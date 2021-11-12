@@ -23,3 +23,10 @@
   color: t("melist-footer-text");
   }
 } 
+
+.portfolio, .portfolio:visited, .portfolio:hover {
+  @include themed() {
+    color: t("melist-footer-text");
+  }
+  text-decoration: none;
+}
