@@ -80,7 +80,7 @@ const CreateList = () => {
             <Form.Label>Nombre de la lista</Form.Label>
             <Form.Control
               size="lg"
-              placeholder="Ej. PC Gamer 2021 High End"
+              placeholder="Ej. Regalos de Navidad"
               onChange={handleTitle}
             />
           </Form.Group>

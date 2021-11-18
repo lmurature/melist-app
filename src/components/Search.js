@@ -112,7 +112,7 @@ const Search = (props) => {
         <Form.Control
           size="lg"
           className="search-items-input"
-          placeholder="Ej. Memoria RAM 32 GB"
+          placeholder="Ej. Microondas Philips"
           value={searchString}
           onChange={handleSearch}
         />
