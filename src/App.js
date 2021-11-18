@@ -68,8 +68,7 @@ const App = ({ location }) => {
           />
         </React.Fragment>
       ) : location.pathname !== '/auth/authorized' &&
-        location.pathname !== '/' &&
-        !location.pathname ? (
+        location.pathname !== '/' ? (
         <Container className="login-to-see">
           <div className="login-to-see-greet">
             <span className="login-to-see-hi">Hola!</span>
