@@ -1,18 +1,28 @@
-import React, { useState, useEffect } from "react";
-import store from "store";
-import Logo from "../assets/Frame.png";
-import RestUtils from "../utils/RestUtils";
-import { Navbar, Nav, NavDropdown, Container, Button, Alert } from "react-bootstrap";
-import Cookies from "universal-cookie";
-import "./styles/Header.scss";
-import { Link } from "react-router-dom";
-import UsersRepository from "../services/repositories/UsersRepository";
+import React, { useState, useEffect } from 'react';
+import store from 'store';
+import Logo from '../assets/Frame.png';
+import RestUtils from '../utils/RestUtils';
+import {
+  Navbar,
+  Nav,
+  NavDropdown,
+  Container,
+  Button,
+  Alert,
+} from 'react-bootstrap';
+import Cookies from 'universal-cookie';
+import './styles/Header.scss';
+import { Link } from 'react-router-dom';
+import UsersRepository from '../services/repositories/UsersRepository';
+import { useMediaQuery } from 'react-responsive';
 
 function Header() {
   const [authenticated, setAuthenticated] = useState(false);
-  const [user, setUser] = useState({ first_name: "", last_name: "" });
+  const [user, setUser] = useState({ first_name: '', last_name: '' });
   const [nightMode, setNightMode] = useState(false);
   const [apiError, setApiError] = useState(null);
+
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
 
   const fetchData = async () => {
     try {
@@ -24,11 +34,11 @@ function Header() {
   };
 
   useEffect(() => {
-    if (store.get("nightmode")) {
+    if (store.get('nightmode')) {
       setNightMode(true);
     }
 
-    let auth = store.get("access-token");
+    let auth = store.get('access-token');
     if (auth) {
       setAuthenticated(true);
       fetchData();
@@ -51,7 +61,7 @@ function Header() {
               width="30"
               height="30"
               className="logo"
-            />{" "}
+            />{' '}
             <span className="title">ME List</span>
           </Navbar.Brand>
         </Link>
@@ -61,39 +71,63 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           {authenticated ? (
             <Nav className="ml-auto">
-              <Link className="add-list-header" to="/summary">
-                <Button className="add-list-header">Inicio</Button>
-              </Link>
+              {!isTabletOrMobile && (
+                <React.Fragment>
+                  <Link className="add-list-header" to="/summary">
+                    <Button className="add-list-header">Inicio</Button>
+                  </Link>
 
-              <Link className="add-list-header" to="/list/create">
-                <Button className="add-list-header">Crear lista</Button>
-              </Link>
-              <Link className="add-list-header" to="/explore" Explorar>
-                <Button className="add-list-header">Explorar</Button>
-              </Link>
-              <NavDropdown alignRight title={"Menú"} id="basic-nav-dropdown">
+                  <Link className="add-list-header" to="/list/create">
+                    <Button className="add-list-header">Crear lista</Button>
+                  </Link>
+                  <Link className="add-list-header" to="/explore" Explorar>
+                    <Button className="add-list-header">Explorar</Button>
+                  </Link>
+                </React.Fragment>
+              )}
+              <NavDropdown alignRight title={'Menú'} id="basic-nav-dropdown">
                 <NavDropdown.Header className="dropdown-header">
                   {getCapitalizedName()}
                 </NavDropdown.Header>
+                {isTabletOrMobile && (
+                  <React.Fragment>
+                    <NavDropdown.Item>
+                      <Link to="/summary">
+                        Inicio
+                      </Link>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <Link to="/list/create">
+                        Nueva lista
+                      </Link>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <Link to="/explore" Explorar>
+                        Explorar
+                      </Link>
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                  </React.Fragment>
+                )}
                 <NavDropdown.Item
                   onClick={() => {
                     if (nightMode) {
-                      store.set("nightmode", false);
+                      store.set('nightmode', false);
                     } else {
-                      store.set("nightmode", true);
+                      store.set('nightmode', true);
                     }
                     window.location.reload();
                   }}
                 >
-                  {nightMode ? "Modo día ☀️" : "Modo noche 🌙"}
+                  {nightMode ? 'Modo día ☀️' : 'Modo noche 🌙'}
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
                   href="/"
                   onClick={() => {
-                    store.remove("access-token");
+                    store.remove('access-token');
                     const cookies = new Cookies();
-                    cookies.remove("refresh-token", { path: "/summary" });
+                    cookies.remove('refresh-token', { path: '/summary' });
                   }}
                 >
                   Cerrar sesión
